@@ -69,7 +69,7 @@ const Header = () => {
       {
         labels.map((label, i) => (
           <Tab label={label.label} key={`label${i}`} value={i} sx={head.tab}
-            component={Link} to={label.link}
+            component={Link} to={label.link} className={`tab${i}`}
           />
         ))
       }
@@ -91,7 +91,7 @@ const Header = () => {
           {
             labels.map((label, i) => (
               <ListItem key={`label2${i}`} component={Link} to={label.link}
-                onClick={()=>setAnchor(false)} selected={i===value}
+                onClick={()=>setAnchor(false)} selected={i===value} className={`tab${i}`}
               >
                 {label.label}
               </ListItem>

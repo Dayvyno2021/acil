@@ -1,20 +1,26 @@
 import { theme } from '../Theme';
 
 export const head = {
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  right: 0,
+
+  tabCover: {
+    px: '5rem',
+    pt: '0.5rem',
+  },
+
   logo: {
     '&>img': {
       width: '10rem',
+      [theme.breakpoints.down('lg')]: {
+        width: '8rem'
+      }
     }
   },
-  m: '.3rem 10rem',
-  [theme.breakpoints.down('sm')]: {
-    m: '.3rem 1rem'
-  },
-  tabCover: {
-    px: '2rem'
-  },
+
   "& .MuiTabs-flexContainer": {
-    // backgroundColor: 'red',
     display:'flex',
     justifyContent: 'end'
   },
@@ -38,14 +44,18 @@ export const head = {
   tab: {
     
   },
-
+  '& .tab0': {
+    visibility: 'hidden'
+  },
   menu:{
     fontSize: '3rem',
-    // mr: '1rem',
     color: theme.palette.common.white,
     cursor: 'pointer',
   },
   drawer: {
+    // '& .tab0': {
+    //   visibility: 'hidden'
+    // },
     "& .MuiDrawer-paper": {
       width: '70vw',
       backgroundColor: `rgba(0, 0, 0, 0.9)`,

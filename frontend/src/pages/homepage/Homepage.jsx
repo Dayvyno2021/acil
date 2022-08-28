@@ -13,14 +13,14 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 
 const Homepage = () => {
-  const matchSM = useMediaQuery(theme.breakpoints.down('sm'));
+  const matchSM = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
 
     <Box sx={home}>
-      <Grid container sx={home.main} >
+      <Grid container  >
         <Grid item container direction='column'>
-          <Grid item container >
+          <Grid item container sx={home.main}>
             <Grid item>
               <Typography variant='h1' sx={home.invest}>
                 Invest in {matchSM? <br/>: ''} Agro Capital
@@ -170,14 +170,6 @@ const Homepage = () => {
                 What are you waiting for?
               </Typography>
               <Button variant="contained">Invest</Button>
-            </Grid>
-          </Grid>
-          <Grid item container sx={home.footerDown}>
-            <Grid item xs={12} container>
-              <Box component='img' src='/image/logo.svg'></Box>
-              <Typography variant='body1'>@2022 all rights reserved</Typography>
-              <Typography variant='body1'>Terms & Conditions</Typography>
-              <Typography variant='body1'>Privacy Policy</Typography>
             </Grid>
           </Grid>
         </Grid>

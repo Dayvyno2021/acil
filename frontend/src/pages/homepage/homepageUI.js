@@ -2,15 +2,13 @@ import {theme} from '../../components/Theme'
 
 export const home = {
   main: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
     backgroundImage: "url('/image/mainbg.png')",
-    height: '100vh',
+    // height: 'minContent',
     backgroundPosition: 'center',
     backgroundSize: '100% 100%',
     backgroundRepeat: 'no-repeat',
-    zIndex:'-1'
+    zIndex: '-1',
+    pb:'10rem'
   },
   invest: {
     color: theme.palette.common.white,
@@ -20,7 +18,7 @@ export const home = {
     fontWeight: '700',
     [theme.breakpoints.down('sm')]: {
       fontSize: '4rem',
-      mt: '20rem',
+      mt: '15rem',
       ml: '1rem',
       mr: '1rem',
       mb: '1rem',
@@ -53,11 +51,10 @@ export const home = {
     ...theme.learnMore1
   },
   who: {
-    mt: '15rem',
-    mb: '5rem',
+    // mb: '5rem',
+    mt: '5rem',
     // backgroundColor: 'rgba(0, 0, 0, 0.8)',
     [theme.breakpoints.down('md')]: {
-      mt: '15rem',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center'
@@ -84,7 +81,15 @@ export const home = {
     height: '750px',
     position: 'relative',
     // backgroundColor: 'red',
+    [theme.breakpoints.down('lg')]: {
+      width: '396.9px',//
+      height: '525px',//
+      display: 'flex',
+      alignItems: 'center'
+    },
     [theme.breakpoints.down('md')]: {
+      width: '340.2px',//
+      height: '450px',//
       display: 'flex',
       alignItems: 'center'
     },
@@ -99,12 +104,12 @@ export const home = {
       position: 'absolute',
       backgroundColor: theme.palette.common.lemon2,
       [theme.breakpoints.down('lg')]:{
-        width: '70%',
-        height:'70%'
+        width: '100%',
+        height:'100%'
       },
       [theme.breakpoints.down('md')]: {
-        width: '60%',
-        height:'60%',
+        width: '100%',
+        height:'100%',
         left:'50%',
         transform:'translateX(-50%)'
       },
@@ -120,12 +125,12 @@ export const home = {
       transform: 'translate(15px,-15px)',
       position: 'absolute',
       [theme.breakpoints.down('lg')]:{
-        width: '70%',
-        height:'70%'
+        width: '100%',
+        height:'100%'
       },
       [theme.breakpoints.down('md')]: {
-        width: '60%',
-        height:'60%',
+                width: '100%',
+        height:'100%',
         left:'50%',
         transform:'translate(-45%, -4%)'
       },
@@ -151,7 +156,9 @@ export const home = {
       fontFamily: 'Lato',
       textAlign: 'center',
       [theme.breakpoints.down('md')]: {
-        fontSize: '2.5rem'
+        fontSize: '2.5rem',
+        mb: '0.5rem',
+        mt: '2rem'
       }
     }
   },
@@ -165,7 +172,7 @@ export const home = {
     }
   },
   why: {
-    mb: '1rem',
+    mt: '5rem',
     // backgroundColor: 'rgba(0, 0, 0, 0.8)',
     [theme.breakpoints.down('md')]: {
       display: 'flex',
@@ -446,31 +453,4 @@ export const home = {
       }
     }
   },
-  footerDown: {
-    '&>div': {
-      backgroundColor: "#000014",
-      p: '1rem 10rem',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      [theme.breakpoints.down('md')]: {
-        p: '1rem 2rem'
-      },
-      [theme.breakpoints.down('sm')]: {
-        p: '1rem 0.5rem'
-      },
-      '&>p': {
-        color: theme.palette.common.white,
-        [theme.breakpoints.down('sm')]: {
-          fontSize: '0.8rem'
-        },
-      },
-      '&>img': {
-        width: '7rem',
-        [theme.breakpoints.down('sm')]: {
-          width: '4rem'
-        },
-      }
-    }
-  }
 }
