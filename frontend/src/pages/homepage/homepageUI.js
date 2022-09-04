@@ -7,7 +7,6 @@ export const home = {
     backgroundPosition: 'center',
     backgroundSize: '100% 100%',
     backgroundRepeat: 'no-repeat',
-    zIndex: '-1',
     pb:'10rem'
   },
   invest: {
@@ -166,7 +165,7 @@ export const home = {
     ...theme.learnMore2,
     width: '12rem',
     mt: '2rem',
-    display: 'inline-block',
+    // display: 'inline-block',
     [theme.breakpoints.down('md')]: {
       mx: 'auto'
     }
@@ -388,7 +387,11 @@ export const home = {
   },
   '& .MuiInputBase-input': {
     fontSize: '1.5rem',
-
+  },
+  '& .MuiOutlinedInput-root': {
+    '&.Mui-focused fieldset': {
+      borderColor: theme.palette.common.lemon1
+    }
   },
   '& .label': {
     fontSize: '1.2rem'
@@ -439,7 +442,7 @@ export const home = {
         },
       },
 
-      '&>button': {
+      '&>a': {
         ...theme.invest1,
         display: 'inline-block',
         mx: 'auto',

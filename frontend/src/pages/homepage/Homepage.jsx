@@ -10,16 +10,32 @@ import { home } from "./homepageUI";
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Link } from "react-router-dom";
+import Header from '../../components/headerComp/Header';
 
 const Homepage = () => {
   const matchSM = useMediaQuery(theme.breakpoints.down('md'));
+
+  const labels = [
+    {label: 'Home', link:'/'},
+    { label:"About", link: '#about'},
+    { label:"Review", link: "#review"},
+    { label:"How It Works", link:"#howitworks"},
+    { label: "Contact Us", link: "#contactus" },
+    {label: "Register", link:"/register"},
+    {label: "Login", link:"/login"},
+  ]
 
   return (
 
     <Box sx={home}>
       <Grid container  >
         <Grid item container direction='column'>
+          <Header labels={labels} />
           <Grid item container sx={home.main}>
             <Grid item>
               <Typography variant='h1' sx={home.invest}>
@@ -29,7 +45,9 @@ const Homepage = () => {
                 Make passive income through investments and referral bonuses
               </Typography>
                 <Stack direction="row" spacing={4} sx={home.buttons}>
-                  <Button variant='contained' sx={home.buttonInv}>
+                <Button variant='contained' sx={home.buttonInv} 
+                  component={Link} to='/invest'
+                >
                     Invest
                   </Button>
                   <Button variant="outlined"  sx={home.buttonMore} >
@@ -39,11 +57,11 @@ const Homepage = () => {
             </Grid>
           </Grid>
           {/* Who section */}
-          <Grid item sx={home.who} container>
+          <Grid item sx={home.who} container id='about'>
             <Grid item md={6} sx={home.who1Cover}>
               <Box sx={home.who1}>
                 <Box component='div'></Box>
-                <Box component='img' src="/image/who.svg" ></Box>
+                <Box component='img' src="/image/who.jpg" ></Box>
               </Box>
             </Grid>
             <Grid item md={6} sx={home.who2}>
@@ -64,11 +82,13 @@ const Homepage = () => {
                 production, job creation, economic growth, zero hunger, social &
                 financial inclusion.
               </Typography>
-              <Button variant="outlined" sx={home.whoButton}>Learn More</Button>
+              <Button variant="outlined" sx={home.whoButton} component={Link} to='/about'>
+                Learn More
+              </Button>
             </Grid>
           </Grid>
           {/* Why Section */}
-          <Grid item sx={home.why} container>
+          <Grid item sx={home.why} container id='howitworks'>
             <Grid item md={6} sx={home.why1} >
               <Typography variant='h2' gutterBottom>Why You Should Invest</Typography>
               <Typography variant='body1' gutterBottom>
@@ -76,29 +96,53 @@ const Homepage = () => {
                 look to expand, so we need stake holders which is why the gate is being thrown
                 open to the members of the public
               </Typography>
-              <Typography variant='h3'>Investments</Typography>
-              <Typography variant="body1" gutterBottom>
-                Become a stake holder and generate passive income by investing in our variety of
-                products
-              </Typography>
-              <Typography variant='h3'>Referal Bonus</Typography>
-              <Typography variant='body1' gutterBottom>
-                Invite people using the unique referral code that will provided to you to receive
-                bonuses on each referal
-              </Typography>
-              <Button variant='contained' sx={home.whyButton} >Invest</Button>
+
+              <Accordion sx={{mb:'1rem'}}>
+                <AccordionSummary 
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                  >
+                  <Typography variant="h4">Investments</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography variant='body1'>
+                    Become a stake holder and generate passive income by investing in
+                    our variety of products
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion>
+                <AccordionSummary 
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                  >
+                  <Typography variant="h4">Referal Bonus</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography variant='body1'>
+                    Invite people using the unique referral code that will provided
+                    to you to receive bonuses on each referal
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+
+              <Button variant='contained' sx={home.whyButton} component={Link} to='/invest'>
+                Invest
+              </Button>
             </Grid>
             <Grid item md={6} sx={home.why2Cover}>
               <Box sx={home.why2}>
                 <Box component='div'></Box>
-                <Box component='img' src="/image/why.svg" ></Box>
+                <Box component='img' src="/image/why.jpg" ></Box>
               </Box>
             </Grid>
           </Grid>
           {/* What Section */}
-          <Box component='img' src='/image/what.svg' sx={home.world} />
+          <Box component='img' src='/image/world.png' sx={home.world} id='review' />
           {/* Contact Section */}
-          <Grid item container direction='column' sx={home.contact}>
+          <Grid item container direction='column' sx={home.contact} id='contactus'>
             <Grid item sx={home.contact1}>
               <Typography variant='h2' align='center' gutterBottom>Contact Us</Typography>
             </Grid>
@@ -169,7 +213,9 @@ const Homepage = () => {
               <Typography variant='h2' align="center">
                 What are you waiting for?
               </Typography>
-              <Button variant="contained">Invest</Button>
+              <Button variant="contained" component={Link} to='/invest'>
+                Invest
+              </Button>
             </Grid>
           </Grid>
         </Grid>

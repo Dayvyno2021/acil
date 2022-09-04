@@ -37,7 +37,7 @@ const Footer = () => {
     <Box>
       <Grid item container sx={footerDown}>
         <Grid item xs={12} container>
-          <Box component='img' src='/image/logo.svg'></Box>
+          <Box component='img' src='/image/logo.png'></Box>
           <Typography variant='body1'>@2022 all rights reserved</Typography>
           <Typography variant='body1'>Terms & Conditions</Typography>
           <Typography variant='body1'>Privacy Policy</Typography>

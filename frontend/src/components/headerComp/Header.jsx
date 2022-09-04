@@ -16,7 +16,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { theme } from '../Theme';
 import Nav from '../navbutton/Nav'
 
-const Header = () => {
+const Header = ({labels}) => {
   const location = useLocation();
 
   const matches = useMediaQuery(theme.breakpoints.down('md'))
@@ -32,23 +32,15 @@ const Header = () => {
     setAnchor(!anchor);
   }
 
-  const labels = [
-    {label: 'Home', link:'/'},
-    { label:"About", link: '/about'},
-    { label:"Review", link: "/review"},
-    { label:"How It Works", link:"/howitworks"},
-    { label:"Contact Us", link: "contactus"}
-  ]
-
   useEffect(() => {
     switch (location.pathname) {
       case '/':
         setValue(0);
         break;
-      case "/about":
-        setValue(1)
+      case `/about`:
+        setValue(1);
         break;
-      case "/review":
+      case `/review`:
         setValue(2);
         break;
       case '/howitworks':
@@ -58,6 +50,7 @@ const Header = () => {
         setValue(4);
         break;
       default:
+        setValue(0);
         break;
     }
   }, [location])
@@ -69,7 +62,7 @@ const Header = () => {
       {
         labels.map((label, i) => (
           <Tab label={label.label} key={`label${i}`} value={i} sx={head.tab}
-            component={Link} to={label.link} className={`tab${i}`}
+            component='a' href={label.link} className={`tab${i}`}
           />
         ))
       }
@@ -106,7 +99,7 @@ const Header = () => {
     <Box sx={head}>
       <Grid container sx={head.tabCover} justifyContent='space-between' alignItems='center'>
         <Grid item md={3} sx={head.logo} to='/' component={Link}> 
-          <img src="/image/logo.svg" alt=""/>
+          <img src="/image/logo.png" alt=""/>
         </Grid>
         <Grid item md={9}>
           {
