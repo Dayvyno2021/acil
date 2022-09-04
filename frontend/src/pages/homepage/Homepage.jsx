@@ -50,7 +50,9 @@ const Homepage = () => {
                 >
                     Invest
                   </Button>
-                  <Button variant="outlined"  sx={home.buttonMore} >
+                <Button component={Link} variant="outlined" sx={home.buttonMore}
+                  to='/about'
+                >
                     Learn More
                   </Button>
                 </Stack>
