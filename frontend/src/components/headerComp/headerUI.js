@@ -29,7 +29,7 @@ export const head = {
       color: theme.palette.common.white,
       fontFamily: 'Lato',
       textTransform: 'none',
-      fontSize: '1.2rem',
+      fontSize: '1rem',
       '&.Mui-selected': {
         color: theme.palette.primary.main,
         textDecoration: 'none',
