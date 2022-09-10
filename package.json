@@ -17,6 +17,7 @@
   "author": "ACIL 2022",
   "license": "ISC",
   "dependencies": {
+    "@mui/icons-material": "^5.8.4",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "concurrently": "^7.3.0",
