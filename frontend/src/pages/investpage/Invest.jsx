@@ -1,17 +1,19 @@
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-// import Header from '../../components/headerComp/Header';
-// import Typography from '@mui/material/Typography';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import CloseIcon from '@mui/icons-material/Close';
 import { invest } from './investUI';
+import Modal from '@mui/material/Modal';
+import Avatar from '@mui/material/Avatar';
 
 const products = [
-  { name: "Cocoa Beans", img:'/image/cocoa.jpg', ROI: 30, maturity: 2 },
+  { name: "Cocoa Seeds", img:'/image/cocoa.jpg', ROI: 30, maturity: 2 },
   { name: "Cashew Nuts", img:'/image/cashew.jpg', ROI: 30, maturity: 2 },
   { name: "Ginger", img:'/image/ginger.jpg', ROI: 30, maturity: 2 },
   { name: "Soya Bean",img:'/image/soyabeans.jpg', ROI: 30, maturity: 2 },
@@ -22,6 +24,21 @@ const products = [
 ]
 
 const Invest = () => {
+  const navigate = useNavigate();
+  
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const investment = () => {
+    handleClose();
+    navigate('/investment/id');
+  }
+
+  const downline = () => {
+    handleClose();
+    navigate('/downline/id');
+  }
 
   return (
     <Box>
@@ -33,24 +50,26 @@ const Invest = () => {
           <NotificationsIcon fontSize='large' />
         </Grid>
         <Grid item sx={invest.actions} container justifyContent='space-between'>
-          <Grid item>
+          <Grid item >
             <CardGiftcardIcon sx={{mx:'auto', display:'block'}} fontSize='large' />
             <Typography variant='body1'>Guide</Typography>
           </Grid>
-          <Grid item>
+          <Grid item >
             <EmailIcon sx={{mx:'auto', display:'block'}} fontSize='large'  />
             <Typography variant='body1'>Invite</Typography>
           </Grid>
-          <Grid item>
+          <Grid item onClick={handleOpen}>
             <AccountBoxIcon sx={{mx:'auto', display:'block'}} fontSize='large' />
-            <Typography variant='body1'>Profile</Typography>
+            <Typography variant='body1'>
+              Profile
+            </Typography>
           </Grid>
         </Grid>
         <Grid item sx={invest.items} container>
           {
             products.map((product)=>(
               <Grid item xs={5.8} md={3.8} key={`${product.name}`}>
-                <Box component={Link} to={`/invest/${product.name}`}>
+                <Box component={Link} to={`/invest/${product.name}/?image=${product.img}`}>
                   <Box component='img' src={product.img} alt={product.name} />
                 </Box>
                 <Typography variant='body1'>{product.name}</Typography>
@@ -62,6 +81,37 @@ const Invest = () => {
           {/* <Grid item sm={3.8}></Grid> */}
         </Grid>
       </Grid>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={invest.style}>
+          <Grid container justifyContent='center' sx={{ position: 'relative' }}>
+            <CloseIcon onClick={handleClose} className='close'/>
+            <Avatar>
+              {'U'}
+            </Avatar>
+          </Grid>
+          <Typography align='center' variant="h6" component="h2">
+            User Name
+          </Typography>
+          <Typography align='center' sx={{ mt: 2 }}>
+            Invitation Code: 
+          </Typography>
+          <Grid container justifyContent='space-between' className='cl4'>
+            <Typography onClick={investment}>
+              Investments
+            </Typography>
+            <Typography onClick={downline} >Downline</Typography>
+          </Grid>
+          <Grid container justifyContent='space-between' className='cl5'>
+            <Typography>Payout</Typography>
+            <Typography>&#8358;999,999</Typography>
+          </Grid>
+        </Box>
+      </Modal>
     </Box>
   )
 }

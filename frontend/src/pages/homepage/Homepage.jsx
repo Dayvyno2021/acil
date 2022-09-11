@@ -22,10 +22,18 @@ const Homepage = () => {
 
   const labels = [
     {label: 'Home', link:'/'},
-    { label:"About", link: '#about'},
-    { label:"Review", link: "#review"},
+    { label:"About", link: '/about'},
+    { label:"Invest", link: "/invest"},
     { label:"How It Works", link:"#howitworks"},
     { label: "Contact Us", link: "#contactus" },
+    {label: "Register", link:"/register"},
+    {label: "Login", link:"/login"},
+  ]
+
+  const labels1 = [
+    {label: 'Home', link:'/'},
+    { label:"About", link: '/about'},
+    { label:"Invest", link: "/invest"},
     {label: "Register", link:"/register"},
     {label: "Login", link:"/login"},
   ]
@@ -35,7 +43,7 @@ const Homepage = () => {
     <Box sx={home}>
       <Grid container  >
         <Grid item container direction='column'>
-          <Header labels={labels} />
+          <Header labels={labels} labels1={labels1} />
           <Grid item container sx={home.main}>
             <Grid item>
               <Typography variant='h1' sx={home.invest}>

@@ -40,8 +40,10 @@ const Login = () => {
               <Button variant='contained' sx={log.btn}>
                 Sign In
               </Button>
-              <Grid item container justifyContent='center'>
-                <Typography sx={{mr:'0.2rem', color:'grey.600', fontSize:'0.8rem'}}>Don't have an account? Sign Up</Typography>
+              <Grid item container justifyContent='center' sx={{mt:'.5rem'}}>
+                <Typography sx={{ mr: '0.2rem', color: 'grey.600', fontSize: '0.8rem' }}>
+                  Don't have an account? Sign Up
+                </Typography>
                 <Box component={Link} to='/register' 
                   sx={{textDecoration: 'none', color:theme.palette.primary.main, fontSize:'0.8rem'}}
                 >

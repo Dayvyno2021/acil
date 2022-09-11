@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -16,7 +16,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { theme } from '../Theme';
 import Nav from '../navbutton/Nav'
 
-const Header = ({labels}) => {
+const Header = ({labels, labels1}) => {
   const location = useLocation();
 
   const matches = useMediaQuery(theme.breakpoints.down('md'))
@@ -60,7 +60,7 @@ const Header = ({labels}) => {
       textColor="primary" sx={head.tabs} indicatorColor='primary' className='tabs'
     >
       {
-        labels.map((label, i) => (
+        labels && labels.map((label, i) => (
           <Tab label={label.label} key={`label${i}`} value={i} sx={head.tab}
             component='a' href={label.link} className={`tab${i}`}
           />
@@ -82,7 +82,7 @@ const Header = ({labels}) => {
       >
         <List>
           {
-            labels.map((label, i) => (
+            labels1 && labels1.map((label, i) => (
               <ListItem key={`label2${i}`} component={Link} to={label.link}
                 onClick={()=>setAnchor(false)} selected={i===value} className={`tab${i}`}
               >
@@ -98,10 +98,10 @@ const Header = ({labels}) => {
   return (
     <Box sx={head}>
       <Grid container sx={head.tabCover} justifyContent='space-between' alignItems='center'>
-        <Grid item md={3} sx={head.logo} to='/' component={Link}> 
+        <Grid item md={2} sx={head.logo} to='/' component={Link}> 
           <img src="/image/logo.png" alt=""/>
         </Grid>
-        <Grid item md={9}>
+        <Grid item md={10}>
           {
             matches ? 
               small
@@ -114,4 +114,4 @@ const Header = ({labels}) => {
   )
 }
 
-export default Header
+export default memo(Header);

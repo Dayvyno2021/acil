@@ -10,16 +10,16 @@ const About = () => {
 
   const labels = [
     {label: 'Home', link:'/'},
-    { label:"About", link: '#about'},
-    { label:"Review", link: "#review"},
-  //   { label:"How It Works", link:"#howitworks"},
-  //   { label:"Contact Us", link: "#contactus"}
+    { label: "About", link: '/about' },
+    { label:"Invest", link: "/invest"},
+    {label: "Register", link:"/register"},
+    {label: "Login", link:"/login"},
   ]
 
   return (
     <Box sx={about}>
       <Grid container direction='column'>
-        <Header labels={labels} />
+        <Header labels={labels} labels1={labels} />
         {/* Main */}
         <Grid sx={about.main} item>
           <Grid item sx={about.main1} md={4} sm={5}>

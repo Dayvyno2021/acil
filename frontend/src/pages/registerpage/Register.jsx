@@ -63,7 +63,7 @@ const Register = () => {
               <Button variant='contained' sx={reg.btn}>
                 Register Now
               </Button>
-              <Grid item container justifyContent='center'>
+              <Grid item container justifyContent='center' sx={{mt:'0.5rem'}}>
                 <Typography sx={{ mr: '0.2rem', color: 'grey.600', fontSize: '0.8rem' }}>
                   Already have an account? Sign In
                 </Typography>
