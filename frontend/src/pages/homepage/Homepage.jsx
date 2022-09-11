@@ -16,26 +16,31 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from "react-router-dom";
 import Header from '../../components/headerComp/Header';
+import { useSelector } from "react-redux";
 
 const Homepage = () => {
   const matchSM = useMediaQuery(theme.breakpoints.down('md'));
+  const registerReducer = useSelector((state) => state.registerReducer);
+  const { acilDetails } = registerReducer;
 
   const labels = [
-    {label: 'Home', link:'/'},
-    { label:"About", link: '/about'},
-    { label:"Invest", link: "/invest"},
-    { label:"How It Works", link:"#howitworks"},
-    { label: "Contact Us", link: "#contactus" },
-    {label: "Register", link:"/register"},
-    {label: "Login", link:"/login"},
+    {label: 'Home', link:'/', acilDetails: false},
+    { label:"About", link: '/about', acilDetails: false},
+    { label:"Invest", link: "/invest", acilDetails: false},
+    { label:"How It Works", link:"#howitworks", acilDetails: false},
+    { label: "Contact Us", link: "#contactus", acilDetails: false },
+    {label: "Register", link:"/register", acilDetails: acilDetails},
+    {label: "Login", link:"/login", acilDetails: acilDetails},
+    {label: "Logout", link:"/", acilDetails: !acilDetails},
   ]
 
   const labels1 = [
-    {label: 'Home', link:'/'},
-    { label:"About", link: '/about'},
-    { label:"Invest", link: "/invest"},
-    {label: "Register", link:"/register"},
-    {label: "Login", link:"/login"},
+    {label: 'Home', link:'/', acilDetails: false},
+    { label:"About", link: '/about', acilDetails: false},
+    { label:"Invest", link: "/invest", acilDetails: false},
+    {label: "Register", link:"/register", acilDetails: acilDetails},
+    {label: "Login", link:"/login", acilDetails: acilDetails},
+    {label: "Logout", link:"/", acilDetails: !acilDetails},
   ]
 
   return (

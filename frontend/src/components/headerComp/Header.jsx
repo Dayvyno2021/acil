@@ -14,10 +14,13 @@ import {head} from './headerUI';
 import CloseIcon from '@mui/icons-material/Close';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { theme } from '../Theme';
-import Nav from '../navbutton/Nav'
+import Nav from '../navbutton/Nav';
+import { useDispatch } from 'react-redux';
+import { logoutAction } from '../../actions/userActions';
 
 const Header = ({labels, labels1}) => {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const matches = useMediaQuery(theme.breakpoints.down('md'))
 
@@ -54,6 +57,12 @@ const Header = ({labels, labels1}) => {
         break;
     }
   }, [location])
+
+    const handleAnchorLogoutTab = (label) => {
+      if (label && label.label === 'Logout') {
+        dispatch(logoutAction())
+      }
+  }
   
   const tabs = (
     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
@@ -61,13 +70,23 @@ const Header = ({labels, labels1}) => {
     >
       {
         labels && labels.map((label, i) => (
-          <Tab label={label.label} key={`label${i}`} value={i} sx={head.tab}
-            component='a' href={label.link} className={`tab${i}`}
+          <Tab label={label.label} key={`label${i}`} value={i}
+            sx={{display: label && label.acilDetails? 'none':'inline-block' }}
+            component='a' href={label.link} className={`tab${i}`} 
+            onClick={()=>handleAnchorLogoutTab(label)}
           />
         ))
       }
     </Tabs>
   )
+
+  const handleAnchorLogout = (label) => {
+    // onClick={()=>setAnchor(false)}
+    setAnchor(false);
+    if (label && label.label === 'Logout') {
+      dispatch(logoutAction())
+    }
+  }
 
   const small = (
     <Box onClick={()=>toggleDrawer()}>
@@ -84,7 +103,9 @@ const Header = ({labels, labels1}) => {
           {
             labels1 && labels1.map((label, i) => (
               <ListItem key={`label2${i}`} component={Link} to={label.link}
-                onClick={()=>setAnchor(false)} selected={i===value} className={`tab${i}`}
+                 selected={i===value} className={`tab${i}`}
+                sx={{ display: label && label.acilDetails ? 'none' : 'inline-block' }}
+                onClick={()=>handleAnchorLogout(label)}
               >
                 {label.label}
               </ListItem>

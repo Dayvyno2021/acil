@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/userModel.js");
-const asyncHandler = require("express-async-handler");
+import jwt from "jsonwebtoken"
+import UserModel from "../models/userModel.js";
+import asyncHandler from "express-async-handler";
 
-const protect = asyncHandler(async (req, res, next) => {
+export const protect = asyncHandler(async (req, res, next) => {
   let token;
 
   if (
@@ -15,7 +15,7 @@ const protect = asyncHandler(async (req, res, next) => {
       //decodes token id
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      req.user = await User.findById(decoded.id).select("-password");
+      req.user = await UserModel.findById(decoded.id).select("-password");
 
       next();
     } catch (error) {
@@ -30,4 +30,16 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = { protect };
+export const adminProtect = async(req, res, next) =>{
+  try {
+    if (req.user && req.user.isAdmin) {
+      next();
+    } else{
+      res.status(400).json({message: 'Unauthorized User(only admins)'})
+    }
+    
+  } catch (error) {
+    const m = process.env.NODE_ENV === 'production'? null : error
+    res.status(404).json({message: `Server Error===> ${m}`})
+  }
+}
