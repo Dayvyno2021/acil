@@ -1,7 +1,12 @@
-const expressAsyncHandler = require("express-async-handler");
+
+// const expressAsyncHandler = require("express-async-handler");
 // const res = require("express/lib/response");
-const User = require("../models/userModel");
-const generateToken = require("../config/generateToken");
+// const User = require("../models/userModel");
+// const generateToken = require("../config/generateToken");
+import expressAsyncHandler from "express-async-handler";
+import User from "../models/userModel";
+import generateToken from "../config/generateToken";
+
 
 const registerUser = expressAsyncHandler(async (req, res) => {
   const { email, refCode, password, number, pic } = req.body;
@@ -78,4 +83,4 @@ const allUsers = expressAsyncHandler(async (req, res) => {
   res.send(users);
 });
 
-module.exports = { registerUser, authUser, allUsers };
+export { registerUser, authUser, allUsers };
