@@ -3,7 +3,7 @@ import morgan from 'morgan'
 import colors from 'colors';
 import dotenv from 'dotenv';
 import {connectDb} from './config/db.js';
-// import productRoutes from './routes/productRoutes.js';
+import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 // import orderRoutes from './routes/orderRoutes.js';
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'development'){
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use('/api/products', productRoutes);
+app.use('/api/products', productRoutes);
 app.use('/api/user', userRoutes);
 // app.use('/api/order', orderRoutes)
 

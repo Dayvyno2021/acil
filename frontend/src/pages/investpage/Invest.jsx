@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Link, useNavigate} from 'react-router-dom';
@@ -11,20 +11,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import { invest } from './investUI';
 import Modal from '@mui/material/Modal';
 import Avatar from '@mui/material/Avatar';
-
-const products = [
-  { name: "Cocoa Seeds", img:'/image/cocoa.jpg', ROI: 30, maturity: 2 },
-  { name: "Cashew Nuts", img:'/image/cashew.jpg', ROI: 30, maturity: 2 },
-  { name: "Ginger", img:'/image/ginger.jpg', ROI: 30, maturity: 2 },
-  { name: "Soya Bean",img:'/image/soyabeans.jpg', ROI: 30, maturity: 2 },
-  { name: "Soya Beans Oil", img:'/image/soyabeansoil.jpg', ROI: 30, maturity: 2 },
-  { name: "Sesame Seed",img:'/image/sesame.jpg', ROI: 30, Mmturity: 2 },
-  { name: "Bitter Kola", img: '/image/bitterkola.jpg', ROI: 30, maturity: 2 },
-  {name: "Kola Nuts", img:'/image/kolanut.jpg', ROI: 30, maturity: 2}
-]
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductsAction } from '../../actions/productActions';
+import Progress from '../../components/Progress';
+import SnackBar from '../../components/Snackbar';
 
 const Invest = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const getProductsReducer = useSelector((state) => state.getProductsReducer);
+  const {loading, products, error} = getProductsReducer
   
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -40,8 +37,14 @@ const Invest = () => {
     navigate('/downline/id');
   }
 
+  useEffect(() => {
+    dispatch(getProductsAction())
+  },[dispatch])
+
   return (
     <Box>
+      {loading && <Progress />}
+      {error && <SnackBar message={error}/>}
       <Grid container direction='column' sx={invest}>
         <Grid item sx={invest.logos} container justifyContent='space-between' alignItems='center'>
           <Box component={Link} to='/'>
@@ -69,7 +72,7 @@ const Invest = () => {
           {
             products.map((product)=>(
               <Grid item xs={5.8} md={3.8} key={`${product.name}`}>
-                <Box component={Link} to={`/invest/${product.name}/?image=${product.img}`}>
+                <Box component={Link} to={`/invest/${product._id}`}>
                   <Box component='img' src={product.img} alt={product.name} />
                 </Box>
                 <Typography variant='body1'>{product.name}</Typography>

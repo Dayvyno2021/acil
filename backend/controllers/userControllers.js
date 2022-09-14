@@ -17,7 +17,7 @@ export const register = async (req, res) => {
     }
     const referral = findRefCode();
 
-    if (!username || !email || !psw || !phone) {
+    if (!username || !email || !psw) {
       res.status(400).json({
         message: 'All Fields expcept refCode are required'
       })
@@ -58,28 +58,28 @@ export const register = async (req, res) => {
   }
 }
 
-//desc: register new user;
+//desc: login new user;
 //route: post /api/user/login;
 //access: public;
 
 export const login = async (req, res) => {
   try {
-    const { username, password, email } = req.body;
-    const userEm = await UserModel.findOne({ email });
-    const userNm = await UserModel.findOne({ name: username });
-    const user = userEm || userNm;
-    if (user) {
-      const auth = await user.matchPassword(password);
+    const { user, password } = req.body;
+    const userEm = await UserModel.findOne({ email:user });
+    const userNm = await UserModel.findOne({ name: user });
+    const userA = userEm || userNm;
+    if (userA) {
+      const auth = await userA.matchPassword(password);
       if (auth) {
         return res.json({
-          id: user._id,
-          username: user.name || userNm.name,
-          refCode: user.refCode || userNm.refCode,
-          email: user.email || userNm.email,
-          phone: user.phone || userNm.phone,
-          isAdmin: user.isAdmin || userNm.isAdmin,
-          token: generateToken(user._id) || generateToken(userNm._id),
-          createdAt: user.createdAt || userNm.createdAt
+          id: userA._id,
+          username: userA.name,
+          refCode: userA.refCode,
+          email: userA.email,
+          phone: userA.phone,
+          isAdmin: userA.isAdmin,
+          token: generateToken(userA._id),
+          createdAt: userA.createdAt
           // updatedAt: user.updatedAt
         })
       } 
@@ -98,7 +98,7 @@ export const login = async (req, res) => {
 
 //desc: get profile;
 //route: /api/user/profile
-//access //protected
+//access protected
 
 export const profile = async (req, res) => {
   try {

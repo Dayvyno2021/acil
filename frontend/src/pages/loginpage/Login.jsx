@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -10,11 +10,37 @@ import { log } from './loginUI';
 import PersonIcon from '@mui/icons-material/Person';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { theme } from '../../components/Theme';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction } from '../../actions/userActions';
+import Progress from '../../components/Progress';
+import SnackBar from '../../components/Snackbar';
 
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+
+  const loginReducer = useSelector((state) => state.loginReducer);
+  const { loading, acilDetails, error } = loginReducer;
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(loginAction({ user, password }))
+  }
+
+  useEffect(() => {
+    if (acilDetails && acilDetails.username) {
+      navigate('/')
+    }
+  },[navigate, acilDetails])
+
   return (
     <Box>
+      {loading && <Progress />}
+      {error && <SnackBar message={error}/>}
       <Grid sx={log} container>
         <Grid md={6} item sx={log.register} container direction='column'>
           <Grid item sx={log.register1} justifyContent='center' container>
@@ -22,22 +48,26 @@ const Login = () => {
               <Box component='img' src='/image/logo.png'/> 
             </Box>
           </Grid>
-          <Grid item container direction='column' sx={log.register2} component='form'>
+          <Grid item container direction='column' sx={log.register2} component='form'
+            onSubmit={handleLogin}
+          >
             <Grid item container direction='row' >
               <PersonIcon sx={log.icon} />
               <TextField variant="outlined" type='text' name='username' id='username'
-                placeholder="Username" autoComplete='true'
+                placeholder="Username" autoComplete='true' value={user}
+                onChange={(e)=>setUser(e.target.value)}
               />
             </Grid>
             <Grid item container direction='row'>
               <LockOutlinedIcon sx={log.icon}/>
               <TextField variant="outlined" type='password' name='password' id='password'
-                placeholder="Password" autoComplete='true'
+                placeholder="Password" autoComplete='true' value={password}
+                onChange={(e)=>setPassword(e.target.value)}
               />
             </Grid>
 
             <Grid item container sx={{mb:'1rem'}} direction='column'>
-              <Button variant='contained' sx={log.btn}>
+              <Button variant='contained' sx={log.btn} type='submit'>
                 Sign In
               </Button>
               <Grid item container justifyContent='center' sx={{mt:'.5rem'}}>

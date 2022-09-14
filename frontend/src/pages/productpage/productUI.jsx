@@ -19,11 +19,12 @@ export const prod = {
   },
 
   packages: {
-    '& a': {
+    '& div.MuiBox-root': {
       fontSize: '1.8rem',
       fontWeight: '500',
       color: '#000000',
-      textDecoration: 'none'
+      textDecoration: 'none',
+      cursor:'pointer'
     },
   },
   "& h1": {
@@ -39,7 +40,7 @@ export const prod = {
     fontWeight: '400',
     mb: '1rem',
   },
-  portion: {
+  "& .portion": {
     // backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
@@ -63,7 +64,18 @@ export const prod = {
     },
     '&>p': {
       // color: theme.palette.common.lemon1,
-      fontFamily: 'Pacifico'
+      fontFamily: 'Pacifico',
+      cursor:'pointer'
+    }
+  },
+  proceed: {
+    mb: '2rem',
+    '&>button': {
+      bgcolor: theme.palette.primary.main,
+      textTransform: 'none',
+      '&:hover': {
+        bgcolor: theme.palette.primary.dark,
+      }
     }
   }
 }
