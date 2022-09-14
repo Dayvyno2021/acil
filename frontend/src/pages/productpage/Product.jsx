@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import { Link, useNavigate} from 'react-router-dom';
 // import queryString from 'query-string';
 import { useParams } from 'react-router-dom';
@@ -26,20 +26,20 @@ const Product = () => {
   const singleProductReducer = useSelector(state => state.singleProductReducer);
   const {loading, product, error} = singleProductReducer
 
-  const packs = [
+  let packs =useMemo(()=> [
     {package: 'Bronze', amount:'50,000', selected: false},
     {package: 'Silver', amount:'500,000', selected: false},
     {package: 'Gold', amount:'800,000', selected: false},
     {package: 'Platinum', amount:'1,000,000', selected: false},
     {package: 'Diamond', amount:'3,000,000', selected: false},
     {package: 'Agro King', amount:'5,000,000', selected: false},
-  ]
+  ],[])
 
   const params = useParams();
 
   const investmentType = (type, id) => {
     dispatch(choosePackageAction(type, id));
-    navigate('/payment')
+    navigate(`/payment/${id}`)
   }
 
   const selectItem = (type, id, items) => {
@@ -48,12 +48,18 @@ const Product = () => {
     items.map((item) => item.selected = false);
     type.selected = true;
   }
+
+  const disableButton = (items) => {
+    const active = items.filter((item) => item.selected === true);
+    if (active.length) return false;
+    return true;
+  }
   
   useEffect(() => {
     if (!product || (product._id !== params.id)) {
       dispatch(singleProductAction(params.id))
     }
-  },[dispatch, params, product])
+  },[dispatch, params, product, packs])
 
   return (
     <Box>
@@ -80,7 +86,8 @@ const Product = () => {
             packs && packs.map((pack) => (
               <Grid item container direction='column' key={`${pack.package}`}
                 sx={{
-                  backgroundColor: pack.selected ? theme.palette.primary.main : null,
+                  p: '1rem 2rem', borderRadius: '3px',
+                  backgroundColor: pack.selected ? theme.palette.primary.light : null,
                 }}
                 xs={6} md={4} className="portion"
                 onClick={() => {selectItem(pack, params.id, packs)}}
@@ -95,6 +102,7 @@ const Product = () => {
           <Grid item container sx={prod.proceed} justifyContent='center'>
             <Button variant='contained' 
               onClick={() => investmentType(item, dd)}
+              disabled={disableButton(packs)}
             >
               Proceed To Payment
             </Button>

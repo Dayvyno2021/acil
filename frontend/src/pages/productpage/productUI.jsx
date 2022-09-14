@@ -1,6 +1,7 @@
 import { theme } from '../../components/Theme';
 
 export const prod = {
+  px: '2rem',
   mt: '2rem',
   minHeight: '85vh',
   direct: {

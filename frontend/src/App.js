@@ -22,7 +22,7 @@ function App() {
         <Route path="/register" element={<Register/>} />
         <Route path="/howitworks" element={<h1>HOW it works</h1>} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/payment" element={<Payment/>} />
+        <Route path="/payment/:id" element={<Payment/>} />
         <Route path="/invest/:id" element={<Product/>} />
         <Route path="/investment/:id" element={<Investment/>} />
         <Route path="/downline/:id" element={<Downline/>} />
