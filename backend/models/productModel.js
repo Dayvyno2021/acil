@@ -5,8 +5,7 @@ const productSchema = mongoose.Schema({
   name: { type: String, required:true },
   img: {type: String, required:true},
   ROI: { type: Number, required: true },
-  maturity: {type: Number, required: true},
-  investors: [{type: mongoose.Schema.Types.ObjectId, ref: "UserModel"}],
+  maturity: {type: Number, required: true}
   },{
     timestamps: true,
   });

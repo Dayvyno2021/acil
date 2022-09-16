@@ -15,6 +15,7 @@ import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
 import { choosePackageAction } from '../../actions/packageActions';
 import { theme } from '../../components/Theme';
+import {cloneDeep} from 'lodash'
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -25,29 +26,47 @@ const Product = () => {
 
   const singleProductReducer = useSelector(state => state.singleProductReducer);
   const {loading, product, error} = singleProductReducer
-
-  let packs =useMemo(()=> [
-    {package: 'Bronze', amount:'50,000', selected: false},
-    {package: 'Silver', amount:'500,000', selected: false},
-    {package: 'Gold', amount:'800,000', selected: false},
-    {package: 'Platinum', amount:'1,000,000', selected: false},
-    {package: 'Diamond', amount:'3,000,000', selected: false},
-    {package: 'Agro King', amount:'5,000,000', selected: false},
-  ],[])
+  
+  const p =useMemo(()=> [
+    {packageType: 'Bronze', amount: 50000, selected: false },
+    {packageType: 'Silver', amount: 500000, selected: false },
+    {packageType: 'Gold', amount: 800000, selected: false },
+    {packageType: 'Platinum', amount: 1000000, selected: false },
+    {packageType: 'Diamond', amount: 3000000, selected: false },
+    {packageType: 'Agro King', amount: 5000000, selected: false },
+  ], [])
+  
+  const [packs, setPacks] = useState(p)
 
   const params = useParams();
 
   const investmentType = (type, id) => {
     dispatch(choosePackageAction(type, id));
-    navigate(`/payment/${id}`)
+
+    navigate(`/login?redirect=payment/${id}`)
   }
 
-  const selectItem = (type, id, items) => {
+  const selectItem = (type, id, i) => {
     setItem(type);
     setDd(id);
-    items.map((item) => item.selected = false);
-    type.selected = true;
+    const newPacks = cloneDeep(packs);
+    const selectedPack = newPacks.filter((pack) => pack.selected)[0];
+    const newSelected = newPacks[i];
+    
+    if (selectedPack) {
+      selectedPack.selected = !selectedPack.selected;
+    }
+    
+    newSelected.selected = !newSelected.selected;
+    setPacks(newPacks);
   }
+
+  // const selectItem = (type, id, items) => {
+  //   setItem(type);
+  //   setDd(id);
+  //   items.map((item) => item.selected = false);
+  //   type.selected = true;
+  // }
 
   const disableButton = (items) => {
     const active = items.filter((item) => item.selected === true);
@@ -59,7 +78,7 @@ const Product = () => {
     if (!product || (product._id !== params.id)) {
       dispatch(singleProductAction(params.id))
     }
-  },[dispatch, params, product, packs])
+  },[dispatch, params, product])
 
   return (
     <Box>
@@ -83,18 +102,18 @@ const Product = () => {
         <Typography variant='h4' align='center'>Choose Package</Typography>
         <Grid item container sx={prod.packages}>
           {
-            packs && packs.map((pack) => (
-              <Grid item container direction='column' key={`${pack.package}`}
+            packs && packs.map((pack, index) => (
+              <Grid item container direction='column' key={`${pack.packageType}`}
                 sx={{
                   p: '1rem 2rem', borderRadius: '3px',
                   backgroundColor: pack.selected ? theme.palette.primary.light : null,
                 }}
                 xs={6} md={4} className="portion"
-                onClick={() => {selectItem(pack, params.id, packs)}}
+                onClick={() => {selectItem(pack, params.id, index)}}
               >
                 <Box sx={{fontSize:'1.8rem', fontWeight: '500'}}>&#8358;{pack.amount}</Box>
                 <Typography variant='body1' sx={{fontSize: '1.8rem', fontWeight:'500'}}>
-                  {pack.package}
+                  {pack.packageType}
                 </Typography>
               </Grid>
             ))

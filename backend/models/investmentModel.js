@@ -1,13 +1,23 @@
 // const mongoose = require("mongoose");
 import mongoose from "mongoose";
 
-const investmentModel = mongoose.Schema(
+const investmentSchema = mongoose.Schema(
   {
-    amount: { type: Number, default: true },
-    payout: { type: Number, default: true },
-    product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
+    investor: { type: mongoose.Schema.Types.ObjectId, ref: "UserModel", required: true },
+    pack: {
+      productID: { type: mongoose.Schema.Types.ObjectId, ref: "ProductModel", required: true },
+      name: { type: String, required: true },
+      ROI: { type: Number, required: true },
+      maturity: { type: Number, required: true },
+      packageType: { type: String, required: true },
+      amount: { type: Number, required:true },   
+    },
+    payout: { type: Number, required: true },
+    payoutDate: { type: Date},
+    payment: {
+      isPaid: { type: Boolean, required: true, default: false },
+      paymentDate: { type: String },
+      paymentStatus: {type: String}
     },
   },
   {
@@ -15,6 +25,6 @@ const investmentModel = mongoose.Schema(
   }
 );
 
-const investment = mongoose.model("Investment", investmentModel);
+const InvestmentModel = mongoose.model("InvestmentModel", investmentSchema);
 
-export { investment };
+export default InvestmentModel ;

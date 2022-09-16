@@ -21,7 +21,7 @@ const orders = [
     img: '/image/cocoa.jpg',
     ROI: 30,
     maturity: 2,
-    package: 'Gold',
+    packageType: 'Gold',
     amount: 800000,
     payout: 1040000
   },
@@ -30,7 +30,7 @@ const orders = [
     img: '/image/cashew.jpg',
     ROI: 30,
     maturity: 3,
-    package: 'Silver',
+    packageType: 'Silver',
     amount: 500000,
     payout: 650000
   },
@@ -39,7 +39,7 @@ const orders = [
     img: '/image/ginger.jpg',
     ROI: 30,
     maturity: 2,
-    package: 'Platinum',
+    packageType: 'Platinum',
     amount: 1000000,
     payout: 1300000
   },

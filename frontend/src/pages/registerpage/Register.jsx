@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -21,6 +21,9 @@ import SnackBar from '../../components/Snackbar';
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirect = location.search? location.search.split('=')[1] : '';
 
   const registerReducer = useSelector((state) => state.registerReducer);
   const { loading, acilDetails, error } = registerReducer;
@@ -78,9 +81,9 @@ const Register = () => {
 
   useEffect(() => {
     if (acilDetails && acilDetails.username) {
-      navigate('/')
+      navigate(`/${redirect}`)
     }
-  }, [navigate, acilDetails])
+  }, [navigate, acilDetails, redirect])
   
 
   return (

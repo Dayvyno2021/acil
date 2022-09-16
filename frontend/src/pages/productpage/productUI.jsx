@@ -1,7 +1,7 @@
 import { theme } from '../../components/Theme';
 
 export const prod = {
-  px: '2rem',
+  px: '5rem',
   mt: '2rem',
   minHeight: '85vh',
   direct: {
@@ -45,14 +45,14 @@ export const prod = {
     // backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
-    px: '5rem',
+    // px: '5rem',
     mb: '3rem',
     [theme.breakpoints.down('sm')]: {
       px: '0rem'
     },
     '&>div': {
-      width: '16.75rem',
-      height: '16.75rem',
+      width: '12rem',
+      height: '12rem',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',

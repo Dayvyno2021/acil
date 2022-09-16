@@ -77,7 +77,7 @@ const Invest = () => {
                 </Box>
                 <Typography variant='body1'>{product.name}</Typography>
                 <Typography variant='body1'>ROI:{product.ROI}%</Typography>
-                <Typography variant='body1'>Maturity: {product.maturity} Months </Typography>
+                <Typography variant='body1'>Maturity: {product.maturity} Days </Typography>
               </Grid>
             ))
           }

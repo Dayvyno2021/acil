@@ -24,8 +24,9 @@ export const register = async (req, res) => {
     } else {
       const existRefCode = await UserModel.findOne({ refCode: referral });
       const existEmail = await UserModel.findOne({ email });
+      const existUsername = await UserModel.findOne({name:username})
       if (existRefCode) return res.status(400).json({ message: 'Could not register, try again' });
-      if (existEmail) return res.status(400).json({ message: 'Username or Email already exists' });
+      if (existEmail || existUsername) return res.status(400).json({ message: 'Username or Email already exists' });
 
       const newUser = await UserModel.create({
         name: username,

@@ -7,6 +7,7 @@ import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 // import orderRoutes from './routes/orderRoutes.js';
+import investmentRoute from './routes/investmentRoute.js'
 import path from 'path';
 import cors from 'cors';
 dotenv.config();
@@ -27,7 +28,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/products', productRoutes);
 app.use('/api/user', userRoutes);
-// app.use('/api/order', orderRoutes)
+app.use('/api/investment', investmentRoute);
+app.get('/paystack-key', (req, res)=>res.send(process.env.PAYSTACK_TEST_KEY))
 
 const __dirname = path.resolve()
 if (process.env.NODE_ENV === 'production'){

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -19,12 +19,15 @@ import SnackBar from '../../components/Snackbar';
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
 
   const loginReducer = useSelector((state) => state.loginReducer);
   const { loading, acilDetails, error } = loginReducer;
+
+  const redirect = location.search? location.search.split('=')[1] : '';
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -33,9 +36,9 @@ const Login = () => {
 
   useEffect(() => {
     if (acilDetails && acilDetails.username) {
-      navigate('/')
+      navigate(`/${redirect}`)
     }
-  },[navigate, acilDetails])
+  },[navigate, acilDetails, redirect])
 
   return (
     <Box>
@@ -54,7 +57,7 @@ const Login = () => {
             <Grid item container direction='row' >
               <PersonIcon sx={log.icon} />
               <TextField variant="outlined" type='text' name='username' id='username'
-                placeholder="Username" autoComplete='true' value={user}
+                placeholder="Username or email" autoComplete='true' value={user}
                 onChange={(e)=>setUser(e.target.value)}
               />
             </Grid>
@@ -74,7 +77,7 @@ const Login = () => {
                 <Typography sx={{ mr: '0.2rem', color: 'grey.600', fontSize: '0.8rem' }}>
                   Don't have an account? Sign Up
                 </Typography>
-                <Box component={Link} to='/register' 
+                <Box component={Link} to={`/register?redirect=${redirect}`}
                   sx={{textDecoration: 'none', color:theme.palette.primary.main, fontSize:'0.8rem'}}
                 >
                   here

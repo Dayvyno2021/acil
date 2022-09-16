@@ -15,7 +15,7 @@ export const choosePackageAction = (option, id) => async (dispatch, getState) =>
         img: data.img,
         ROI: data.ROI,
         maturity: data.maturity,
-        package: option.package,
+        packageType: option.packageType,
         amount: option.amount
       }
     })

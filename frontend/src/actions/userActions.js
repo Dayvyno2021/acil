@@ -49,6 +49,7 @@ export const registerAction = (input) => async (dispatch) => {
 export const logoutAction = () => async(dispatch) =>{
   // localStorage.clear();
   localStorage.removeItem('acilDetails');
+  localStorage.removeItem('pack');
   dispatch({type: USER_LOGOUT})
   document.location.href = '/';
 }
@@ -58,7 +59,6 @@ export const loginAction = (login) => async (dispatch) => {
     dispatch({ type: USER_REGISTER_REQUEST });
     
     const { user, password } = login;
-    console.log({ user, password });
     const config = {
       headers: {
         "Content-Type": "application/json"
