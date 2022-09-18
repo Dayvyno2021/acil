@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import { connectDb } from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import imageRoute from "./routes/imageRoute";
+import imageRoute from "./routes/imageRoute.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 // import orderRoutes from './routes/orderRoutes.js';
 import investmentRoute from "./routes/investmentRoute.js";

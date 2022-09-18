@@ -1,5 +1,5 @@
-import ImageModel from "../models/imageModel";
-import ImagesService from "../service/image";
+import ImageModel from "../models/imageModel.js";
+import ImagesService from "../service/image.js";
 class ImageController {
   static singleImageUpload = async (req, res) => {
     if (req.body.images) {
@@ -13,7 +13,7 @@ class ImageController {
     //assign the value
     const image = new ImageModel();
     image.pic = req.body.images;
-    image.user = req.user && req.user._id;
+    // image.user = req.user && req.user._id;
     //save the user
     await image.save();
 
