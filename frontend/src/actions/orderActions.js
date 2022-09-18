@@ -41,7 +41,7 @@ export const getOrderAction = (id) => async (dispatch, getState) => {
       }
     }
 
-    const { data } = await axios.get(`/api/investment/placeorder/${id}`, config);
+    const { data } = await axios.get(`/api/investment/order/${id}`, config);
 
     dispatch({
       type: GET_ORDER_SUCCESS,

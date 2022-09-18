@@ -6,21 +6,24 @@ export const payment = {
     mt: '5rem',
     p: '2.5rem 2rem',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
-    width: '75%',
+    width: '90%',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
       p: '2.5rem 0.5rem'
     },
     '& button': {
       ...theme.invest1,
-      height: '3rem',
-      width: '5rem',
+      // height: '3rem',
+      width: '99%',
       transition: '0.5s',
+      p:'1rem 2rem',
+      
       '&:hover': {
         backgroundColor: theme.palette.primary.dark
       },
       [theme.breakpoints.down('sm')]: {
-        p: '1rem 3rem'
+        p: '0.5rem 2rem',
+        fontSize: '9px',
       },
     }
   },
@@ -35,34 +38,6 @@ export const payment = {
     '& h5': {
       color:"#808080",
       fontSize: '0.8rem'
-    }
-  }
-}
-
-export const orderui = {
-  mt: '2rem',
-  '&>div': {
-    mb: '2rem'
-  },
-  product: {
-    bgcolor: theme.palette.secondary.main,
-    borderRadius: '3px',
-    p: '1rem',
-    '&>li': {
-      px: '2rem',
-      mb: '1rem',
-      '&>div:last-child': {
-        textAlign: 'end',
-        color: '#808080'
-      }
-    },
-    '&>li:nth-of-type(odd)': {
-      bgcolor: '#FFFFFF',
-      borderRadius: '40px'
-    },
-    '&>li:nth-of-type(even)': {
-      border: '1.5px solid #FFFFFF',
-      borderRadius: '40px'
     }
   }
 }

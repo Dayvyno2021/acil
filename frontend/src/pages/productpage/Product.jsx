@@ -61,13 +61,6 @@ const Product = () => {
     setPacks(newPacks);
   }
 
-  // const selectItem = (type, id, items) => {
-  //   setItem(type);
-  //   setDd(id);
-  //   items.map((item) => item.selected = false);
-  //   type.selected = true;
-  // }
-
   const disableButton = (items) => {
     const active = items.filter((item) => item.selected === true);
     if (active.length) return false;
@@ -123,7 +116,7 @@ const Product = () => {
               onClick={() => investmentType(item, dd)}
               disabled={disableButton(packs)}
             >
-              Proceed To Payment
+              Proceed
             </Button>
           </Grid>
         </Grid>

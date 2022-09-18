@@ -1,4 +1,4 @@
-import { GET_ORDER_FAIL, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, PLACE_ORDER_FAIL, PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS } from "../constants/orderConstants";
+import { CANCEL_PLACEORDER, GET_ORDER_FAIL, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, PLACE_ORDER_FAIL, PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS, RESET_ORDER } from "../constants/orderConstants";
 
 export const placeOrderReducer = (state = {orderDetails:{}}, action) => {
   switch (action.type) {
@@ -7,7 +7,9 @@ export const placeOrderReducer = (state = {orderDetails:{}}, action) => {
     case PLACE_ORDER_SUCCESS:
       return { loading: false, orderDetails: action.payload, success: true };
     case PLACE_ORDER_FAIL:
-      return {loading: false, error: action.payload}
+      return { loading: false, error: action.payload };
+    case CANCEL_PLACEORDER:
+      return {};
   
     default:
       return state;
@@ -21,7 +23,9 @@ export const getOrderReducer = (state = {order:{}}, action) => {
     case GET_ORDER_SUCCESS:
       return { loading: false, order: action.payload, success:true };
     case GET_ORDER_FAIL:
-      return {loading: false, error: action.payload}
+      return { loading: false, error: action.payload };
+    case RESET_ORDER:
+      return {};
     
     default:
       return state;
