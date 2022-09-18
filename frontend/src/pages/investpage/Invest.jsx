@@ -42,7 +42,7 @@ const Invest = () => {
   },[dispatch])
 
   return (
-    <Box>
+    <Box sx={{minHeight: '85vh'}}>
       {loading && <Progress />}
       {error && <SnackBar message={error}/>}
       <Grid container direction='column' sx={invest}>

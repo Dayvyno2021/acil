@@ -1,3 +1,4 @@
+// import { useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -42,6 +43,12 @@ const Homepage = () => {
     {label: "Login", link:"/login", acilDetails: acilDetails},
     {label: "Logout", link:"/", acilDetails: !acilDetails},
   ]
+
+  // const [fname, setFname] = useState('');
+  // const [lName, setLName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [phone, setPhone] = useState('');
+  // const [message, setMessage] = useState('');
 
   return (
 

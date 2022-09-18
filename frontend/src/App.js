@@ -10,6 +10,7 @@ import Product from "./pages/productpage/Product";
 import Payment from "./pages/paymentpage/Payment";
 import Investment from "./pages/investmentpage/Investment";
 import Downline from "./pages/downlinepage/Downline";
+import Order from "./pages/orderpage/Order";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/howitworks" element={<h1>HOW it works</h1>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/payment/:id" element={<Payment/>} />
+        <Route path="/order/:id" element={<Order/>} />
         <Route path="/invest/:id" element={<Product/>} />
         <Route path="/investment/:id" element={<Investment/>} />
         <Route path="/downline/:id" element={<Downline/>} />

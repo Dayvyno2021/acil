@@ -41,7 +41,7 @@ const Login = () => {
   },[navigate, acilDetails, redirect])
 
   return (
-    <Box>
+    <Box sx={{minHeight: '85vh'}}>
       {loading && <Progress />}
       {error && <SnackBar message={error}/>}
       <Grid sx={log} container>

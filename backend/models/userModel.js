@@ -9,8 +9,10 @@ const userSchema = mongoose.Schema(
     password: { type: "String", required: true },
     phone: {type:String},
     notification: { type: String },
-    isAdmin: {type: Boolean, required: true, default: false},
-    pic: {
+    isAdmin: { type: Boolean, required: true, default: false },
+    refBy: { type: String },
+    pic:{data: Buffer, contentType: String},
+    pic2: {
       type: "String",
       required: false,
       default:

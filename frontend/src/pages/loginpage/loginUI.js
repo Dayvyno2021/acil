@@ -55,9 +55,10 @@ export const log = {
   },
   image: {
       [theme.breakpoints.down('md')]: {
-      display: 'block',
+      display: 'none',
       mx: 'auto'
     },
+
     '& img': {
       width: '100%',
       height: '40rem',
