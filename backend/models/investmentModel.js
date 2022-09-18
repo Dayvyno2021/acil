@@ -13,12 +13,22 @@ const investmentSchema = mongoose.Schema(
       amount: { type: Number, required:true },   
     },
     payout: { type: Number, required: true },
+    isPaidOut:{type: Boolean, default: false},
+    paymentType: {type: String,},
     payoutDate: { type: Date},
     payment: {
       isPaid: { type: Boolean, required: true, default: false },
+      paymentStatus: { type: String },
       paymentDate: { type: String },
-      paymentStatus: {type: String}
+      confirmDate: {type: String}
     },
+    paystack: {
+      reference: { type: String },
+      trans: { type: String },
+      status: { type: String },
+      transaction: { type: String },
+      message: {type: String}
+    }
   },
   {
     timestamps: true,

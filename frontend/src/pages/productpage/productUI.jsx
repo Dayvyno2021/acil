@@ -2,6 +2,9 @@ import { theme } from '../../components/Theme';
 
 export const prod = {
   px: '5rem',
+  [theme.breakpoints.down('md')]:{
+    px: '1rem'
+  },
   mt: '2rem',
   minHeight: '85vh',
   direct: {

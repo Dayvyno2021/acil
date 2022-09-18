@@ -55,7 +55,7 @@ export const reg = {
   },
   image: {
     [theme.breakpoints.down('md')]: {
-      display: 'block',
+      display: 'none',
       mx: 'auto'
     },
     '& img': {

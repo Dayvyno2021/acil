@@ -33,19 +33,21 @@ export const register = async (req, res) => {
         email,
         password: psw,
         refCode: referral,
+        refBy: refCode,
         phone,
       })
 
       if (newUser) {
         return res.json({
-          id: newUser._id,
-          username: newUser.name,
-          refCode: newUser.refCode,
-          email: newUser.email,
-          phone: newUser.phone,
-          isAdmin: newUser.isAdmin,
-          createdAt: newUser.createdAt,
-          token: generateToken(newUser._id)
+          id: newUser && newUser._id,
+          username: newUser && newUser.name,
+          refCode: newUser && newUser.refCode,
+          email: newUser && newUser.email,
+          phone: newUser && newUser.phone,
+          isAdmin: newUser && newUser.isAdmin,
+          refBy: newUser && newUser.refBy,
+          createdAt: newUser && newUser.createdAt,
+          token: newUser && generateToken(newUser._id)
         })
       } else {
         res.status(400).json({message: "Could not register new user"})
@@ -73,14 +75,15 @@ export const login = async (req, res) => {
       const auth = await userA.matchPassword(password);
       if (auth) {
         return res.json({
-          id: userA._id,
-          username: userA.name,
-          refCode: userA.refCode,
-          email: userA.email,
-          phone: userA.phone,
-          isAdmin: userA.isAdmin,
-          token: generateToken(userA._id),
-          createdAt: userA.createdAt
+          id: userA && userA._id,
+          username: userA && userA.name,
+          refCode: userA && userA.refCode,
+          email: userA && userA.email,
+          phone: userA && userA.phone,
+          isAdmin: userA && userA.isAdmin,
+          refBy: userA && userA.refBy,
+          token: userA && generateToken(userA._id),
+          createdAt: userA && userA.createdAt
           // updatedAt: user.updatedAt
         })
       } 
