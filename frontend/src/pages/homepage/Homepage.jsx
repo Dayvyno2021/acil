@@ -44,12 +44,6 @@ const Homepage = () => {
     {label: "Logout", link:"/", acilDetails: !acilDetails},
   ]
 
-  // const [fname, setFname] = useState('');
-  // const [lName, setLName] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [phone, setPhone] = useState('');
-  // const [message, setMessage] = useState('');
-
   return (
 
     <Box sx={home}>

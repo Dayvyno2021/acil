@@ -21,7 +21,12 @@ const Invest = () => {
   const navigate = useNavigate();
 
   const getProductsReducer = useSelector((state) => state.getProductsReducer);
-  const {loading, products, error} = getProductsReducer
+  const {loading, products, error} = getProductsReducer;
+
+  const loginReducer = useSelector(state => state.loginReducer);
+  const { acilDetails } = loginReducer;
+
+  const firstL = acilDetails && acilDetails.username && acilDetails.username.slice(0, 1);
   
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -94,14 +99,14 @@ const Invest = () => {
           <Grid container justifyContent='center' sx={{ position: 'relative' }}>
             <CloseIcon onClick={handleClose} className='close'/>
             <Avatar>
-              {'U'}
+              {firstL}
             </Avatar>
           </Grid>
           <Typography align='center' variant="h6" component="h2">
-            User Name
+            {acilDetails && acilDetails.username}
           </Typography>
           <Typography align='center' sx={{ mt: 2 }}>
-            Invitation Code: 
+            <strong>Referral Code:</strong> {acilDetails && acilDetails.refCode}
           </Typography>
           <Grid container justifyContent='space-between' className='cl4'>
             <Typography onClick={investment}>

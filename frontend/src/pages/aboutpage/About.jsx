@@ -5,15 +5,27 @@ import Grid from '@mui/material/Grid';
 import Foot from '../../components/Foot';
 import { about } from './aboutUI';
 import Header from '../../components/headerComp/Header';
+import { useSelector } from 'react-redux';
 
 const About = () => {
 
+  // const labels = [
+  //   {label: 'Home', link:'/'},
+  //   { label: "About", link: '/about' },
+  //   { label:"Invest", link: "/invest"},
+  //   {label: "Register", link:"/register"},
+  //   {label: "Login", link:"/login"},
+  // ]
+  const loginReducer = useSelector((state) => state.loginReducer);
+  const { acilDetails } = loginReducer;
+
   const labels = [
-    {label: 'Home', link:'/'},
-    { label: "About", link: '/about' },
-    { label:"Invest", link: "/invest"},
-    {label: "Register", link:"/register"},
-    {label: "Login", link:"/login"},
+    {label: 'Home', link:'/', acilDetails: false},
+    { label:"About", link: '/about', acilDetails: false},
+    { label:"Invest", link: "/invest", acilDetails: false},
+    {label: "Register", link:"/register", acilDetails: acilDetails},
+    {label: "Login", link:"/login", acilDetails: acilDetails},
+    {label: "Logout", link:"/", acilDetails: !acilDetails},
   ]
 
   return (
