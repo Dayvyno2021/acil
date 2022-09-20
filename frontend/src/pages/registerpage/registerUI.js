@@ -18,10 +18,6 @@ export const reg = {
   },
   register2: {
     p: '0 1rem',
-    // '& div.MuiFormControl-root': {
-      //   width: '100%',
-      
-      // },
       '& .MuiTextField-root': {
         width: '100%',
         mb: '1rem',

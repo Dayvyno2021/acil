@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -14,69 +14,76 @@ import Paper from '@mui/material/Paper';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { tables } from './investmentUI';
-
-const orders = [
-  {
-    pName: "Cocoa Beans",
-    img: '/image/cocoa.jpg',
-    ROI: 30,
-    maturity: 2,
-    packageType: 'Gold',
-    amount: 800000,
-    payout: 1040000
-  },
-  {
-    pName: "Cashew Nuts",
-    img: '/image/cashew.jpg',
-    ROI: 30,
-    maturity: 3,
-    packageType: 'Silver',
-    amount: 500000,
-    payout: 650000
-  },
-  {
-    pName: "Ginger",
-    img: '/image/ginger.jpg',
-    ROI: 30,
-    maturity: 2,
-    packageType: 'Platinum',
-    amount: 1000000,
-    payout: 1300000
-  },
-]
+import { useDispatch, useSelector } from 'react-redux';
+import { myordersAction } from '../../actions/orderActions';
+import SnackBar from '../../components/Snackbar';
+import Progress from '../../components/Progress';
 
 const Investment = () => {
+
+  const dispatch = useDispatch();
+  const params = useParams();
+
+  const myordersReducer = useSelector(state => state.myordersReducer);
+  const { loading, myorders, error } = myordersReducer;
+
+  const loginReducer = useSelector(state => state.loginReducer);
+  const { acilDetails } = loginReducer;
+
+  const maturityDate = (key) => {
+    const maturity = key && key.pack && key.pack.maturity;
+    const due = Date.now() + (maturity* 24 * 60 * 60 * 1000);
+    return new Date(due).toDateString();
+  }
+
+  // const maturity = maturityDate();
+  // console.log(maturity)
+
+  useEffect(() => {
+    if (acilDetails) {
+      dispatch(myordersAction())
+    }
+  }, [dispatch, acilDetails])
+// order && order.pack && order.pack.maturity
   return (
     <Box sx={tables}>
+      {error && <SnackBar message={error} />}
+      {loading && <Progress/>}
       <Grid container justifyContent='space-between' sx={{my: '2rem'}}>
-        <Grid item component={Link} to='/invest'>
+        <Grid item component={Link} to={`/profile/${params.id}`}>
           <ArrowBackIcon  sx={{color:'#000'}} />
         </Grid>
-        <Typography sx={{fontWeight:'700', fontFamily:'Lato', fontSize: '1.5rem'}}>
-          Investment
+        <Typography sx={tables.heading}>
+          Investments
         </Typography>
         <NotificationsIcon/>
       </Grid>
       {
-        orders && orders.map((order) => (
-          <Box key={order.pName} sx={tables.table}>
-            <Typography variant='h1' align='center'>
-              {order && order.pName}
+        (myorders && myorders.length < 1) && 
+        <Typography variant='h5' color='#FF0000'>You have not subscribed to any investment</Typography>
+      }
+      {
+        myorders && myorders.map((order) => (
+          <Box key={order && order._id} sx={tables.table}>
+            <Typography variant='h1' align='center' sx={{mb:'0.5rem'}}>
+              {order && order.pack && order.pack.name}
             </Typography>
             <TableContainer component={Paper} sx={tables.container}>
               <Table aria-label="simple table">
                 <TableHead sx={{bgcolor: '#000000'}}>
                   <TableRow>
-                    <TableCell>Amount(&#8358;)</TableCell>
-                    <TableCell align="left">Due</TableCell>
+                    <TableCell>Amount Invested(&#8358;)</TableCell>
+                    <TableCell align="left">Due Date</TableCell>
                     <TableCell align="left">Payout(&#8358;)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell align="left">{order.amount}</TableCell>
-                    <TableCell align="left">{order.maturity}</TableCell>
-                    <TableCell align="left">{order.payout}</TableCell>
+                    <TableCell align="left">
+                      {order && order.pack && order.pack.amount && order.pack.amount.toLocaleString()}
+                    </TableCell>
+                    <TableCell align="left">{maturityDate(order)}</TableCell>
+                    <TableCell align="left">{order && order.payout && order.payout.toLocaleString()}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>

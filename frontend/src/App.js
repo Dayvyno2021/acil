@@ -11,6 +11,8 @@ import Payment from "./pages/paymentpage/Payment";
 import Investment from "./pages/investmentpage/Investment";
 import Downline from "./pages/downlinepage/Downline";
 import Order from "./pages/orderpage/Order";
+import Profile from "./pages/profile/Profile";
+import Referral from "./pages/referralpage/Referral";
 
 
 function App() {
@@ -26,8 +28,10 @@ function App() {
         <Route path="/payment/:id" element={<Payment/>} />
         <Route path="/order/:id" element={<Order/>} />
         <Route path="/invest/:id" element={<Product/>} />
+        <Route path="/profile/:id" element={<Profile/>} />
         <Route path="/investment/:id" element={<Investment/>} />
         <Route path="/downline/:id" element={<Downline/>} />
+        <Route path="/referral/:id" element={<Referral/>} />
         <Route path="/contactus" element={<h1>Contact Us</h1>} />
       </Routes>
       <Footer/>

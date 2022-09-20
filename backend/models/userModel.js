@@ -12,12 +12,6 @@ const userSchema = mongoose.Schema(
     isAdmin: { type: Boolean, required: true, default: false },
     refBy: { type: String },
     pic:{data: Buffer, contentType: String},
-    pic2: {
-      type: "String",
-      required: false,
-      default:
-        "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-    },
   },
   { timestaps: true }
 );

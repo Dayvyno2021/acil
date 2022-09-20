@@ -12,26 +12,20 @@ import ShareIcon from '@mui/icons-material/Share';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 // import CheckIcon from '@mui/icons-material/Check';
-import { reg } from "./registerUI";
+// import { reg } from "./registerUI";
+import { reg } from '../registerpage/registerUI';
 import { theme } from '../../components/Theme';
 import { registerAction } from '../../actions/userActions';
 import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
-import queryString from 'query-string';
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  
-  const parsed = queryString.parse(location.search);
-  
-  // const redirect = location.search ? location.search.split('=')[1] : '';
+  const redirect = location.search? location.search.split('=')[1] : '';
 
-  const redirect = parsed.redirect ? parsed.redirect : '';
-  const referral = parsed.referral ? parsed.referral : '';
-  
   const registerReducer = useSelector((state) => state.registerReducer);
   const { loading, acilDetails, error } = registerReducer;
 
@@ -165,7 +159,7 @@ const Register = () => {
               <Grid item container xs={11}>
                 <ShareIcon sx={reg.icon} />
                 <TextField variant="outlined" type='text' name='refcode' id='refcode'
-                  placeholder="Referral Code" autoComplete='true' value={refCode || referral}
+                  placeholder="Referral Code" autoComplete='true' value={refCode}
                   onChange={(e)=>setRefCode(e.target.value)}
                 />
               </Grid>

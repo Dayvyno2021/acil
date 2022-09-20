@@ -54,7 +54,7 @@ const Order = () => {
       {ready && <SnackBar message={'Payment Successful'} severity='success' />}
       <Grid container justifyContent='space-between' sx={{my: '2rem', px:'3rem'}}>
         <Grid item onClick={cancelPlaceorder}>
-          <HomeIcon  sx={{color:'#000'}} />
+          <HomeIcon  sx={{color:'#000', '&:hover':{cursor: 'pointer'}}} />
         </Grid>
         <Typography variant='h5' sx={{ fontFamily: 'Lato', fontWeight: '700' }}>
           INVESTMENT DETAILS

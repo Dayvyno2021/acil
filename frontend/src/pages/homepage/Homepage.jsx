@@ -28,9 +28,9 @@ const Homepage = () => {
     {label: 'Home', link:'/', acilDetails: false},
     { label:"About", link: '/about', acilDetails: false},
     { label:"Invest", link: "/invest", acilDetails: false},
-    { label:"How It Works", link:"#howitworks", acilDetails: false},
     { label: "Contact Us", link: "#contactus", acilDetails: false },
     {label: "Register", link:"/register", acilDetails: acilDetails},
+    {label: "Profile", link:`/profile/${acilDetails && acilDetails.id}`, acilDetails: !acilDetails},
     {label: "Login", link:"/login", acilDetails: acilDetails},
     {label: "Logout", link:"/", acilDetails: !acilDetails},
   ]
@@ -39,7 +39,8 @@ const Homepage = () => {
     {label: 'Home', link:'/', acilDetails: false},
     { label:"About", link: '/about', acilDetails: false},
     { label:"Invest", link: "/invest", acilDetails: false},
-    {label: "Register", link:"/register", acilDetails: acilDetails},
+    { label: "Register", link: "/register", acilDetails: acilDetails },
+    {label: "Profile", link:`/profile/${acilDetails && acilDetails.id}`, acilDetails: !acilDetails},
     {label: "Login", link:"/login", acilDetails: acilDetails},
     {label: "Logout", link:"/", acilDetails: !acilDetails},
   ]

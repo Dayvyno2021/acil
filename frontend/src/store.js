@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { getOrderReducer, placeOrderReducer } from './reducers/orderReducers';
+import { getOrderReducer, myordersReducer, placeOrderReducer } from './reducers/orderReducers';
 import { choosePackageReducer } from './reducers/packageReducers';
 import { getProductsReducer, singleProductReducer } from './reducers/productReducers';
-import { loginReducer, profileReducer, registerReducer } from './reducers/userReducers';
+import { getDownlinesReducer, loginReducer, profileReducer, registerReducer, uploadPixReducer } from './reducers/userReducers';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +13,9 @@ export const store = configureStore({
     singleProductReducer: singleProductReducer,
     choosePackageReducer: choosePackageReducer,
     placeOrderReducer: placeOrderReducer,
-    getOrderReducer: getOrderReducer
+    getOrderReducer: getOrderReducer,
+    uploadPixReducer: uploadPixReducer,
+    myordersReducer: myordersReducer,
+    getDownlinesReducer: getDownlinesReducer
   }
 })

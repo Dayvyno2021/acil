@@ -1,12 +1,19 @@
 import mongoose from "mongoose";
 
 const refSchema = mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "UserModel" },
-  product: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "ProductModel" },
-  packageType: { type: String, required: true },
-  refPayout: { type: Number, required: true },
-  payOutDate: { type: Date, required: true },
-  amount:{type:Number, required: true}
+  referral: { type: mongoose.Schema.Types.ObjectId, ref: "UserModel" },
+  refCode: {type: String},
+  pack: {
+    productID: { type: mongoose.Schema.Types.ObjectId, ref: "ProductModel"},
+    name: { type: String, required: true },
+    ROI: { type: Number, required: true },
+    maturity: { type: Number, required: true },
+    packageType: { type: String, required: true },
+    amount: { type: Number, required:true },   
+},
+  refPayout: { type: Number},
+  payOutDate: { type: Date},
+  amount:{type:Number}
   
 }, {
   timestamps: true

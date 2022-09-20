@@ -10,6 +10,11 @@ export const tables = {
     px: '1rem'
   },
   pb: '2rem',
+  heading: {
+    fontWeight: '700',
+    fontFamily: 'Lato',
+    fontSize: '2.5rem'
+  },
   '& h1': {
     fontWeight: '700',
     fontFamily: 'Lato',
