@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { getOrderReducer, myordersReducer, placeOrderReducer } from './reducers/orderReducers';
 import { choosePackageReducer } from './reducers/packageReducers';
 import { getProductsReducer, singleProductReducer } from './reducers/productReducers';
-import { getDownlinesReducer, loginReducer, profileReducer, registerReducer, uploadPixReducer } from './reducers/userReducers';
+import { getDownlinesReducer, loginReducer, profileReducer, registerReducer, sendMessageReducer, uploadPixReducer } from './reducers/userReducers';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +16,7 @@ export const store = configureStore({
     getOrderReducer: getOrderReducer,
     uploadPixReducer: uploadPixReducer,
     myordersReducer: myordersReducer,
-    getDownlinesReducer: getDownlinesReducer
+    getDownlinesReducer: getDownlinesReducer,
+    sendMessageReducer:sendMessageReducer
   }
 })

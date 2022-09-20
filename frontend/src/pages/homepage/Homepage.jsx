@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState, useEffect  } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -17,12 +17,20 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from "react-router-dom";
 import Header from '../../components/headerComp/Header';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { sendMessageAction } from "../../actions/userActions";
+import Progress from "../../components/Progress";
+import SnackBar from "../../components/Snackbar";
+import { RESET_MESSAGE } from "../../constants/userConstants";
 
 const Homepage = () => {
   const matchSM = useMediaQuery(theme.breakpoints.down('md'));
   const registerReducer = useSelector((state) => state.registerReducer);
   const { acilDetails } = registerReducer;
+  const dispatch = useDispatch();
+
+  const sendMessageReducer = useSelector(state => state.sendMessageReducer);
+  const { loading, success, error } = sendMessageReducer;
 
   const labels = [
     {label: 'Home', link:'/', acilDetails: false},
@@ -45,9 +53,37 @@ const Homepage = () => {
     {label: "Logout", link:"/", acilDetails: !acilDetails},
   ]
 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [ready, setReady] = useState(false);
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+    // console.log({ firstName, lastName, email, phone, message });
+    dispatch(sendMessageAction({ firstName, lastName, email, phone, message }))
+  }
+
+  useEffect(() => {
+    if (success) {
+      setReady(true)
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+      dispatch({type: RESET_MESSAGE})
+    }
+  },[dispatch, success])
+
   return (
 
     <Box sx={home}>
+      {loading && <Progress />}
+      {error && <SnackBar message={error} />}
+      {ready && <SnackBar message='Message sent' severity='success'/> }
       <Grid container  >
         <Grid item container direction='column'>
           <Header labels={labels} labels1={labels1} />
@@ -184,18 +220,20 @@ const Homepage = () => {
                   <Box >Acil Address</Box>
                 </Stack>
               </Grid>
-              <Grid item container md={7} xs={12} sx={home.contact2B} component='form'>
+              <Grid item container md={7} xs={12} sx={home.contact2B} component='form'
+                onSubmit={sendMessage}
+              >
                 <Grid item container  >
                   <Grid xs={12} md={6} item sx={{ px: '0.5rem' }} className='control'>
                     <label htmlFor="fname"  className="label">First Name</label>
-                    <TextField required sx={{ width: '100%'}} color='success' id="fname"
-                      size="small" 
+                    <TextField required sx={{ width: '100%'}} color='success' id="fname" type='text'
+                      size="small" value={firstName} onChange={(e)=>setFirstName(e.target.value)}
                     />
                   </Grid>
                   <Grid xs={12} md={6} item sx={{ px: '0.5rem' }} className='control'>
                     <label htmlFor="lname" className="label">Last Name</label>
-                    <TextField required sx={{ width: '100%' }} color='success' id='lname'
-                      size='small'
+                    <TextField required sx={{ width: '100%' }} color='success' id='lname' type='text'
+                      size='small' value={lastName} onChange={(e)=>setLastName(e.target.value)}
                     />
                   </Grid>
                 </Grid>
@@ -203,22 +241,26 @@ const Homepage = () => {
                   <Grid xs={12} md={6} item sx={{ px: '0.5rem' }} className='control'>
                     <label htmlFor="fname" className="label">Email</label>
                     <TextField required sx={{ width: '100%' }} color='success' id="email"
-                      size='small'
+                      size='small' value={email} onChange={(e)=>setEmail(e.target.value)}
                     />
                   </Grid>
                   <Grid xs={12} md={6} item sx={{ px: '0.5rem' }} className='control'>
                     <label htmlFor="phone" className="label">Phone</label>
-                    <TextField required sx={{ width: '100%' }} id='phone' size="small"
-                      color= "success"
+                    <TextField required sx={{ width: '100%' }} id='phone' size="small" type='tel'
+                      color= "success" value={phone} onChange={(e)=>setPhone(e.target.value)}
                     />
                   </Grid>
                 </Grid>
                 <Grid item container  className='control' direction='column'>
                   <label htmlFor="message" className="label">Message</label>
-                  <TextField multiline rows={4} id='message' color='success' />
+                  <TextField multiline rows={4} id='message' color='success'
+                    value={message} onChange={(e)=>setMessage(e.target.value)}
+                  />
                 </Grid>
                 <Grid item container  className='control'>
-                  <Button variant='contained' sx={home.submit}>Get Started</Button>
+                  <Button variant='contained' sx={home.submit} type='submit'>
+                    Get Started
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>

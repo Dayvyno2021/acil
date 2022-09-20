@@ -9,6 +9,7 @@ import imageRoute from "./routes/imageRoute.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import investmentRoute from "./routes/investmentRoute.js";
 import referralRoute from "./routes/referralRoute.js";
+import emailRoute from "./routes/emailRoute.js"
 import path from "path";
 import cors from "cors";
 dotenv.config();
@@ -31,6 +32,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/investment", investmentRoute);
 app.use("/api/referral", referralRoute);
+app.use('/api/email', emailRoute);
 app.get("/paystack-key", (req, res) => res.send(process.env.PAYSTACK_TEST_KEY));
 app.use(imageRoute);
 

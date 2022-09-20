@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_DOWNLINES_FAIL, GET_DOWNLINES_REQUEST, GET_DOWNLINES_SUCCESS, UPLOAD_IMAGE_FAIL, UPLOAD_IMAGE_REQUEST, UPLOAD_IMAGE_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS } from '../constants/userConstants';
+import { GET_DOWNLINES_FAIL, GET_DOWNLINES_REQUEST, GET_DOWNLINES_SUCCESS, SEND_MESSAGE_FAIL, SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS, UPLOAD_IMAGE_FAIL, UPLOAD_IMAGE_REQUEST, UPLOAD_IMAGE_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS } from '../constants/userConstants';
 
 export const registerAction = (input) => async (dispatch) => {
   try {
@@ -181,6 +181,31 @@ export const getDownlinesAction = (ref) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: GET_DOWNLINES_FAIL,
+      payload: error.response && error.response.message.data ?
+        error.response.message.data: error.response
+    })
+  }
+}
+
+export const sendMessageAction = (input) => async (dispatch) => {
+  try {
+    dispatch({ type: SEND_MESSAGE_REQUEST });
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    
+    const { data } = await axios.post('/api/email/send', input, config);
+
+    dispatch({
+      type: SEND_MESSAGE_SUCCESS,
+      payload: data
+    })
+
+  } catch (error) {
+    dispatch({
+      type: SEND_MESSAGE_FAIL,
       payload: error.response && error.response.message.data ?
         error.response.message.data: error.response
     })
