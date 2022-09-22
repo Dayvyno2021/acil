@@ -17,10 +17,18 @@ import { theme } from '../Theme';
 import Nav from '../navbutton/Nav';
 import { useDispatch } from 'react-redux';
 import { logoutAction } from '../../actions/userActions';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { styleMenu } from './headerUI';
+import { useSelector } from 'react-redux';
 
 const Header = ({labels, labels1}) => {
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const loginReducer = useSelector((state) => state.loginReducer);
+  const { acilDetails } = loginReducer;
 
   const matches = useMediaQuery(theme.breakpoints.down('md'))
 
@@ -35,6 +43,18 @@ const Header = ({labels, labels1}) => {
     setAnchor(!anchor);
   }
 
+
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   useEffect(() => {
     switch (location.pathname) {
       case '/':
@@ -43,14 +63,26 @@ const Header = ({labels, labels1}) => {
       case `/about`:
         setValue(1);
         break;
-      case `/review`:
+      case `/invest`:
         setValue(2);
         break;
-      case '/howitworks':
+      case '/contactus':
         setValue(3)
         break;
-      case '/contactus': 
+      case '/profile': 
         setValue(4);
+        break;
+      case '/admin/investors':
+        setValue(8);
+        break;
+      case '/admin/products':
+        setValue(9);
+        break;
+      case'/admin/investments':
+        setValue(10);
+        break;
+      case '/admin/ref-payouts' :
+        setValue(11);
         break;
       default:
         setValue(0);
@@ -65,27 +97,65 @@ const Header = ({labels, labels1}) => {
   }
   
   const tabs = (
-    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
-      textColor="primary" sx={head.tabs} indicatorColor='primary' className='tabs'
-    >
-      {
-        labels && labels.map((label, i) => (
-          <Tab label={label.label} key={`label${i}`} value={i}
+    <Box sx={{display: 'flex', direction:'row'}}>
+      <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+        textColor="primary" sx={head.tabs} indicatorColor='primary' className='tabs'
+      >
+        {
+          labels && labels.map((label, i) => (
+            <Tab label={label.label} key={`label${i}`} value={i}
             sx={{display: label && label.acilDetails? 'none':'inline-block' }}
             component='a' href={label.link} className={`tab${i}`} 
             onClick={()=>handleAnchorLogoutTab(label)}
-          />
-        ))
+            />
+            ))
+          }
+      </Tabs>
+      {
+        acilDetails && acilDetails.isAdmin &&
+      <Button variant='contained'
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        sx={head.menuBtn}
+      >
+        Admin
+      </Button>
       }
-    </Tabs>
+      {/*This can be any where*/}
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+          onMouseLeave: handleClose
+        }}
+        sx={styleMenu}
+      >
+        <MenuItem onClick={handleClose} component={Link} to='/admin/investors'>
+          Investors
+        </MenuItem>
+        <MenuItem onClick={handleClose} component={Link} to='/admin/products'>
+          Products
+        </MenuItem>
+        <MenuItem onClick={handleClose} component={Link} to='/admin/investments'>
+          Investments
+        </MenuItem>
+        <MenuItem onClick={handleClose} component={Link} to='/admin/ref-payouts'>
+          Ref. Payouts
+        </MenuItem>
+      </Menu>
+    </Box>
   )
 
-  const handleAnchorLogout = (label) => {
-    // onClick={()=>setAnchor(false)}
+  const handleAnchorLogout = () => {
     setAnchor(false);
-    if (label && label.label === 'Logout') {
-      dispatch(logoutAction())
-    }
+    dispatch(logoutAction())
+    
   }
 
   const small = (
@@ -105,30 +175,58 @@ const Header = ({labels, labels1}) => {
               <ListItem key={`label2${i}`} component={Link} to={label.link}
                  selected={i===value} className={`tab${i}`}
                 sx={{ display: label && label.acilDetails ? 'none' : 'inline-block' }}
-                onClick={()=>handleAnchorLogout(label)}
               >
                 {label.label}
               </ListItem>
             ))
           }
-        </List>   
+          {acilDetails && acilDetails.isAdmin &&
+            <>
+            <ListItem component={Link} to='/admin/investors' selected={value===8}>
+              Investors
+            </ListItem>
+            <ListItem component={Link} to='/admin/products' selected={value===9}>
+              Products
+            </ListItem>
+            <ListItem component={Link} to='/admin/investments' selected={value===10}>
+              Investments
+            </ListItem>
+            <ListItem component={Link} to='/admin/ref-payouts' selected={value===11}>
+              Ref. Payouts
+            </ListItem>
+            </>
+          }
+
+          {!acilDetails &&
+            <>
+              <ListItem component={Link} to='/login'>Login</ListItem>      
+              <ListItem  component={Link} to='/register'>Register</ListItem>      
+            </>
+          }
+
+          {acilDetails && acilDetails.id &&
+            <ListItem component={Link} to='/' onClick={handleAnchorLogout}>
+              Logout
+            </ListItem>      
+          }
+        </List>
       </SwipeableDrawer>
     </Box>
   )
-
   return (
     <Box sx={head}>
-      <Grid container sx={head.tabCover} justifyContent='space-between' alignItems='center'>
+      <Grid container sx={head.tabCover}  alignItems='center'>
         <Grid item md={2} sx={head.logo} to='/' component={Link}> 
           <img src="/image/logo.png" alt=""/>
         </Grid>
-        <Grid item md={10}>
+        <Grid item md={10} container justifyContent='end'>
           {
             matches ? 
               small
               :
               tabs
           }
+
         </Grid>
       </Grid>
     </Box>

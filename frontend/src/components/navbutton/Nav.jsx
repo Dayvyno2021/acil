@@ -7,6 +7,8 @@ const nav = {
   backgroundColor: '#FFFFFF',
   cursor: 'pointer',
   transition: '0.3s',
+  top: '-2rem',
+  right: '-2rem',
   '&:after': {
     content: "''",
     position: 'absolute',

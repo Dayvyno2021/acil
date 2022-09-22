@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { getOrderReducer, myordersReducer, placeOrderReducer } from './reducers/orderReducers';
+import { allOrdersReducer, getOrderReducer, myordersReducer, placeOrderReducer } from './reducers/orderReducers';
 import { choosePackageReducer } from './reducers/packageReducers';
 import { getProductsReducer, singleProductReducer } from './reducers/productReducers';
-import { getDownlinesReducer, loginReducer, profileReducer, registerReducer, sendMessageReducer, uploadPixReducer } from './reducers/userReducers';
+import { adminUsersReducer, deleteUserReducer, getDownlinesReducer, loginReducer, makeAdminReducer, profileReducer, registerReducer, sendMessageReducer, updateUserReducer, uploadPixReducer } from './reducers/userReducers';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +17,11 @@ export const store = configureStore({
     uploadPixReducer: uploadPixReducer,
     myordersReducer: myordersReducer,
     getDownlinesReducer: getDownlinesReducer,
-    sendMessageReducer:sendMessageReducer
+    sendMessageReducer: sendMessageReducer,
+    allOrdersReducer: allOrdersReducer,
+    updateUserReducer: updateUserReducer,
+    adminUsersReducer: adminUsersReducer,
+    makeAdminReducer: makeAdminReducer,
+    deleteUserReducer: deleteUserReducer
   }
 })

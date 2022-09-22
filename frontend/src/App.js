@@ -13,6 +13,12 @@ import Downline from "./pages/downlinepage/Downline";
 import Order from "./pages/orderpage/Order";
 import Profile from "./pages/profile/Profile";
 import Referral from "./pages/referralpage/Referral";
+import AdminInvestors from "./pages/admininvestotor/AdminInvestors";
+import AdminInvestments from "./pages/admininvestments/AdminInvestments";
+import AdminReferPayouts from "./pages/adminreferpayout/AdminReferPayouts";
+import AdminProducts from "./pages/adminproducts/AdminProducts";
+import UpdateUser from "./pages/updateuser/UpdateUser";
+import AdminEditUser from "./pages/admin-edit-user/AdminEditUser";
 
 
 function App() {
@@ -23,16 +29,21 @@ function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/invest" element={<Invest/>} />
         <Route path="/register" element={<Register/>} />
-        <Route path="/howitworks" element={<h1>HOW it works</h1>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/payment/:id" element={<Payment/>} />
         <Route path="/order/:id" element={<Order/>} />
         <Route path="/invest/:id" element={<Product/>} />
-        <Route path="/profile/:id" element={<Profile/>} />
+        <Route path="/profile/" element={<Profile/>} />
         <Route path="/investment/:id" element={<Investment/>} />
         <Route path="/downline/:id" element={<Downline/>} />
         <Route path="/referral/:id" element={<Referral/>} />
+        <Route path="/admin/investors" element={<AdminInvestors/>} />
+        <Route path="/admin/products" element={<AdminProducts/>} />
         <Route path="/contactus" element={<h1>Contact Us</h1>} />
+        <Route path="/admin/investments" element={<AdminInvestments/>} />
+        <Route path="/admin/ref-payouts" element={<AdminReferPayouts/>} />
+        <Route path="/update-profile" element={<UpdateUser/>} />
+        <Route path="/update-profile/:id" element={<AdminEditUser/>} />
       </Routes>
       <Footer/>
     </Box>

@@ -38,19 +38,22 @@ const Homepage = () => {
     { label:"Invest", link: "/invest", acilDetails: false},
     { label: "Contact Us", link: "#contactus", acilDetails: false },
     {label: "Register", link:"/register", acilDetails: acilDetails},
-    {label: "Profile", link:`/profile/${acilDetails && acilDetails.id}`, acilDetails: !acilDetails},
+    {label: "Profile", link:`/profile`, acilDetails: !acilDetails},
     {label: "Login", link:"/login", acilDetails: acilDetails},
-    {label: "Logout", link:"/", acilDetails: !acilDetails},
+    {label: "Logout", link: "/", acilDetails: !acilDetails },
+    {acilDetails: true},
+    {acilDetails: true},
+    {acilDetails: true},
+    {acilDetails: true},
   ]
+
 
   const labels1 = [
     {label: 'Home', link:'/', acilDetails: false},
     { label:"About", link: '/about', acilDetails: false},
     { label:"Invest", link: "/invest", acilDetails: false},
-    { label: "Register", link: "/register", acilDetails: acilDetails },
-    {label: "Profile", link:`/profile/${acilDetails && acilDetails.id}`, acilDetails: !acilDetails},
-    {label: "Login", link:"/login", acilDetails: acilDetails},
-    {label: "Logout", link:"/", acilDetails: !acilDetails},
+    { label: "Contact Us", link: "#contactus", acilDetails: false },
+    { label: "Profile", link: `/profile`, acilDetails: !acilDetails },
   ]
 
   const [firstName, setFirstName] = useState('');
@@ -58,6 +61,8 @@ const Homepage = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
+
+  //Takes care of popping up success when email form is successfully submitted
   const [ready, setReady] = useState(false);
 
   const sendMessage = (e) => {

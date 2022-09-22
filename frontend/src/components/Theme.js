@@ -4,7 +4,8 @@ const lemonDark = "#00CB77";
 const lemonLight = "#C4E6D2";
 const blackDark = "#000014";
 const white = "#FFFFFF";
-const red = " #FF0000"
+const red = "#FF0000";
+const orange = '#FFA31A'
 
 export const theme = createTheme({
   palette: {
@@ -19,7 +20,7 @@ export const theme = createTheme({
       main: lemonDark,
     },
     secondary: {
-      main: lemonLight,
+      main: orange,
     },
   },
   learnMore1: {
@@ -56,6 +57,13 @@ export const theme = createTheme({
     textTransform: 'none',
     fontSize: '1.2rem',
     backgroundColor: lemonDark,
+  },
+  invest2: {
+    mr: '2rem', 
+    p: '1rem 4rem', 
+    textTransform: 'none',
+    fontSize: '1.2rem',
+    backgroundColor: orange,
   },
   components:{
     MuiInput: {

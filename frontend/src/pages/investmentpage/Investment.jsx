@@ -12,6 +12,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { tables } from './investmentUI';
 import { useDispatch, useSelector } from 'react-redux';
@@ -75,6 +76,7 @@ const Investment = () => {
                     <TableCell>Amount Invested(&#8358;)</TableCell>
                     <TableCell align="left">Due Date</TableCell>
                     <TableCell align="left">Payout(&#8358;)</TableCell>
+                    <TableCell align="left">View</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -84,6 +86,9 @@ const Investment = () => {
                     </TableCell>
                     <TableCell align="left">{maturityDate(order)}</TableCell>
                     <TableCell align="left">{order && order.payout && order.payout.toLocaleString()}</TableCell>
+                    <TableCell align="left" component={Link} to={`/order/${order && order._id}`} >
+                      <VisibilityIcon />
+                    </TableCell>
                   </TableRow>
                 </TableBody>
               </Table>

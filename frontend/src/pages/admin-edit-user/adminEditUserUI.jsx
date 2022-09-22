@@ -1,6 +1,6 @@
 import { theme } from "../../components/Theme"
 
-export const profileUI = {
+export const editUI = {
   px: '10rem',
   [theme.breakpoints.down('md')]: {
     px: '5rem'
@@ -64,5 +64,24 @@ export const profileUI = {
     color: '#808080', 
     mt: '1rem',
     textTransform: 'capitalize'
+  },
+  admin: {
+    mt: '2rem',
+    border: `2px dotted ${theme.palette.primary.main}`,
+    p: '2rem 5rem',
+    '& button': {
+      color: theme.palette.primary.main,
+      textTransform: 'none',
+      ml: '4rem',
+      transition: '0.5s',
+      '&:hover': {
+        color: theme.palette.primary.dark,
+      }
+    },
+    '& p': {
+      fontSize: '1.2rem',
+      fontFamily: 'Lato',
+      fontWeight: '700'
+    }
   }
 }

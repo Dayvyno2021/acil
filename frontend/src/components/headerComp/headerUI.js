@@ -25,7 +25,7 @@ export const head = {
     justifyContent: 'end'
   },
   tabs: {
-    "& a": {
+    "& a, & button": {
       color: theme.palette.common.white,
       fontFamily: 'Lato',
       textTransform: 'none',
@@ -33,7 +33,7 @@ export const head = {
       '&.Mui-selected': {
         color: theme.palette.primary.main,
         textDecoration: 'none',
-        border: `1.5px solid ${theme.palette.primary.main}`,
+        // border: `1.5px solid ${theme.palette.primary.main}`,
         borderRadius: '4px'
       },
     },
@@ -51,6 +51,9 @@ export const head = {
     fontSize: '3rem',
     color: theme.palette.common.white,
     cursor: 'pointer',
+    position: 'absolute',
+    top: '1.5rem',
+    right: '1.5rem'
   },
   drawer: {
     // '& .tab0': {
@@ -74,5 +77,19 @@ export const head = {
         color: theme.palette.primary.main
       }
     }
+  },
+  menuBtn: {
+    ...theme.invest1,
+    p: '0.5rem 1rem',
+    '&:hover': {
+      bgcolor: theme.palette.primary.dark
+    }
+  }
+}
+
+export const styleMenu = {
+  '& .MuiMenu-paper': {
+    bgcolor: theme.palette.primary.dark,
+    color: 'white'
   }
 }

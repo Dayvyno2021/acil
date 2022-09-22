@@ -69,8 +69,8 @@ export const placeorder = async (req, res) => {
   }
 }
 
-//desc: get the recent order
-//route: /api/investment/placeorder:id
+//desc: get the a particular order
+//route: /api/investment/order:id
 //route: private
 
 export const order = async (req, res) => {
@@ -98,6 +98,25 @@ export const singleOrder = async (req, res) => {
       res.json(orders);
     } else {
       res.status(400).json({message: 'Could not find orders'})
+    }
+    
+  } catch (error) {
+    const m = process.env.NODE_ENV === "production" ? '' : error;
+    res.status(404).json({message: `Server Error===>${m}`})
+  }
+}
+
+//@desc: Fetch all the orders
+//@route: /api/investment/allorders
+//@access: protect, adminProtect
+export const allOrders = async (req, res) => {
+  try {
+
+    const orders = await InvestmentModel.find({});
+    if (orders) {
+      res.json(orders);
+    } else {
+      res.status(400).json({message: "Could not find orders"})
     }
     
   } catch (error) {

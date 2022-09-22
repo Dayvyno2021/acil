@@ -28,7 +28,7 @@ export const tables = {
     color: '#FFFFFF',
     border: `1px solid #000000`,
   },
-  '& td': {
+  '& td, & a': {
     border: `1px solid ${theme.palette.primary.main}`,
   }
 }

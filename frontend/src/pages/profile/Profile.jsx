@@ -17,6 +17,7 @@ import Progress from '../../components/Progress';
 import { useDispatch, useSelector } from 'react-redux';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+// import IconButton from '@mui/material/IconButton';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -99,11 +100,17 @@ const Profile = () => {
         <Typography align='center' sx={{ mt: '0.5rem', color:'#808080' }}>
           http://acil9ja.herokuapp.com/register/?referral={acilDetails && acilDetails.refCode}
         </Typography>
+        <Typography align='center' sx={{ mt: '0.5rem', color: '#808080' }}>
+          <Button variant='outlined' sx={profileUI.update}
+            component={Link} to='/update-profile'>
+            <EditIcon/> update Profile
+          </Button>
+        </Typography>
         <Grid container justifyContent='space-between' className='cl4'>
           <Typography onClick={investment}>
             Investments
           </Typography>
-          <Typography onClick={downline} >Downline</Typography>
+          <Typography onClick={downline} >Downlines</Typography>
         </Grid>
         <Grid container justifyContent='space-between' className='cl5'>
           <Typography>Username</Typography>

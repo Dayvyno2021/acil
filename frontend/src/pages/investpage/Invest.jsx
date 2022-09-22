@@ -41,7 +41,9 @@ const Invest = () => {
           </Box>
           <NotificationsIcon fontSize='large' />
         </Grid>
-        <Grid item sx={invest.actions} container justifyContent='space-between'>
+        <Grid item sx={invest.actions} container
+          justifyContent={acilDetails && acilDetails.id? 'space-between': 'center'}
+        >
           <Grid item >
             <CardGiftcardIcon sx={{mx:'auto', display:'block'}} fontSize='large' />
             <Typography variant='body1'>Guide</Typography>
@@ -56,7 +58,7 @@ const Invest = () => {
           }
           {
             acilDetails && (
-            <Grid item component={Link} to={`/profile/${acilDetails && acilDetails.id}`}>
+            <Grid item component={Link} to={`/profile`}>
               <AccountBoxIcon sx={{mx:'auto', display:'block'}} fontSize='large' />
               <Typography variant='body1'>
                 Profile

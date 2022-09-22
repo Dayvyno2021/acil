@@ -106,13 +106,15 @@ export const login = async (req, res) => {
 }
 
 //desc: get profile;
-//route: /api/user/profile
+//route: /api/user/profile/:id
 //access protected
 
 export const profile = async (req, res) => {
   try {
-    if (req.user) {
-      res.json(req.user);
+    // const {id} = req.params
+    const user = await UserModel.findById(req.params && req.params.id).select('-password -pics')
+    if (user) {
+      res.json(user);
     } else {
       res.status(400).json({message: 'Unauthorized user'})
     }
@@ -193,7 +195,107 @@ export const downlines = async (req, res) => {
       res.status(400).json({message: 'No downlines'})
     }
   } catch (error) {
-        const m = process.env.NODE_ENV==='production'? null: error
+    const m = process.env.NODE_ENV==='production'? null: error
+    res.status(404).json({message: `Server Down===> ${m}`})
+  }
+}
+
+//@desc: Update user profile;
+//@route: put /api/user/update;
+//@access private;
+
+export const updateUser = async (req, res) => {
+  try {
+    const { psw, phone } = req.body;
+    const id = req.params && req.params.id
+    const user = await UserModel.findById(id);
+    if (user) {
+      user.phone = phone || user.phone;
+      if (psw) {
+        user.password = psw;
+      }
+      await user.save();
+
+      res.json({
+        id: user && user._id,
+        username: user && user.name,
+        refCode: user && user.refCode,
+        email: user && user.email,
+        phone: user && user.phone,
+        isAdmin: user && user.isAdmin,
+        refBy: user && user.refBy,
+        createdAt: user && user.createdAt,
+        token: user && generateToken(user._id)
+      })
+    } else {
+      res.status(400).json({message: "Could not find user"})
+    }
+    
+  } catch (error) {
+    const m = process.env.NODE_ENV==='production'? null: error
+    res.status(404).json({message: `Server Down===> ${m}`})
+  }
+}
+
+//@desc: get all investors
+//@route: /api/user/allinvestors;
+//access: protect, adminProtect;
+
+export const getAllInvestors = async (req, res) => {
+  try {
+    const users = await UserModel.find({}).select('-password -pic');
+    if (users) {
+      res.json(users);
+    } else {
+      res.status(400).json({message: "Could not find users"})
+    }
+  } catch (error) {
+    const m = process.env.NODE_ENV==='production'? null: error
+    res.status(404).json({message: `Server Down===> ${m}`})
+  }
+}
+
+//@desc: Admin makes a user an admin
+//route: /api/user/make-user-an-admin/:id
+//@access admin , protected
+
+export const makeAdmin = async (req, res) => {
+  try {
+    const { status } = req.body;
+    // console.log(`STATUS: ${status}`)
+    // console.log(`PARAMS: ${req.params && req.params.id}`)
+    const id = req.params && req.params.id;
+    const user = await UserModel.findById(id);
+    if (user) {
+      user.isAdmin = status;
+      await user.save();
+      res.json('Successful')
+    } else {
+      res.status(400).json({ message: 'Could not find user' });
+    }
+
+  } catch (error) {
+    const m = process.env.NODE_ENV==='production'? null: error
+    res.status(404).json({message: `Server Down===> ${m}`})
+  }
+}
+
+//@desc: Admin deletes a user
+//route: del /api/user/admin-deletes-user/:id
+//@access admin , protected
+
+export const deleteUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const del = await UserModel.findByIdAndDelete(id);
+    if (del) {
+      res.json('Deleted Successfully');
+    } else {
+      res.status(400).json({message: "Could not delete user"})
+    }
+    
+  } catch (error) {
+    const m = process.env.NODE_ENV==='production'? null: error
     res.status(404).json({message: `Server Down===> ${m}`})
   }
 }
