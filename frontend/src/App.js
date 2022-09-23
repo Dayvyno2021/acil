@@ -19,6 +19,8 @@ import AdminReferPayouts from "./pages/adminreferpayout/AdminReferPayouts";
 import AdminProducts from "./pages/adminproducts/AdminProducts";
 import UpdateUser from "./pages/updateuser/UpdateUser";
 import AdminEditUser from "./pages/admin-edit-user/AdminEditUser";
+import CreateNew from "./pages/create-new-page/CreateNew";
+import UpdateSingleProduct from "./pages/update-product-page/UpdateProduct";
 
 
 function App() {
@@ -44,6 +46,8 @@ function App() {
         <Route path="/admin/ref-payouts" element={<AdminReferPayouts/>} />
         <Route path="/update-profile" element={<UpdateUser/>} />
         <Route path="/update-profile/:id" element={<AdminEditUser/>} />
+        <Route path="/create-new-product" element={<CreateNew/>} />
+        <Route path="/update-product/:id" element={<UpdateSingleProduct/>} />
       </Routes>
       <Footer/>
     </Box>

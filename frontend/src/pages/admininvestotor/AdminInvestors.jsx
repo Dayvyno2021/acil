@@ -103,6 +103,8 @@ const AdminInvestors = () => {
                     <TableCell align="left">RefCode</TableCell>
                     <TableCell align="left"><PhoneIcon color='success' /></TableCell>
                     <TableCell align="left">Admin?</TableCell>
+                    <TableCell align="left">Created</TableCell>
+                    <TableCell align="left">Updated</TableCell>
                     <TableCell align="left">Edit</TableCell>
                     <TableCell align="left">Del</TableCell>
                   </TableRow>
@@ -122,6 +124,8 @@ const AdminInvestors = () => {
                           (<ClearIcon sx={{color:'red'}}/>)
                         }
                       </TableCell>
+                      <TableCell align="left">{investor && investor.createdAt}</TableCell>
+                      <TableCell align="left">{investor && investor.updatedAt}</TableCell>
                       <TableCell align="left" sx={{cursor:'pointer'}}>
                         <EditIcon sx={{ color: '#808080' }}
                           onClick={() => makeAdmin(investor && investor._id)}

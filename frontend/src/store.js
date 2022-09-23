@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { allOrdersReducer, getOrderReducer, myordersReducer, placeOrderReducer } from './reducers/orderReducers';
 import { choosePackageReducer } from './reducers/packageReducers';
-import { getProductsReducer, singleProductReducer } from './reducers/productReducers';
+import { createProductReducer, deleteProductReducer, getProductsReducer, singleProductReducer, updateProductReducer } from './reducers/productReducers';
 import { adminUsersReducer, deleteUserReducer, getDownlinesReducer, loginReducer, makeAdminReducer, profileReducer, registerReducer, sendMessageReducer, updateUserReducer, uploadPixReducer } from './reducers/userReducers';
 
 export const store = configureStore({
@@ -22,6 +22,9 @@ export const store = configureStore({
     updateUserReducer: updateUserReducer,
     adminUsersReducer: adminUsersReducer,
     makeAdminReducer: makeAdminReducer,
-    deleteUserReducer: deleteUserReducer
+    deleteUserReducer: deleteUserReducer,
+    createProductReducer: createProductReducer,
+    updateProductReducer: updateProductReducer,
+    deleteProductReducer: deleteProductReducer
   }
 })

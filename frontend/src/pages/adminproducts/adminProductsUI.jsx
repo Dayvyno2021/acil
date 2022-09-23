@@ -1,5 +1,5 @@
 import { theme } from "../../components/Theme";
-export const invs = {
+export const adminP = {
   header: {
     width: '100%',
     height: '7rem',
@@ -48,7 +48,16 @@ export const invs = {
   },
   '& .MuiTableHead-root': {
     '& th': {
-      textAlign: 'center'
+      textAlign: 'center',
+    }
+  },
+  create: {
+    mb: '1rem',
+    bgcolor: theme.palette.primary.main,
+    textTransform: 'none',
+    transition: '0.5s',
+    '&:hover': {
+      bgcolor: theme.palette.primary.dark
     }
   }
 }

@@ -47,12 +47,12 @@ const AdminEditUser = () => {
     if (!userDetails || (userDetails && userDetails._id !== id)) {
       dispatch(profileAction(id));
     }else {
+      setStatus(userDetails && userDetails.isAdmin);
       if (success) {
         dispatch({ type: RESET_MAKE_ADMIN });
         navigate('/admin/investors')
       }
     }
-    setStatus(userDetails && userDetails.isAdmin);
   }, [dispatch, id, userDetails, navigate, success])
 
   return (

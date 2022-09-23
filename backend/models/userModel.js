@@ -12,8 +12,9 @@ const userSchema = mongoose.Schema(
     isAdmin: { type: Boolean, required: true, default: false },
     refBy: { type: String },
     pic:{data: Buffer, contentType: String},
-  },
-  { timestaps: true }
+  }, {
+  timestamps: true,
+}
 );
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
