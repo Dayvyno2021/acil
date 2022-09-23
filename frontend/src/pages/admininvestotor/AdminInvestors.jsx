@@ -72,6 +72,15 @@ const AdminInvestors = () => {
     dispatch(deleteUserAction(id));
   }
 
+  const getDate = (time) => {
+    const d = new Date(time);
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    return `${day}-${month}-${year}`
+  }
+
+
   useEffect(() => {
     if (acilDetails && acilDetails.isAdmin) {
       dispatch(adminUsersAction())
@@ -124,8 +133,8 @@ const AdminInvestors = () => {
                           (<ClearIcon sx={{color:'red'}}/>)
                         }
                       </TableCell>
-                      <TableCell align="left">{investor && investor.createdAt}</TableCell>
-                      <TableCell align="left">{investor && investor.updatedAt}</TableCell>
+                      <TableCell align="left">{getDate(investor && investor.createdAt)}</TableCell>
+                      <TableCell align="left">{getDate(investor && investor.updatedAt)}</TableCell>
                       <TableCell align="left" sx={{cursor:'pointer'}}>
                         <EditIcon sx={{ color: '#808080' }}
                           onClick={() => makeAdmin(investor && investor._id)}

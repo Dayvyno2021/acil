@@ -31,11 +31,11 @@ const Investment = () => {
   const loginReducer = useSelector(state => state.loginReducer);
   const { acilDetails } = loginReducer;
 
-  const maturityDate = (key) => {
-    const maturity = key && key.pack && key.pack.maturity;
-    const due = Date.now() + (maturity* 24 * 60 * 60 * 1000);
-    return new Date(due).toDateString();
-  }
+  // const maturityDate = (key) => {
+  //   const maturity = key && key.pack && key.pack.maturity;
+  //   const due = Date.now() + (maturity* 24 * 60 * 60 * 1000);
+  //   return new Date(due).toDateString();
+  // }
 
   // const maturity = maturityDate();
   // console.log(maturity)
@@ -52,7 +52,7 @@ const Investment = () => {
       {loading && <Progress/>}
       <Grid container justifyContent='space-between' sx={{my: '2rem'}}>
         <Grid item component={Link} to={`/profile/${params.id}`}>
-          <ArrowBackIcon  sx={{color:'#000'}} />
+          <ArrowBackIcon  sx={{color:'#000', visibility:'hidden'}} />
         </Grid>
         <Typography sx={tables.heading}>
           Investments
@@ -74,6 +74,7 @@ const Investment = () => {
                 <TableHead sx={{bgcolor: '#000000'}}>
                   <TableRow>
                     <TableCell>Amount Invested(&#8358;)</TableCell>
+                    <TableCell align="left">Maturity</TableCell>
                     <TableCell align="left">Due Date</TableCell>
                     <TableCell align="left">Payout(&#8358;)</TableCell>
                     <TableCell align="left">View</TableCell>
@@ -84,7 +85,8 @@ const Investment = () => {
                     <TableCell align="left">
                       {order && order.pack && order.pack.amount && order.pack.amount.toLocaleString()}
                     </TableCell>
-                    <TableCell align="left">{maturityDate(order)}</TableCell>
+                    <TableCell align="left">{order && order.pack && order.pack.maturity}</TableCell>
+                    <TableCell align="left">{order && order.payoutDate}</TableCell>
                     <TableCell align="left">{order && order.payout && order.payout.toLocaleString()}</TableCell>
                     <TableCell align="left" component={Link} to={`/order/${order && order._id}`} >
                       <VisibilityIcon />

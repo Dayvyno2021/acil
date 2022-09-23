@@ -22,13 +22,13 @@ export const tables = {
     mt: '2rem'
   },
   container: {
-    bgcolor: theme.palette.common.lemon2
+    bgcolor: theme.palette.common.lemon2,
+    '& td, & a': {
+      border: `1px solid ${theme.palette.primary.main}`,
+    }
   },
   '& th': {
     color: '#FFFFFF',
     border: `1px solid #000000`,
   },
-  '& td, & a': {
-    border: `1px solid ${theme.palette.primary.main}`,
-  }
 }

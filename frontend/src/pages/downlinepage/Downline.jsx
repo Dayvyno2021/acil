@@ -49,11 +49,11 @@ const Downline = () => {
   const  getDownlinesReducer = useSelector((state) => state.getDownlinesReducer);
   const { loading, downlines, error } = getDownlinesReducer;
 
-  const maturityDate = (key) => {
-    const maturity = key && key.pack && key.pack.maturity;
-    const due = Date.now() + (maturity* 24 * 60 * 60 * 1000);
-    return new Date(due).toDateString();
-  }
+  // const maturityDate = (key) => {
+  //   const maturity = key && key.pack && key.pack.maturity;
+  //   const due = Date.now() + (maturity* 24 * 60 * 60 * 1000);
+  //   return new Date(due).toDateString();
+  // }
 
   useEffect(() => {
     if (acilDetails && acilDetails.refCode) {
@@ -67,7 +67,7 @@ const Downline = () => {
       {error && <SnackBar message={error}/>}
       <Grid container justifyContent='space-between' sx={{my: '2rem'}}>
         <Grid item component={Link} to={`/profile/${params.id}`}>
-          <ArrowBackIcon  sx={{color:'#000'}} />
+          <ArrowBackIcon  sx={{color:'#000', visibility: 'hidden'}} />
         </Grid>
         <Typography sx={{fontWeight:'700', fontFamily:'Lato', fontSize: '1.5rem'}}>
           Downlines
@@ -81,7 +81,8 @@ const Downline = () => {
               <TableRow>
                 <TableCell>Users</TableCell>
                 <TableCell>Package</TableCell>
-                <TableCell align="left">Due</TableCell>
+                <TableCell align="left">Maturity</TableCell>
+                <TableCell align="left">Due Date</TableCell>
                 <TableCell align="left">Payout(&#8358;)</TableCell>
               </TableRow>
             </TableHead>
@@ -90,7 +91,8 @@ const Downline = () => {
                 <TableRow>
                   <TableCell align="left">{downline && downline.referral && downline.referral.name}</TableCell>
                   <TableCell align="left">{downline && downline.pack && downline.pack.packageType}</TableCell>
-                  <TableCell align="left">{maturityDate(downline)}</TableCell>
+                  <TableCell align="left">{downline && downline.pack && downline.pack.maturity}</TableCell>
+                  <TableCell align="left">{downline && downline.payoutDate}</TableCell>
                   <TableCell align="left">{downline && downline.refPayout && downline.refPayout.toLocaleString()}</TableCell>
                 </TableRow>
               </TableBody>

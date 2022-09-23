@@ -35,6 +35,15 @@ const Order = () => {
     navigate('/')
   }
 
+  const getDate = (time) => {
+    const d = new Date(time);
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    return `${day}-${month}-${year}`
+  }
+
+
   useEffect(() => {
     if (success) {
       setReady(true)
@@ -84,7 +93,7 @@ const Order = () => {
               <ListItem >
                 <ListItemText>Order Date:{' '}</ListItemText>
                 <ListItemText>
-                  {orderDetails && orderDetails.createdAt}
+                  {getDate(orderDetails && orderDetails.createdAt)}
                 </ListItemText>
               </ListItem>
               <ListItem >

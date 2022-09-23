@@ -15,12 +15,12 @@ export const getProductsReducer = (state = { products: [] }, action) => {
   }
 }
 
-export const singleProductReducer = (state = {}, action) => {
+export const singleProductReducer = (state = {product:{}}, action) => {
   switch (action.type) {
     case SINGLE_PRODUCT_REQUEST:
       return { ...state, loading: true };
     case SINGLE_PRODUCT_SUCCESS:
-      return { loading: false, product: action.payload };
+      return { loading: false, product: action.payload, success:true };
     case SINGLE_PRODUCT_FAIL:
       return {loading: false, error: action.payload}
   

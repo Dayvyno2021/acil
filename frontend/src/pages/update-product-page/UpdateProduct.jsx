@@ -21,7 +21,7 @@ const UpdateSingleProduct = () => {
   const params = useParams();
 
   const singleProductReducer = useSelector((state) => state.singleProductReducer);
-  const { loading, product, error } = singleProductReducer;
+  const { loading, product, error, success: successP } = singleProductReducer;
 
 
   const [name, setName] = useState('');
@@ -41,7 +41,7 @@ const UpdateSingleProduct = () => {
   }
 
   useEffect(() => {
-    if (!product || (product && product._id !== params.id)) {
+    if (!successP || (product && product._id !== params.id)) {
       dispatch(singleProductAction(params.id));
     } else {
       setName(product && product.name);
@@ -54,7 +54,7 @@ const UpdateSingleProduct = () => {
     }
     
 
-  }, [dispatch, success, navigate, params, product])
+  }, [dispatch, success, navigate, params, product, successP])
 
   return (
     <Box sx={{ minHeight: '85vh' }}>

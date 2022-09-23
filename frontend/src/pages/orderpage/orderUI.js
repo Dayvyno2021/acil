@@ -6,7 +6,7 @@ export const orderui = {
     mb: '2rem'
   },
   product: {
-    bgcolor: theme.palette.secondary.main,
+    bgcolor: theme.palette.common.lemon2,
     borderRadius: '3px',
     p: '1rem',
     '&>li': {
