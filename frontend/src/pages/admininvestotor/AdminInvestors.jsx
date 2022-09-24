@@ -141,7 +141,7 @@ const AdminInvestors = () => {
                         />
                       </TableCell>
                       <TableCell align="left" sx={{cursor:'pointer'}}>
-                        <DeleteIcon sx={{ color: '#808080' }}
+                        <DeleteIcon sx={{ color: '#ff6666' }}
                           onClick={()=>deleteUser(investor && investor._id)}
                         />
                       </TableCell>

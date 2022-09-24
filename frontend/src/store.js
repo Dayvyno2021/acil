@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { allOrdersReducer, getOrderReducer, myordersReducer, placeOrderReducer } from './reducers/orderReducers';
+import { allOrdersReducer, deleteOderReducer, getOrderReducer, myordersReducer, placeOrderReducer, updatePayoutReducer, updateToPaidReducer } from './reducers/orderReducers';
 import { choosePackageReducer } from './reducers/packageReducers';
 import { createProductReducer, deleteProductReducer, getProductsReducer, singleProductReducer, updateProductReducer } from './reducers/productReducers';
+import { allReferralReducer, deleteReferralReducer, refPayoutReducer, updateRefPayoutReducer } from './reducers/referralReducers';
 import { adminUsersReducer, deleteUserReducer, getDownlinesReducer, loginReducer, makeAdminReducer, profileReducer, registerReducer, sendMessageReducer, updateUserReducer, uploadPixReducer } from './reducers/userReducers';
 
 export const store = configureStore({
@@ -25,6 +26,13 @@ export const store = configureStore({
     deleteUserReducer: deleteUserReducer,
     createProductReducer: createProductReducer,
     updateProductReducer: updateProductReducer,
-    deleteProductReducer: deleteProductReducer
+    deleteProductReducer: deleteProductReducer,
+    deleteOderReducer: deleteOderReducer,
+    updateToPaidReducer: updateToPaidReducer,
+    updatePayoutReducer: updatePayoutReducer,
+    allReferralReducer: allReferralReducer,
+    updateRefPayoutReducer: updateRefPayoutReducer,
+    refPayoutReducer: refPayoutReducer,
+    deleteReferralReducer: deleteReferralReducer
   }
 })

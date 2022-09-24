@@ -13,7 +13,8 @@ const refSchema = mongoose.Schema({
 },
   refPayout: { type: Number},
   payOutDate: { type: Date},
-  amount:{type:Number}
+  amount: { type: Number },
+  isPaidOut: {type: Boolean, default: false}
   
 }, {
   timestamps: true

@@ -71,6 +71,11 @@ const Homepage = () => {
     dispatch(sendMessageAction({ firstName, lastName, email, phone, message }))
   }
 
+  const disableSendEmail = () => {
+    if (!firstName || !lastName || !email || !phone || !message) return true;
+    return false;
+  }
+
   useEffect(() => {
     if (success) {
       setReady(true)
@@ -263,7 +268,9 @@ const Homepage = () => {
                   />
                 </Grid>
                 <Grid item container  className='control'>
-                  <Button variant='contained' sx={home.submit} type='submit'>
+                  <Button variant='contained' sx={home.submit} type='submit'
+                    disabled = {disableSendEmail()}
+                  >
                     Get Started
                   </Button>
                 </Grid>

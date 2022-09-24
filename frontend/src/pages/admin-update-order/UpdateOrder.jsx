@@ -1,39 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from "react-redux";
 import Progress from "../../components/Progress";
 import SnackBar from "../../components/Snackbar";
 import { useParams, useNavigate } from "react-router-dom";
-import { getOrderAction } from "../../actions/orderActions";
+import { getOrderAction, updatePayoutAction, updateToPaidAction } from "../../actions/orderActions";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
-import { orderui } from './orderUI';
 import ClearIcon from '@mui/icons-material/Clear'
 import CheckIcon from '@mui/icons-material/Check';
-import { CANCEL_PLACEORDER, RESET_ORDER } from "../../constants/orderConstants";
 import HomeIcon from '@mui/icons-material/Home';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { UpdateOrderUI } from "./updateOrderUI";
+import Checkbox from '@mui/material/Checkbox';
+import { RESET_ORDER_PAID, RESET_PAYOUT } from "../../constants/orderConstants";
 
-const Order = () => {
+const UpdateOrder = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [paid, setPaid] = useState(false)
+  const [paidOut, setPaidOut] = useState(false)
   
-  const [ready, setReady] = useState(false);
   const getOrderReducer = useSelector((state) => state.getOrderReducer);
+  const { loading, order: orderDetails, success, error } = getOrderReducer;
+  
+  const updateToPaidReducer = useSelector(state => state.updateToPaidReducer);
+  const { loadingPD, order: orderPD, error: errorPD } = updateToPaidReducer;
 
-  const { loading, order:orderDetails, error } = getOrderReducer;
-
-  const placeOrderReducer = useSelector((state) => state.placeOrderReducer);
-  const { success } = placeOrderReducer;
-
-  const resetPlaceorder = ()=>{
-    dispatch({ type: RESET_ORDER });
-    navigate('/')
-  }
+  const updatePayoutReducer = useSelector(state => state.updatePayoutReducer);
+  const {loadingPO, po, errorPO} = updatePayoutReducer
 
   const getDate = (time) => {
     const d = new Date(time);
@@ -43,26 +44,44 @@ const Order = () => {
     return `${day}-${month}-${year}`
   }
 
+  const confirmPaid = (e) => {
+    e.preventDefault();
+    // console.log({paid, id: params.id})
+    dispatch(updateToPaidAction({paid, id: params.id}))
+  }
+
+  const confirmPaidOut = (e) => {
+    e.preventDefault();
+    dispatch(updatePayoutAction({paidOut, id: params.id}))
+  }
 
   useEffect(() => {
-    if (success) {
-      setReady(true)
+    if (!success || (orderDetails && orderDetails._id !== params.id)) {
       dispatch(getOrderAction(params.id));
-      dispatch({type: CANCEL_PLACEORDER})
     } else {
-      dispatch(getOrderAction(params.id));
+      if (orderPD) {
+        dispatch({ type: RESET_ORDER_PAID });
+        navigate('/admin/investments')
+      }
+      if (po) {
+        dispatch({ type: RESET_PAYOUT });
+        navigate('/admin/investments')
+      }
+      setPaid(orderDetails && orderDetails.payment && orderDetails.payment.isPaid)
+      setPaidOut(orderDetails && orderDetails.isPaidOut)
     }
-  }, [dispatch, success, params])
+  }, [dispatch, params, orderDetails, success, orderPD, po, navigate])
   
-
-
   return (
     <Box sx={{minHeight: '85vh'}}>
-      {loading && <Progress />}
-      {error && <SnackBar message={error} />}
-      {ready && <SnackBar message={'Payment Successful'} severity='success' />}
+      {(loading || loadingPD) && <Progress />}
+      { loadingPO && <Progress />}
+      {(error || errorPD) && <SnackBar message={error || errorPD} />}
+      {errorPO && <SnackBar message={errorPO} />}
+      {(orderPD) && <SnackBar message={'Updated Payment'} severity='success' />}
+      {po && <SnackBar message={'Updated Payment'} severity='success' />}
       <Grid container justifyContent='space-between' sx={{my: '2rem', px:'3rem'}}>
-        <Grid item onClick={resetPlaceorder}>
+        <Grid item sx={{visibility: 'hidden'}}>
           <HomeIcon  sx={{color:'#000', '&:hover':{cursor: 'pointer'}}} />
         </Grid>
         <Typography variant='h5' sx={{ fontFamily: 'Lato', fontWeight: '700' }}>
@@ -70,14 +89,37 @@ const Order = () => {
         </Typography>
         <NotificationsIcon/>
       </Grid>
-      <Box sx={orderui}>
+
+      <Grid container justifyContent='center'> 
+        <Grid item component='form' onSubmit={confirmPaid}  sx={UpdateOrderUI.confirm}
+        container alignItems='center' xs={10} md={6.1} justifyContent='center'
+        >
+
+            <Typography>Confirm Payment:</Typography>
+            <Checkbox color="success" sx={{ '& .MuiSvgIcon-root': { fontSize: '2rem' } }}
+              checked={paid} onChange={(e)=>setPaid(e.target.checked)}
+              />
+            <Button type="submit">Confirm</Button>
+
+        </Grid>
+        <Grid item component='form'onSubmit={confirmPaidOut} sx={UpdateOrderUI.confirm}
+        container alignItems='center' xs={10} md={6.1} justifyContent='center'
+        >
+
+            <Typography>Confirm Paid-Out:</Typography>
+            <Checkbox color="success" sx={{ '& .MuiSvgIcon-root': { fontSize: '2rem' } }}
+              checked={paidOut} onChange={(e)=>setPaidOut(e.target.checked)}
+              />
+            <Button type="submit">Confirm</Button>
+
+        </Grid>
+      </Grid>
+
+      <Box sx={UpdateOrderUI}>
         <Grid container justifyContent='center'>
           <Grid item container direction='column' xs={10} md={6} >
-            <Typography variant='h4' >Product Details</Typography>
-            <Typography variant='p' fontSize='9px' color='yellowgreen'>
-              (payment confirmation is usually within 5mins to 24hrs)
-            </Typography>
-            <List sx={orderui.product}>
+            <Typography variant='h4' color='#808080' >Order Details</Typography>
+            <List sx={UpdateOrderUI.product}>
               <ListItem >
                 <ListItemText>Product Name:{' '}</ListItemText>
                 <ListItemText>
@@ -125,8 +167,8 @@ const Order = () => {
         </Grid>
         <Grid container justifyContent='center'>
           <Grid item container direction='column' xs={10} md={6} >
-            <Typography variant='h4'>Payment Details</Typography>
-            <List sx={orderui.product}>
+            <Typography variant='h4' color='#808080'>Payment Details</Typography>
+            <List sx={UpdateOrderUI.product}>
               <ListItem >
                 <ListItemText>Payment Method:{' '}</ListItemText>
                 <ListItemText>
@@ -172,8 +214,8 @@ const Order = () => {
         </Grid>
         <Grid container justifyContent='center'>
           <Grid item container direction='column' xs={10} md={6} >
-            <Typography variant='h4'>Payout Details</Typography>
-            <List sx={orderui.product}>
+            <Typography variant='h4' color='#808080'>Payout Details</Typography>
+            <List sx={UpdateOrderUI.product}>
               <ListItem >
                 <ListItemText>Payout:{' '}</ListItemText>
                 <ListItemText>&#8358;
@@ -204,4 +246,4 @@ const Order = () => {
   )
 }
 
-export default Order;
+export default UpdateOrder;

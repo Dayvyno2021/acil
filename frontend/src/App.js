@@ -21,6 +21,8 @@ import UpdateUser from "./pages/updateuser/UpdateUser";
 import AdminEditUser from "./pages/admin-edit-user/AdminEditUser";
 import CreateNew from "./pages/create-new-page/CreateNew";
 import UpdateSingleProduct from "./pages/update-product-page/UpdateProduct";
+import UpdateOrder from "./pages/admin-update-order/UpdateOrder";
+import EditRefPayout from "./pages/edit-ref-payout/EditRefPayout";
 
 
 function App() {
@@ -44,10 +46,12 @@ function App() {
         <Route path="/contactus" element={<h1>Contact Us</h1>} />
         <Route path="/admin/investments" element={<AdminInvestments/>} />
         <Route path="/admin/ref-payouts" element={<AdminReferPayouts/>} />
+        <Route path="/admin/ref-payouts/:id" element={<EditRefPayout/>} />
         <Route path="/update-profile" element={<UpdateUser/>} />
         <Route path="/update-profile/:id" element={<AdminEditUser/>} />
         <Route path="/create-new-product" element={<CreateNew/>} />
         <Route path="/update-product/:id" element={<UpdateSingleProduct/>} />
+        <Route path="/update-order/:id" element={<UpdateOrder/>} />
       </Routes>
       <Footer/>
     </Box>

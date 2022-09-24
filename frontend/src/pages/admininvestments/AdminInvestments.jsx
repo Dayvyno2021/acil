@@ -1,21 +1,61 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { useSelector } from "react-redux";
 import Header from "../../components/headerComp/Header";
+import {adminIUI} from './adminInvestmentUI'
+
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Progress from "../../components/Progress";
+import SnackBar from "../../components/Snackbar";
 
 
-const admin = {
-  header: {
-    width: '100%',
-    height: '7rem',
-    bgcolor: 'rgba(0, 0, 0, 0.9)',
-  }
-}
+// import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from "react-router-dom";
+// import { theme } from "../../components/Theme";
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableContainer from '@mui/material/TableContainer';
+import Paper from '@mui/material/Paper';
+import { allOrdersAction, deleteOrderAction } from "../../actions/orderActions";
+
 
 const AdminInvestments = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const loginReducer = useSelector((state) => state.loginReducer);
   const { acilDetails } = loginReducer;
+
+  const allOrdersReducer = useSelector((state) => state.allOrdersReducer);
+  const { loading, allOrders, error } = allOrdersReducer;
+
+  // const {
+  //   _id, 
+  //   payout, 
+  //   isPaidout, 
+  //   paymentType,
+  //   createdAt,
+  //   updatedAt,
+  //   pack, 
+  //   payment, 
+  //   paystack,
+  // } = allOrders;
+  
+  const getDate = (time) => {
+    const d = new Date(time);
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    return `${day}-${month}-${year}`
+  }
+
 
   const labels = [
     {label: 'Home', link:'/', acilDetails: false},
@@ -38,17 +78,105 @@ const AdminInvestments = () => {
     { label:"Invest", link: "/invest", acilDetails: false},
     { label: "Contact Us", link: "#contactus", acilDetails: false },
     { label: "Profile", link: `/profile`, acilDetails: !acilDetails },
-    
   ]
+
+  const deleteOderReducer = useSelector((state) => state.deleteOderReducer);
+  const { loading: loadingD, del, error: errorD } = deleteOderReducer;
+
+  const editOrder = (id) => {
+    navigate(`/update-order/${id}`)
+  }
+
+  const deleteOrder = (id) => {
+    dispatch(deleteOrderAction(id))
+  }
+  
+  useEffect(() => {
+    dispatch(allOrdersAction())
+  },[dispatch, del])
 
   return (
     <Box sx={{ minHeight: '85vh' }}>
-      <Grid item container direction='column' sx={admin}>
+      {(loading || loadingD) && <Progress />}
+      {(error || errorD ) && <SnackBar message={error || errorD}/>}
+      <Grid item container direction='column' sx={adminIUI}>
         <Grid item xs={12} >
-          <Box sx={admin.header}>
+          <Box sx={adminIUI.header}>
             <Header labels={labels} labels1={labels1} />
           </Box>
-          <h1>Investments</h1>
+        </Grid>
+        <Grid item xs={12} container justifyContent='center' sx={adminIUI.heading}>
+          <Typography variant="h1">All Investments</Typography>
+        </Grid>
+        <Grid item container justifyContent='center' direction='column' sx={adminIUI.mainTable}>  
+          <Box sx={adminIUI.table}>
+            <TableContainer component={Paper}>
+              <Table sx={{width:'100%'}}>
+                <TableHead sx={{bgcolor: '#000000'}}>
+                  <TableRow >
+                    <TableCell>Investor</TableCell>
+                    <TableCell>Product Name</TableCell>
+                    <TableCell align="left">ROI(%)</TableCell>
+                    <TableCell align="left">Maturity(Days)</TableCell>
+                    <TableCell align="left">Package</TableCell>
+                    <TableCell align="left">Amount</TableCell>
+                    <TableCell align="left">Pay. Type</TableCell>
+                    <TableCell align="left">Pay. Status</TableCell>
+                    <TableCell align="left">Pay. Date</TableCell>
+                    <TableCell align="left">Pay. Ref.</TableCell>
+                    <TableCell align="left">Pay. Confirm</TableCell>
+                    <TableCell align="left">Payout</TableCell>
+                    <TableCell align="left">Payout Due</TableCell>
+                    <TableCell align="left">PaidOut?</TableCell>
+                    <TableCell align="left">Created</TableCell>
+                    <TableCell align="left">Updated</TableCell>
+
+                    <TableCell align="left">Edit</TableCell>
+                    <TableCell align="left">Del</TableCell>
+                  </TableRow>
+                </TableHead>
+                {allOrders && allOrders.map((order) => (
+                  <TableBody key={order && order._id} sx={adminIUI.body}>
+                    <TableRow>
+                      <TableCell align="left">{order && order.investor && order.investor.name}</TableCell>
+                      <TableCell align="left">{order && order.pack && order.pack.name}</TableCell>
+                      <TableCell align="left">{order && order.pack && order.pack.ROI}</TableCell>
+                      <TableCell align="left">{order && order.pack && order.pack.maturity}</TableCell>
+                      <TableCell align="left">{order && order.pack && order.pack.packageType}</TableCell>
+                      <TableCell align="left">{order && order.pack && order.pack.amount}</TableCell>
+                      <TableCell align="left">{order && order.paymentType}</TableCell>
+                      <TableCell align="left">{order && order.payment && order.payment.isPaid? 'true': 'false'}</TableCell>
+                      <TableCell align="left">{getDate(order && order.payment && order.payment.paymentDate)}</TableCell>
+                      <TableCell align="left">{order && order.paystack && order.paystack.reference}</TableCell>
+                      <TableCell align="left">{order && order.payment && order.payment.paymentStatus}</TableCell>
+                      <TableCell align="left">{order && order.payout}</TableCell>
+                      <TableCell align="left">{order && order.payoutDate}</TableCell>
+                      <TableCell align="left">{order && order.isPaidOut? 'true':'false'}</TableCell>
+
+                      <TableCell align="left">
+                        {getDate(order && order.createdAt)}
+                      </TableCell>
+                      <TableCell align="left">
+                        {getDate(order && order.updatedAt)} 
+                      </TableCell>
+                      <TableCell align="left" sx={{cursor:'pointer'}}>
+                        <EditIcon sx={{ color: '#808080' }}
+                          onClick={() => editOrder(order && order._id)}
+                        />
+                      </TableCell>
+                      <TableCell align="left" sx={{cursor:'pointer'}}>
+                        <DeleteIcon sx={{ color: '#ff3333' }}
+                          onClick={()=>deleteOrder(order && order._id)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                ))
+                }
+                </Table>
+              </TableContainer>
+          </Box>
+
         </Grid>
       </Grid>
     </Box>

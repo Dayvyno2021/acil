@@ -1,5 +1,5 @@
 import { theme } from "../../components/Theme";
-export const adminIUI = {
+export const adminRefUI = {
   header: {
     width: '100%',
     height: '7rem',
@@ -26,7 +26,7 @@ export const adminIUI = {
   },
   body: {
     '&:nth-of-type(even)': {
-      bgcolor: theme.palette.secondary.light
+      bgcolor: theme.palette.common.lemon2
       
     }
   },
@@ -35,7 +35,7 @@ export const adminIUI = {
   },
   mainTable: {
     overflowY: 'scroll',
-    p: '2rem 1rem',
+    p: '2rem 10rem',
     [theme.breakpoints.down('lg')]: {
       p: '2rem 8rem'
     },
@@ -48,16 +48,7 @@ export const adminIUI = {
   },
   '& .MuiTableHead-root': {
     '& th': {
-      textAlign: 'center',
-    }
-  },
-  create: {
-    mb: '1rem',
-    bgcolor: theme.palette.primary.main,
-    textTransform: 'none',
-    transition: '0.5s',
-    '&:hover': {
-      bgcolor: theme.palette.primary.dark
+      textAlign: 'center'
     }
   }
 }
