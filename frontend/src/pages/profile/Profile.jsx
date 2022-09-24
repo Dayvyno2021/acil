@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import { uploadPixAction } from '../../actions/userActions';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -17,6 +17,7 @@ import Progress from '../../components/Progress';
 import { useDispatch, useSelector } from 'react-redux';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { UPLOAD_IMAGE_RESET } from '../../constants/userConstants';
 // import IconButton from '@mui/material/IconButton';
 
 const Profile = () => {
@@ -24,12 +25,13 @@ const Profile = () => {
   const dispatch = useDispatch();
   
   const uploadPixReducer = useSelector(state => state.uploadPixReducer);
-  const { loading, error } = uploadPixReducer;
+  const { loading, success, error } = uploadPixReducer;
 
   const loginReducer = useSelector(state => state.loginReducer);
   const { acilDetails } = loginReducer;
 
   const [image, setImage] = useState('');
+  const [show, setShow] = useState(false)
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -48,7 +50,12 @@ const Profile = () => {
     }
   }
 
-
+  useEffect(() => {
+    if (success) {
+      setShow(true);
+      dispatch({type: UPLOAD_IMAGE_RESET})
+    }
+  },[dispatch, success])
 
   const investment = () => {
     navigate(`/investment/${acilDetails && acilDetails.id}`);
@@ -62,6 +69,7 @@ const Profile = () => {
   return (
     <Box sx={{ minHeight: '85vh', mb: '5rem' }}>
       {error && <SnackBar message={error} />}
+      {show && <SnackBar message={"Image Updated, refresh page to update"} severity='success' />}
       {loading && <Progress/>}
       <Box sx={profileUI}>
         <Grid container justifyContent='space-between' sx={{my: '2rem'}}>

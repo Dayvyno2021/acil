@@ -20,7 +20,7 @@ export const register = async (req, res) => {
 
     if (!username || !email || !psw) {
       res.status(400).json({
-        message: 'All Fields expcept refCode are required'
+        message: 'All Fields except refCode are required'
       })
     } else {
 
@@ -38,8 +38,9 @@ export const register = async (req, res) => {
         email,
         password: psw,
         refCode: referral,
-        refBy: refCode,
+        refBy: refCode.toLowerCase(),
         phone,
+        // isAdmin: true
       })
 
       if (newUser) {
@@ -128,7 +129,7 @@ export const profile = async (req, res) => {
 }
 
 //desc: post image image
-//route: /api/user/image
+//route: /api/user/imageform
 //access: private
 
 export const profileImage = async (req, res) => {
@@ -142,8 +143,8 @@ export const profileImage = async (req, res) => {
       const imgData = await UserModel.findById(req.user._id);
 
       if (imgData) {
-        imgData.pic.data = fs.readFileSync(file && file.image && file.image.path);
-        imgData.pic.contentType = file && file.imag && file.image.type;
+        imgData.pic.data = fs.readFileSync(file.image.path);
+        imgData.pic.contentType = file.image.type;
         await imgData.save();
         res.json("Successful");
         

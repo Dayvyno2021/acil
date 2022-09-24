@@ -14,7 +14,7 @@ const importData = async() => {
   try {
     await ProductModel.deleteMany();
 
-    const adminUser = await UserModel.findOne({name: 'Admin'})
+    const adminUser = await UserModel.findOne({name: "Developer Dayve"})
 
     const adminProducts = produces.map((product)=> {
       return {...product, user: adminUser}

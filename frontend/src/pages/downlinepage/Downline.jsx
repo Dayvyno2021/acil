@@ -20,24 +20,6 @@ import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
 
 
-// const downlines = [
-//   {
-//     name: "Seun",
-//     maturity: 2,
-//     payout: 1040000
-//   },
-//   {
-//     name: "Dada",
-//     maturity: 3,
-//     payout: 650000
-//   },
-//   {
-//     name: "Paul",
-//     maturity: 2,
-//     payout: 1300000
-//   },
-// ]
-
 const Downline = () => {
 
   const dispatch = useDispatch();
@@ -48,12 +30,6 @@ const Downline = () => {
 
   const  getDownlinesReducer = useSelector((state) => state.getDownlinesReducer);
   const { loading, downlines, error } = getDownlinesReducer;
-
-  // const maturityDate = (key) => {
-  //   const maturity = key && key.pack && key.pack.maturity;
-  //   const due = Date.now() + (maturity* 24 * 60 * 60 * 1000);
-  //   return new Date(due).toDateString();
-  // }
 
   useEffect(() => {
     if (acilDetails && acilDetails.refCode) {
@@ -101,6 +77,14 @@ const Downline = () => {
           </Table>
         </TableContainer>
       </Box>
+      {
+        downlines && downlines.length < 1 &&
+          (
+            <Typography color='#FF6666' align='center'>
+              You have no downlines
+            </Typography>
+          )
+      }
     </Box>
   )
 }

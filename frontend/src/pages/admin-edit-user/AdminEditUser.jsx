@@ -28,7 +28,11 @@ const AdminEditUser = () => {
   const navigate = useNavigate();
   const id = params.id;
 
-  
+  const loginReducer = useSelector(state => state.loginReducer);
+  const { acilDetails } = loginReducer;
+
+  // acilDetails && acilDetails.isAdmin === false
+
   const profileReducer = useSelector(state => state.profileReducer);
   const { loading, userDetails, error } = profileReducer;
   
@@ -44,16 +48,20 @@ const AdminEditUser = () => {
   }
   
   useEffect(() => {
-    if (!userDetails || (userDetails && userDetails._id !== id)) {
-      dispatch(profileAction(id));
-    }else {
-      setStatus(userDetails && userDetails.isAdmin);
-      if (success) {
-        dispatch({ type: RESET_MAKE_ADMIN });
-        navigate('/admin/investors')
+    if (acilDetails && acilDetails.isAdmin === false) {
+      navigate('/')
+    } else {
+      if (!userDetails || (userDetails && userDetails._id !== id)) {
+        dispatch(profileAction(id));
+      }else {
+        setStatus(userDetails && userDetails.isAdmin);
+        if (success) {
+          dispatch({ type: RESET_MAKE_ADMIN });
+          navigate('/admin/investors')
+        }
       }
     }
-  }, [dispatch, id, userDetails, navigate, success])
+  }, [dispatch, id, userDetails, navigate, success, acilDetails])
 
   return (
     <Box sx={{ minHeight: '85vh', mb: '5rem' }}>

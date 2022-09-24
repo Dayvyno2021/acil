@@ -80,12 +80,19 @@ const AdminReferPayouts = () => {
   }
 
   const deleteRef = (id) => {
-    dispatch(deleteReferralAction(id))
+    if (window.confirm("Do you want to delete referrals?")) {
+      dispatch(deleteReferralAction(id))      
+    }
   }
 
   useEffect(() => {
-    dispatch(allReferralAction())
-  }, [dispatch, deleted])
+    if (acilDetails && acilDetails.isAdmin === false) {
+      navigate('/');
+    } else {
+      dispatch(allReferralAction());
+    }
+
+  }, [dispatch, deleted, acilDetails, navigate])
   
 
   return (
@@ -164,6 +171,13 @@ const AdminReferPayouts = () => {
           </Box>
 
         </Grid>
+        {
+         ( !allRef || (allRef && allRef.length < 1)) && (
+            <Typography color='#FF6666' align='center'>
+              There are no Referrals
+            </Typography>
+          )
+        }
       </Grid>
     </Box>
   )

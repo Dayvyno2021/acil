@@ -26,7 +26,7 @@ export const adminIUI = {
   },
   body: {
     '&:nth-of-type(even)': {
-      bgcolor: theme.palette.secondary.light
+      bgcolor: theme.palette.common.lemon2
       
     }
   },

@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { theme } from './Theme';
+import { Link } from 'react-router-dom';
 
 const footerDown = {
     '&>div': {
@@ -23,7 +24,7 @@ const footerDown = {
           fontSize: '0.8rem'
         },
       },
-      '&>img': {
+      '& img': {
         width: '7rem',
         [theme.breakpoints.down('sm')]: {
           width: '4rem'
@@ -37,7 +38,9 @@ const Footer = () => {
     <Box>
       <Grid item container sx={footerDown}>
         <Grid item xs={12} container>
-          <Box component='img' src='/image/logo.png'></Box>
+          <Box component={Link} to='/'>
+            <Box component='img' src='/image/logo.png'></Box>
+          </Box>
           <Typography variant='body1'>@2022 all rights reserved</Typography>
           <Typography variant='body1'>Terms & Conditions</Typography>
           <Typography variant='body1'>Privacy Policy</Typography>

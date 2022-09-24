@@ -34,7 +34,12 @@ const UpdateOrder = () => {
   const { loadingPD, order: orderPD, error: errorPD } = updateToPaidReducer;
 
   const updatePayoutReducer = useSelector(state => state.updatePayoutReducer);
-  const {loadingPO, po, errorPO} = updatePayoutReducer
+  const { loadingPO, po, errorPO } = updatePayoutReducer
+  
+  const loginReducer = useSelector(state => state.loginReducer);
+  const { acilDetails } = loginReducer;
+
+  // acilDetails && acilDetails.isAdmin === false
 
   const getDate = (time) => {
     const d = new Date(time);
@@ -56,21 +61,28 @@ const UpdateOrder = () => {
   }
 
   useEffect(() => {
-    if (!success || (orderDetails && orderDetails._id !== params.id)) {
-      dispatch(getOrderAction(params.id));
+    if (acilDetails && acilDetails.isAdmin === false) {
+      navigate('/')
     } else {
-      if (orderPD) {
-        dispatch({ type: RESET_ORDER_PAID });
-        navigate('/admin/investments')
-      }
-      if (po) {
-        dispatch({ type: RESET_PAYOUT });
-        navigate('/admin/investments')
-      }
-      setPaid(orderDetails && orderDetails.payment && orderDetails.payment.isPaid)
-      setPaidOut(orderDetails && orderDetails.isPaidOut)
+      
+          if (!success || (orderDetails && orderDetails._id !== params.id)) {
+            dispatch(getOrderAction(params.id));
+          } else {
+            if (orderPD) {
+              dispatch({ type: RESET_ORDER_PAID });
+              navigate('/admin/investments')
+            }
+            if (po) {
+              dispatch({ type: RESET_PAYOUT });
+              navigate('/admin/investments')
+            }
+            setPaid(orderDetails && orderDetails.payment && orderDetails.payment.isPaid)
+            setPaidOut(orderDetails && orderDetails.isPaidOut)
+          }
+      
     }
-  }, [dispatch, params, orderDetails, success, orderPD, po, navigate])
+
+  }, [dispatch, params, orderDetails, success, orderPD, po, navigate, acilDetails])
   
   return (
     <Box sx={{minHeight: '85vh'}}>

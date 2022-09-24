@@ -32,6 +32,10 @@ const EditRefPayout = () => {
   const refPayoutReducer = useSelector((state) => state.refPayoutReducer);
   const { loading: loadingD, details, error: errorD, success } = refPayoutReducer;
 
+  const loginReducer = useSelector((state) => state.loginReducer);
+  const { acilDetails } = loginReducer;
+  //acilDetails && acilDetails.isAdmin === false
+
   const getDate = (time) => {
     const d = new Date(time);
     const year = d.getFullYear();
@@ -48,16 +52,22 @@ const EditRefPayout = () => {
   }
 
   useEffect(() => {
-    if (!success || (details && details._id !== params.id)) {
-      dispatch(refPayoutAction(params.id))
+    if (acilDetails && acilDetails.isAdmin === false) {
+      navigate('/');
     } else {
-      setPaidOut(details && details.isPaidOut);
-      if (pay) {
-        dispatch({ type: UPDATE_REF_PAYOUT_RESET });
-        navigate('/admin/ref-payouts')
+      if (!success || (details && details._id !== params.id)) {
+        dispatch(refPayoutAction(params.id))
+      } else {
+        setPaidOut(details && details.isPaidOut);
+        if (pay) {
+          dispatch({ type: UPDATE_REF_PAYOUT_RESET });
+          navigate('/admin/ref-payouts')
+        }
       }
+      
     }
-  }, [dispatch, success, details, pay, navigate, params.id])
+
+  }, [dispatch, success, details, pay, navigate, params.id, acilDetails])
   
   return (
     <Box sx={{minHeight: '85vh'}}>

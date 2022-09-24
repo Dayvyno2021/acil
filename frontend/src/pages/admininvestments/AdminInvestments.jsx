@@ -32,21 +32,11 @@ const AdminInvestments = () => {
 
   const loginReducer = useSelector((state) => state.loginReducer);
   const { acilDetails } = loginReducer;
+  //acilDetails && acilDetails.isAdmin === false
 
   const allOrdersReducer = useSelector((state) => state.allOrdersReducer);
   const { loading, allOrders, error } = allOrdersReducer;
 
-  // const {
-  //   _id, 
-  //   payout, 
-  //   isPaidout, 
-  //   paymentType,
-  //   createdAt,
-  //   updatedAt,
-  //   pack, 
-  //   payment, 
-  //   paystack,
-  // } = allOrders;
   
   const getDate = (time) => {
     const d = new Date(time);
@@ -88,12 +78,19 @@ const AdminInvestments = () => {
   }
 
   const deleteOrder = (id) => {
-    dispatch(deleteOrderAction(id))
+    if (window.confirm("Delete investment?")) {
+      dispatch(deleteOrderAction(id))
+    }
+
   }
   
   useEffect(() => {
-    dispatch(allOrdersAction())
-  },[dispatch, del])
+    if (acilDetails && acilDetails.isAdmin === false) {
+      navigate('/')
+    } else {
+      dispatch(allOrdersAction())
+    }
+  },[dispatch, del, navigate, acilDetails])
 
   return (
     <Box sx={{ minHeight: '85vh' }}>
@@ -165,7 +162,7 @@ const AdminInvestments = () => {
                         />
                       </TableCell>
                       <TableCell align="left" sx={{cursor:'pointer'}}>
-                        <DeleteIcon sx={{ color: '#ff3333' }}
+                        <DeleteIcon sx={{ color: '#ff6666' }}
                           onClick={()=>deleteOrder(order && order._id)}
                         />
                       </TableCell>
@@ -178,6 +175,11 @@ const AdminInvestments = () => {
           </Box>
 
         </Grid>
+        {allOrders && allOrders.length < 1 ?
+          (<Typography color='#FF3333' align='center'>You have no Investments</Typography>)
+          :
+          ('')
+        }
       </Grid>
     </Box>
   )

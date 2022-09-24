@@ -68,7 +68,9 @@ const AdminProducts = () => {
   }
 
   const deleteProduct = (id) => {
-    dispatch(deleteProductAction(id))
+    if (window.confirm("Do you want to delete products?")) {
+      dispatch(deleteProductAction(id))
+    }
   }
 
   const getDate = (time) => {
@@ -84,8 +86,12 @@ const AdminProducts = () => {
   }
 
   useEffect(() => {
-    dispatch(getProductsAction())
-  }, [dispatch, success])
+    if (acilDetails && acilDetails.isAdmin === false) {
+      navigate('/')
+    } else {
+      dispatch(getProductsAction());
+    }
+  }, [dispatch, success, navigate, acilDetails])
 
   return (
     <Box sx={{ minHeight: '85vh' }}>
@@ -139,7 +145,7 @@ const AdminProducts = () => {
                         />
                       </TableCell>
                       <TableCell align="left" sx={{cursor:'pointer'}}>
-                        <DeleteIcon sx={{ color: '#808080' }}
+                        <DeleteIcon sx={{ color: '#FF6666' }}
                           onClick={()=>deleteProduct(product && product._id)}
                         />
                       </TableCell>

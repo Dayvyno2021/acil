@@ -69,7 +69,9 @@ const AdminInvestors = () => {
   }
 
   const deleteUser = (id) => {
-    dispatch(deleteUserAction(id));
+    if (window.confirm("Do you want to delete investor?")) {
+      dispatch(deleteUserAction(id));
+    }
   }
 
   const getDate = (time) => {
@@ -82,10 +84,12 @@ const AdminInvestors = () => {
 
 
   useEffect(() => {
-    if (acilDetails && acilDetails.isAdmin) {
+    if (acilDetails && acilDetails.isAdmin === false) {
+      navigate('/')
+    } else {
       dispatch(adminUsersAction())
     }
-  }, [dispatch, acilDetails, del])
+  }, [dispatch, acilDetails, del, navigate])
 
   return (
     <Box sx={{ minHeight: '85vh' }}>

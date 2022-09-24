@@ -16,7 +16,7 @@ export const placeorder = async (req, res) => {
       reference: { reference, trans, status, message, transaction },
     }
       = req.body;
-    const downline = await UserModel.findOne({ refBy: req.user && req.user.refBy });
+    const downline = await UserModel.findOne({ refCode: req.user && req.user.refBy });
     const refPerson = await UserModel.findById(downline._id)
     if (refPerson) {
       const newDownline = await RefModel.create({

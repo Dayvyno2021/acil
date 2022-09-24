@@ -29,11 +29,11 @@ const Product = () => {
   
   const p =useMemo(()=> [
     {packageType: 'Bronze', amount: 50000, selected: false },
-    {packageType: 'Silver', amount: 500000, selected: false },
-    {packageType: 'Gold', amount: 800000, selected: false },
-    {packageType: 'Platinum', amount: 1000000, selected: false },
-    {packageType: 'Diamond', amount: 3000000, selected: false },
-    {packageType: 'Agro King', amount: 5000000, selected: false },
+    {packageType: 'Silver', amount: 100000, selected: false },
+    {packageType: 'Gold', amount: 150000, selected: false },
+    {packageType: 'Platinum', amount: 200000, selected: false },
+    {packageType: 'Diamond', amount: 250000, selected: false },
+    {packageType: 'Agro King', amount: 300000, selected: false },
   ], [])
   
   const [packs, setPacks] = useState(p)
@@ -104,7 +104,7 @@ const Product = () => {
                 xs={6} md={4} className="portion"
                 onClick={() => {selectItem(pack, params.id, index)}}
               >
-                <Box sx={{fontSize:'1.8rem', fontWeight: '500'}}>&#8358;{pack.amount}</Box>
+                <Box sx={{fontSize:'1.8rem', fontWeight: '500'}}>&#8358;{pack && pack.amount && pack.amount.toLocaleString()}</Box>
                 <Typography variant='body1' sx={{fontSize: '1.8rem', fontWeight:'500'}}>
                   {pack.packageType}
                 </Typography>
