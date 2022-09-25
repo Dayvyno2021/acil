@@ -33,7 +33,8 @@ export const editUI = {
   },
   '& .cl5': {
     mt: '2rem',
-    boxShadow: '-4px 4px 4px 0 rgba(0,0,0,.2)',
+    // boxShadow: '-4px 4px 4px 0 rgba(0,0,0,.2)',
+    bgcolor: theme.palette.secondary.light,
     p: '2rem',
 
     '& p': {
@@ -67,15 +68,15 @@ export const editUI = {
   },
   admin: {
     mt: '2rem',
-    border: `2px dotted ${theme.palette.primary.main}`,
+    border: `2px dotted ${theme.palette.secondary.main}`,
     p: '2rem 5rem',
     '& button': {
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
       textTransform: 'none',
       ml: '4rem',
       transition: '0.5s',
       '&:hover': {
-        color: theme.palette.primary.dark,
+        color: theme.palette.secondary.dark,
       }
     },
     '& p': {

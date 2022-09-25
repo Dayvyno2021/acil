@@ -9,13 +9,6 @@ import { useSelector } from 'react-redux';
 
 const About = () => {
 
-  // const labels = [
-  //   {label: 'Home', link:'/'},
-  //   { label: "About", link: '/about' },
-  //   { label:"Invest", link: "/invest"},
-  //   {label: "Register", link:"/register"},
-  //   {label: "Login", link:"/login"},
-  // ]
   const loginReducer = useSelector((state) => state.loginReducer);
   const { acilDetails } = loginReducer;
 

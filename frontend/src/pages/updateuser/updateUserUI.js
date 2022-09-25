@@ -24,11 +24,11 @@ export const upd = {
 
       },
     '& .MuiInputBase-root': {
-        pl: '2rem',
-        
+        // pl: '2rem', 
       },
       '& .MuiInputBase-input': {
-        
+        bgcolor: theme.palette.common.lemon2,
+        // m: '0.2rem 0.5rem'
       },
       '& .MuiOutlinedInput-root': {
         '&.Mui-focused fieldset': {
@@ -44,10 +44,11 @@ export const upd = {
       },
     },
   icon: {
-    position: 'absolute',
-    top: '1rem',
-    left: '0.5rem',
-    color: 'grey.600'
+    // position: 'absolute',
+    // top: '1rem',
+    // left: '0.5rem',
+    color: 'grey.600',
+    mb:'0.3rem'
   },
   image: {
     [theme.breakpoints.down('md')]: {
@@ -73,5 +74,8 @@ export const upd = {
     fontSize: '2rem',
     fontFamily: 'Lato',
     fontWeight: '700'
+  },
+  '& .MuiInputLabel-root.Mui-focused': {
+    color: theme.palette.primary.main
   }
 }

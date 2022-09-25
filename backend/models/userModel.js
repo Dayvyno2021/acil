@@ -11,6 +11,9 @@ const userSchema = mongoose.Schema(
     notification: { type: String },
     isAdmin: { type: Boolean, required: true, default: false },
     refBy: { type: String },
+    fullname: { type: String },
+    account: { type: Number },
+    bank:{type: String},
     pic:{data: Buffer, contentType: String},
   }, {
   timestamps: true,

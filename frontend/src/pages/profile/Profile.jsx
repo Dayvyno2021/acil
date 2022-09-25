@@ -19,6 +19,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { UPLOAD_IMAGE_RESET } from '../../constants/userConstants';
 // import IconButton from '@mui/material/IconButton';
+// import { theme } from "../../components/Theme"
+import { profileUI1 } from './profileUI';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -67,7 +69,7 @@ const Profile = () => {
 
 
   return (
-    <Box sx={{ minHeight: '85vh', mb: '5rem' }}>
+    <Box sx={profileUI1}>
       {error && <SnackBar message={error} />}
       {show && <SnackBar message={"Image Updated, refresh page to update"} severity='success' />}
       {loading && <Progress/>}
@@ -131,6 +133,18 @@ const Profile = () => {
         <Grid container justifyContent='space-between' className='cl5'>
           <Typography><PhoneIcon color='success' /></Typography>
           <Typography>{acilDetails && acilDetails.phone} </Typography>
+        </Grid>
+        <Grid container justifyContent='space-between' className='cl5'>
+          <Typography>Full Name</Typography>
+          <Typography>{acilDetails && acilDetails.fullname} </Typography>
+        </Grid>
+        <Grid container justifyContent='space-between' className='cl5'>
+          <Typography>Account Number</Typography>
+          <Typography>{acilDetails && acilDetails.account} </Typography>
+        </Grid>
+        <Grid container justifyContent='space-between' className='cl5'>
+          <Typography>Bank</Typography>
+          <Typography>{acilDetails && acilDetails.bank} </Typography>
         </Grid>
         {
           acilDetails && acilDetails.isAdmin && (

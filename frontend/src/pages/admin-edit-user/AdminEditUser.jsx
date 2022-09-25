@@ -65,7 +65,7 @@ const AdminEditUser = () => {
 
   return (
     <Box sx={{ minHeight: '85vh', mb: '5rem' }}>
-      {(error || errorU) && <SnackBar message={error} />}
+      {(error || errorU) && <SnackBar message={error || errorU} />}
       {(loading || loadingU) && <Progress/>}
       <Box sx={editUI}>
         <Grid container justifyContent='space-between' sx={{my: '2rem'}}>
@@ -116,6 +116,18 @@ const AdminEditUser = () => {
         <Grid container justifyContent='space-between' className='cl5'>
           <Typography><PhoneIcon color='success' /></Typography>
           <Typography>{userDetails && userDetails.phone} </Typography>
+        </Grid>
+        <Grid container justifyContent='space-between' className='cl5'>
+          <Typography>Full Name</Typography>
+          <Typography>{userDetails && userDetails.fullname} </Typography>
+        </Grid>
+        <Grid container justifyContent='space-between' className='cl5'>
+          <Typography>Account Number</Typography>
+          <Typography>{userDetails && userDetails.account} </Typography>
+        </Grid>
+        <Grid container justifyContent='space-between' className='cl5'>
+          <Typography>Bank</Typography>
+          <Typography>{userDetails && userDetails.bank} </Typography>
         </Grid>
         {
           userDetails && userDetails.isAdmin && (

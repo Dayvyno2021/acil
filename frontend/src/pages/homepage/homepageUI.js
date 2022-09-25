@@ -2,7 +2,7 @@ import {theme} from '../../components/Theme'
 
 export const home = {
   main: {
-    backgroundImage: "url('/image/mainbg.png')",
+    backgroundImage: "url('/image/mainpg2.jpg')",
     // height: 'minContent',
     backgroundPosition: 'center',
     backgroundSize: '100% 100%',
@@ -304,6 +304,7 @@ export const home = {
   },
 
   world: {
+    display: 'none',
     width: '1440px',
     height: '680px',
     maxWidth: '100%',
@@ -356,13 +357,6 @@ export const home = {
   contact2: {
     boxShadow: '0 4px 8px 0  rgba(0, 0, 0, 0.5)',
     p: '5px',
-
-    // [theme.breakpoints.down('md')]: {
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   alignItems: 'center'
-    // }
-
   },
   contact2A: {
     p: '1rem',
@@ -383,14 +377,22 @@ export const home = {
     }
   },
   contact2B: {
-    p: '1.5rem'
+    p: '1.5rem',
+    border: `2px solid ${theme.palette.primary.main}`,
+    bgcolor: 'white',
+    borderRadius: '5px'
+  },
+  '& .MuiInputBase-root': {
   },
   '& .MuiInputBase-input': {
-    fontSize: '1.5rem',
+    // p: '0.3rem 0.5rems',
+    bgcolor: theme.palette.common.lemon2,
+    // fontSize: '1.5rem',
+    
   },
   '& .MuiOutlinedInput-root': {
     '&.Mui-focused fieldset': {
-      borderColor: theme.palette.common.lemon1
+      borderColor: theme.palette.common.lemon1,
     }
   },
   '& .label': {

@@ -1,6 +1,7 @@
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { theme } from './Theme';
 
 const pro = {
   position: 'absolute',
@@ -17,7 +18,7 @@ const pro = {
 const Progress = () => {
   return (
     <Box sx={pro}>
-      <CircularProgress/>
+      <CircularProgress sx={{color: theme.palette.primary.main}} />
     </Box>
   )
 }

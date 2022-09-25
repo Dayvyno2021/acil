@@ -37,7 +37,10 @@ const UpdateUser = () => {
   const [cpassword, setCpassword] = useState('');
   const [cpValid, setCpValid] = useState('');
 
-  const [phone, setPhone] = useState(acilDetails && acilDetails.phone);
+  const [phone, setPhone] = useState('');
+  const [fullname, setFullname] = useState('');
+  const [account, setAccount] = useState('');
+  const [bank, setBank] = useState('');
   
   const validate = (event) => {
     let valid;
@@ -68,11 +71,17 @@ const UpdateUser = () => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateUserAction({psw, phone, id:acilDetails && acilDetails.id}))
+    dispatch(updateUserAction({
+      fullname,
+      account,
+      bank,
+      psw, 
+      phone, 
+      id:acilDetails && acilDetails.id}))
   }
   
   const disableUpdate = () => {
-    if (!psw || !cpassword) return true;
+    if (!fullname || !bank || !account) return true;
     return false;
   }
 
@@ -80,15 +89,19 @@ const UpdateUser = () => {
     if (success) {
       navigate(`/profile`);
       dispatch({type:RESET_USER_UPDATE})
-
+    } else {
+      setFullname(acilDetails && acilDetails.fullname);
+      setAccount(acilDetails && acilDetails.account);
+      setBank(acilDetails && acilDetails.bank);
+      setPhone(acilDetails && acilDetails.phone)
     }
-  }, [navigate, success, dispatch])
+  }, [navigate, success, dispatch, acilDetails])
   
 
   return (
     <Box sx={{minHeight: '85vh'}}>
       {(loading || loadingU) && <Progress />}
-      {(error || errorU) && <SnackBar message={error}/>}
+      {(error || errorU) && <SnackBar message={error || errorU}/>}
       <Grid sx={upd} container>
         <Grid md={6} item sx={upd.register} container direction='column'>
           <Grid item sx={upd.register1} justifyContent='center' container>
@@ -111,9 +124,42 @@ const UpdateUser = () => {
 
             <Grid item container alignItems='center'>
               <Grid item container xs={12}>
+                <PersonIcon sx={upd.icon}/>
+                <TextField variant="outlined" type='text' name='fullname' id='fullname'
+                  label="Full Name" autoComplete='true' required value={fullname}
+                  onChange={(e)=>setFullname(e.target.value)}
+                />   
+              </Grid>
+            </Grid>
+            <Grid item container alignItems='center'>
+              <Grid item container xs={12}>
+                <LockOutlinedIcon sx={upd.icon}/>
+                <TextField variant="outlined" type='number' name='account' id='account'
+                  label="Account Number" autoComplete='true' required value={account}
+                  onChange={(e)=>setAccount(e.target.value)}
+                />   
+              </Grid>
+            </Grid>
+            <Grid item container alignItems='center'>
+              <Grid item container xs={12}>
+                <LockOutlinedIcon sx={upd.icon}/>
+                <TextField variant="outlined" type='text' name='bank' id='bank'
+                  label="Bank Name" autoComplete='true' required value={bank}
+                  onChange={(e)=>setBank(e.target.value)}
+                />   
+              </Grid>
+            </Grid>
+            <Grid item container alignItems='center'>
+              <Typography align='center' color='#FF6666' fontSize='0.9rem'>
+                Disregard if you don't want to change password
+              </Typography>
+            </Grid>
+
+            <Grid item container alignItems='center'>
+              <Grid item container xs={12}>
                 <LockOutlinedIcon sx={upd.icon}/>
                 <TextField variant="outlined" type='password' name='password' id='password'
-                  placeholder="Password" autoComplete='true' required value={psw}
+                  label="Password" autoComplete='true' required value={psw}
                   onChange={validate} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                   error={Boolean(pswValid)}
                   helperText= {pswValid}
@@ -131,7 +177,7 @@ const UpdateUser = () => {
               <Grid item container xs={12}>
                 <LockOutlinedIcon sx={upd.icon}/>
                 <TextField variant="outlined" type='password' name='cpassword' id='cpassword'
-                  placeholder="Confirm Password" autoComplete='true' value={cpassword}
+                  label="Confirm Password" autoComplete='true' value={cpassword}
                   onChange={validate} error={Boolean(cpValid)}
                   helperText={cpValid}
                 />
@@ -148,7 +194,7 @@ const UpdateUser = () => {
               <Grid item container xs={12}>
                 <PhoneIcon sx={upd.icon} />
                 <TextField variant="outlined" type='tel' name='phone' id='phone'
-                  placeholder="Phone Number" autoComplete='true' value={phone}
+                  label="Phone Number" autoComplete='true' value={phone}
                   onChange={(e)=>setPhone(e.target.value)}
                 />
               </Grid>

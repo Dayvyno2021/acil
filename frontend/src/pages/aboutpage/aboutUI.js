@@ -3,7 +3,8 @@ import { theme } from '../../components/Theme';
 
 export const about = {
   main: {
-    backgroundImage: 'url("/image/whopage.jpg")',
+    backgroundImage: 'url("/image/abt.jpg")',
+    // backgroundImage: 'url("/image/whopage.jpg")',
     minHeight: '100vh',
     backgroundSize: 'cover',
     mb:'5rem',

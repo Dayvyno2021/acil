@@ -52,6 +52,10 @@ export const register = async (req, res) => {
           phone: newUser && newUser.phone,
           isAdmin: newUser && newUser.isAdmin,
           refBy: newUser && newUser.refBy,
+          account: newUser && newUser.account,
+          fullname: newUser && newUser.fullname,
+          bank: newUser && newUser.bank,
+          updatedAt: newUser && newUser.updatedAt,
           createdAt: newUser && newUser.createdAt,
           token: newUser && generateToken(newUser._id)
         })
@@ -88,9 +92,12 @@ export const login = async (req, res) => {
           phone: userA && userA.phone,
           isAdmin: userA && userA.isAdmin,
           refBy: userA && userA.refBy,
-          token: userA && generateToken(userA._id),
-          createdAt: userA && userA.createdAt
-          // updatedAt: user.updatedAt
+          token: userA && generateToken(userA._id),         
+          account: userA && userA.account,
+          fullname: userA && userA.fullname,
+          bank: userA && userA.bank,
+          updatedAt: userA && userA.updatedAt,
+          createdAt: userA && userA.createdAt,
         })
       } 
       return res.status(400).json({message: 'Username or Email or password does not match'})
@@ -207,11 +214,14 @@ export const downlines = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const { psw, phone } = req.body;
+    const { psw, phone, fullname, account, bank } = req.body;
     const id = req.params && req.params.id
     const user = await UserModel.findById(id);
     if (user) {
       user.phone = phone || user.phone;
+      user.account = account || user.account;
+      user.fullname = fullname || user.fullname;
+      user.bank = bank || user.bank;
       if (psw) {
         user.password = psw;
       }
@@ -225,8 +235,12 @@ export const updateUser = async (req, res) => {
         phone: user && user.phone,
         isAdmin: user && user.isAdmin,
         refBy: user && user.refBy,
+        account: user && user.account,
+        fullname: user && user.fullname,
+        bank: user && user.bank,
+        updatedAt: user && user.updatedAt,
         createdAt: user && user.createdAt,
-        token: user && generateToken(user._id)
+        token: user && generateToken(user._id),
       })
     } else {
       res.status(400).json({message: "Could not find user"})

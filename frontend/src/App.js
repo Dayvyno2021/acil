@@ -27,7 +27,7 @@ import EditRefPayout from "./pages/edit-ref-payout/EditRefPayout";
 
 function App() {
   return (
-    <Box className="App">
+    <Box className="App" sx={{bgcolor: 'FFF6E6'}}>
       <Routes>
         <Route path="/" element={<Homepage/>} />
         <Route path="/about" element={<About/>} />

@@ -206,7 +206,7 @@ export const updateUserAction = (inputs) => async (dispatch, getState) => {
   try {
     dispatch({ type: UPDATE_USER_REQUEST });
 
-    const { psw, phone, id } = inputs;
+    const { id } = inputs;
     console.log(id)
     const { loginReducer: { acilDetails: { token } } } = getState();
 
@@ -217,7 +217,7 @@ export const updateUserAction = (inputs) => async (dispatch, getState) => {
       }
     }
   
-    const { data } = await axios.put(`/api/user/update/${id}`, { psw, phone }, config);
+    const { data } = await axios.put(`/api/user/update/${id}`, inputs, config);
     
     dispatch({
       type: UPDATE_USER_SUCCESS,

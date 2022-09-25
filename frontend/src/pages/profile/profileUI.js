@@ -1,4 +1,10 @@
-import { theme } from "../../components/Theme"
+import { theme } from "../../components/Theme";
+
+export const profileUI1 = {
+  minHeight: '85vh',
+  mb: '5rem',
+
+}
 
 export const profileUI = {
   px: '10rem',
@@ -33,12 +39,16 @@ export const profileUI = {
   },
   '& .cl5': {
     mt: '2rem',
-    boxShadow: '-4px 4px 4px 0 rgba(0,0,0,.2)',
+    // boxShadow: '-4px 4px 4px 0 rgba(0,0,0,.2)',
+    // backgroundImage: `linear-gradient(to right, ${theme.palette.common.lemon2}, ${theme.palette.primary.light})`,
+    bgcolor: theme.palette.common.lemon2,
     p: '2rem',
 
     '& p': {
       fontSize: '1.2rem',
       fontWeight: '700',
+      // color: '#FFF'
+      color: theme.palette.secondary.dark
     }
   },
   imgStyle: {
@@ -49,6 +59,7 @@ export const profileUI = {
     '&>button': {
       textTransform: 'none',
       borderColor: theme.palette.common.lemon1, 
+      // color: 'red',
       color: theme.palette.common.lemon1,
       opacity: '0.8',
       transition: '0.3s',
