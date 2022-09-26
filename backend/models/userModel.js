@@ -1,6 +1,15 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+
+const notify = mongoose.Schema({
+  notice : {type: String},
+  user: {type: mongoose.Schema.Types.ObjectId, ref: "UserModel"}
+},
+{
+  timestamps: true
+})
+
 const userSchema = mongoose.Schema(
   {
     name: { type: "String", required: true, unique: true },
@@ -8,13 +17,13 @@ const userSchema = mongoose.Schema(
     refCode: { type: "String", unique: true, required: true },
     password: { type: "String", required: true },
     phone: {type:String},
-    notification: { type: String },
+    notification: [notify],
     isAdmin: { type: Boolean, required: true, default: false },
     refBy: { type: String },
     fullname: { type: String },
     account: { type: Number },
     bank:{type: String},
-    pic:{data: Buffer, contentType: String},
+    pic: { data: Buffer, contentType: String },
   }, {
   timestamps: true,
 }

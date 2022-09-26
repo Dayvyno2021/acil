@@ -21,8 +21,8 @@ export const getProductsAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_PRODUCTS_FAIL,
-      payload: error.response && error.response.message.data ?
-        error.response.message.data : error.response
+      payload: error.response && error.response.data.message ?
+        error.response.data.message : error.response
     })
   }
 }
@@ -99,8 +99,8 @@ export const updateProductAction = (input) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: UPDATE_PRODUCT_FAIL,
-      payload: error.response && error.response.message.data ?
-        error.response.message.data : error.response
+      payload: error.response && error.response.data.message ?
+        error.response.data.message : error.response
     })
   }
 }
@@ -126,8 +126,8 @@ export const deleteProductAction = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: DELETE_PRODUCT_FAIL,
-      payload: error.response && error.response.message.data ?
-        error.response.message.data : error.response
+      payload: error.response && error.response.data.message ?
+        error.response.data.message : error.response
     })
   }
 }

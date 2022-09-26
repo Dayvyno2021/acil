@@ -17,7 +17,6 @@ const About = () => {
     { label:"About", link: '/about', acilDetails: false},
     { label:"Invest", link: "/invest", acilDetails: false},
     {label: "Register", link:"/register", acilDetails: acilDetails},
-    { label: "Login", link: "/login", acilDetails: acilDetails },
     {label: "Profile", link:`/profile/${acilDetails && acilDetails.id}`, acilDetails: !acilDetails},
     {label: "Logout", link:"/", acilDetails: !acilDetails},
   ]

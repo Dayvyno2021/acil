@@ -1,6 +1,7 @@
 import UserModel from '../models/userModel.js';
 import { generateToken } from '../config/generateToken.js';
 import fs from 'fs';
+import InvestmentModel from '../models/investmentModel.js';
 // import expressAsyncHandler from 'express-async-handler';
 
 //desc: register new user;
@@ -33,7 +34,7 @@ export const register = async (req, res) => {
       if (existRefCode) return res.status(400).json({ message: 'Could not register, try again' });
       if (existEmail || existUsername) return res.status(400).json({ message: 'Username or Email already exists' });
 
-      const newUser = await UserModel.create({
+      const newPerson = await UserModel.create({
         name: username,
         email,
         password: psw,
@@ -43,22 +44,40 @@ export const register = async (req, res) => {
         // isAdmin: true
       })
 
-      if (newUser) {
-        return res.json({
-          id: newUser && newUser._id,
-          username: newUser && newUser.name,
-          refCode: newUser && newUser.refCode,
-          email: newUser && newUser.email,
-          phone: newUser && newUser.phone,
-          isAdmin: newUser && newUser.isAdmin,
-          refBy: newUser && newUser.refBy,
-          account: newUser && newUser.account,
-          fullname: newUser && newUser.fullname,
-          bank: newUser && newUser.bank,
-          updatedAt: newUser && newUser.updatedAt,
-          createdAt: newUser && newUser.createdAt,
-          token: newUser && generateToken(newUser._id)
-        })
+      const newRef = await UserModel.findOne({ refCode: refCode });
+      if (newRef) {
+        const notify = {notice: "You have a new downline", user: newRef._id}
+        console.log("WE DYE HERE, I DON TRY")
+        newRef.notification.push(notify);
+        await newRef.save();
+      }
+
+      if (newPerson) {
+        const notify = {
+          notice: 'Thank you for joining ACIL. You sleep while your money works for you',
+          user: newPerson._id
+        }
+        newPerson.notification.push(notify);
+        const newUser = await newPerson.save();
+        
+        if (newUser) {
+          return res.json({
+            id: newUser && newUser._id,
+            username: newUser && newUser.name,
+            refCode: newUser && newUser.refCode,
+            email: newUser && newUser.email,
+            phone: newUser && newUser.phone,
+            isAdmin: newUser && newUser.isAdmin,
+            refBy: newUser && newUser.refBy,
+            account: newUser && newUser.account,
+            fullname: newUser && newUser.fullname,
+            bank: newUser && newUser.bank,
+            updatedAt: newUser && newUser.updatedAt,
+            createdAt: newUser && newUser.createdAt,
+            notification: newUser && newUser.notification,
+            token: newUser && generateToken(newUser._id)
+          })
+        }else{res.status(400).json({message: "Could not add notification"})}
       } else {
         res.status(400).json({message: "Could not register new user"})
       }
@@ -96,6 +115,7 @@ export const login = async (req, res) => {
           account: userA && userA.account,
           fullname: userA && userA.fullname,
           bank: userA && userA.bank,
+          notification: userA && userA.notification,
           updatedAt: userA && userA.updatedAt,
           createdAt: userA && userA.createdAt,
         })
@@ -238,6 +258,7 @@ export const updateUser = async (req, res) => {
         account: user && user.account,
         fullname: user && user.fullname,
         bank: user && user.bank,
+        notification: user && user.notification,
         updatedAt: user && user.updatedAt,
         createdAt: user && user.createdAt,
         token: user && generateToken(user._id),
@@ -309,6 +330,117 @@ export const deleteUser = async (req, res) => {
       res.status(400).json({message: "Could not delete user"})
     }
     
+  } catch (error) {
+    const m = process.env.NODE_ENV==='production'? null: error
+    res.status(404).json({message: `Server Down===> ${m}`})
+  }
+}
+
+//@desc: Fetches the profile of an investor
+//@route: GET /api/user/my-profile;
+//@access: protect
+
+export const myProfile = async (req, res) => {
+  try {
+    const profile = await UserModel.findById(req.user && req.user._id);
+    if (profile) {
+      res.json({
+            id: profile && profile._id,
+            username: profile && profile.name,
+            refCode: profile && profile.refCode,
+            email: profile && profile.email,
+            phone: profile && profile.phone,
+            isAdmin: profile && profile.isAdmin,
+            refBy: profile && profile.refBy,
+            account: profile && profile.account,
+            fullname: profile && profile.fullname,
+            bank: profile && profile.bank,
+            updatedAt: profile && profile.updatedAt,
+            createdAt: profile && profile.createdAt,
+            notification: profile && profile.notification,
+            token: profile && generateToken(profile._id)
+      })
+    } else {
+      res.status(400).json({message: "Could not fetch user profile"})
+    }
+    
+  } catch (error) {
+    const m = process.env.NODE_ENV==='production'? null: error
+    res.status(404).json({message: `Server Down===> ${m}`})
+  }
+}
+
+//@desc: Delete a particular notification;
+//@route: delete /api/user/my-model/:id
+//@access: protect;
+
+export const deleteNotification = async (req, res) => {
+  try {
+
+    const d = await UserModel.updateMany(
+      {},
+      { $pull: { notification: { _id: req.params.id } } }
+    );
+
+    
+    if (d) {
+      const updated = await UserModel.findById(req.user && req.user._id);
+      if (updated) {
+        res.json({
+              id: updated && updated._id,
+              username: updated && updated.name,
+              refCode: updated && updated.refCode,
+              email: updated && updated.email,
+              phone: updated && updated.phone,
+              isAdmin: updated && updated.isAdmin,
+              refBy: updated && updated.refBy,
+              account: updated && updated.account,
+              fullname: updated && updated.fullname,
+              bank: updated && updated.bank,
+              updatedAt: updated && updated.updatedAt,
+              createdAt: updated && updated.createdAt,
+              notification: updated && updated.notification,
+              token: updated && generateToken(updated._id)
+        })
+        
+      } else{res.json({message: "Could not update users"})}
+    } else {
+      res.status(400).json({message: "Could not delete notification"})
+    }
+
+
+
+  } catch (error) {
+    const m = process.env.NODE_ENV==='production'? null: error
+    res.status(404).json({message: `Server Down===> ${m}`})
+  }
+}
+
+//@desc: Send withdrawal notice to admin
+//@route: get /api/user/make-request/:id
+//access private
+
+export const withdrawalRequest = async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const order = await InvestmentModel.findById(orderId).populate('investor', 'name');
+    const username = order && order.investor && order.investor.name;
+    const userId = order && order.investor && order.investor._id;
+    const notify = { notice: `${username}\'s with orderID: ${orderId} is due for payment`, user: userId };
+
+
+    const allAdmins = await UserModel.find({ isAdmin: true });
+    if (allAdmins) {
+      const all = allAdmins && allAdmins.map(async(admin) => {
+        admin && admin.notification && admin.notification.push(notify);
+        await admin.save();
+      });
+
+      res.json('successful');
+    } else {
+      res.status(400).json({ message: "Could not find any admin" });
+    }
+
   } catch (error) {
     const m = process.env.NODE_ENV==='production'? null: error
     res.status(404).json({message: `Server Down===> ${m}`})

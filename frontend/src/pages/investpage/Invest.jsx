@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import { Link} from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 // import TextField from '@mui/material/TextField';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductsAction } from '../../actions/productActions';
 import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
+import Notification from '../../components/notification/Notification';
+// import { theme } from '../../components/Theme';
 
 const Invest = () => {
   const dispatch = useDispatch();
@@ -39,7 +41,8 @@ const Invest = () => {
           <Box component={Link} to='/'>
             <Box component='img' src='/image/logo.png' />
           </Box>
-          <NotificationsIcon fontSize='large' />
+          <Notification/>
+          {/* <NotificationsIcon fontSize='large' /> */}
         </Grid>
         <Grid item sx={invest.actions} container
           justifyContent={acilDetails && acilDetails.id? 'space-between': 'center'}
@@ -70,13 +73,13 @@ const Invest = () => {
         <Grid item sx={invest.items} container>
           {
             products.map((product)=>(
-              <Grid item xs={5.8} md={3.8} key={`${product.name}`}>
-                <Box component={Link} to={`/invest/${product._id}`}>
-                  <Box component='img' src={product.img} alt={product.name} />
+              <Grid item xs={5.8} md={3.8} key={`${product && product.name}`} >
+                <Box component={Link} to={`/invest/${product && product._id}`}>
+                  <Box component='img' src={product && product.img} alt={product && product.name} />
                 </Box>
-                <Typography variant='body1'>{product.name}</Typography>
-                <Typography variant='body1'>ROI:{product.ROI}%</Typography>
-                <Typography variant='body1'>Maturity: {product.maturity} Days </Typography>
+                <Typography variant='body1'>{product && product.name}</Typography>
+                <Typography variant='body1'>ROI:{product && product.ROI}%</Typography>
+                <Typography variant='body1'>Maturity: {product && product.maturity} Days </Typography>
               </Grid>
             ))
           }

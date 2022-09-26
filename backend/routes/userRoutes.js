@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteUser, downlines, getAllInvestors, login, makeAdmin, profile, profileImage, register, updateUser, userImage } from "../controllers/userControllers.js";
+import { deleteNotification, deleteUser, downlines, getAllInvestors, login, makeAdmin, myProfile, profile, profileImage, register, updateUser, userImage, withdrawalRequest } from "../controllers/userControllers.js";
 import { adminProtect, protect } from "../middleware/authMiddleware.js";
 import formidableMiddleware from 'express-formidable'
 
@@ -15,5 +15,8 @@ router.route('/userprofile/userprofile/:id').get(protect, adminProtect, profile)
 router.route('/allinvestors').get(protect ,adminProtect, getAllInvestors)
 router.route('/make-user-an-admin/:id').put(protect ,adminProtect, makeAdmin)
 router.route('/admin-deletes-user/:id').delete(protect ,adminProtect, deleteUser)
+router.route('/my-profile').get(protect, myProfile);
+router.route('/my-profile/:id').delete(protect, deleteNotification);
+router.route('/make-request/:id').get(protect, withdrawalRequest);
 
 export default router;

@@ -15,12 +15,13 @@ import { profileUI } from './profileUI';
 import SnackBar from '../../components/Snackbar';
 import Progress from '../../components/Progress';
 import { useDispatch, useSelector } from 'react-redux';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { UPLOAD_IMAGE_RESET } from '../../constants/userConstants';
 // import IconButton from '@mui/material/IconButton';
 // import { theme } from "../../components/Theme"
 import { profileUI1 } from './profileUI';
+import Notification from '../../components/notification/Notification';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -74,11 +75,11 @@ const Profile = () => {
       {show && <SnackBar message={"Image Updated, refresh page to update"} severity='success' />}
       {loading && <Progress/>}
       <Box sx={profileUI}>
-        <Grid container justifyContent='space-between' sx={{my: '2rem'}}>
+        <Grid container justifyContent='space-between' sx={{my: '2rem', px: '1.5rem'}}>
           <Grid item component={Link} to={`/invest`}>
             <ArrowBackIcon  sx={{color:'#000'}} />
           </Grid>
-          <NotificationsIcon/>
+          <Notification/>
         </Grid>
         <Grid container justifyContent='center' sx={{ position: 'relative' }}>
           <Avatar alt='name' src={`/api/user/profile-image/${acilDetails && acilDetails.id}` || 'https://via.placeholder.com/150'}/>

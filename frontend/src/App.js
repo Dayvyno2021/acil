@@ -23,6 +23,7 @@ import CreateNew from "./pages/create-new-page/CreateNew";
 import UpdateSingleProduct from "./pages/update-product-page/UpdateProduct";
 import UpdateOrder from "./pages/admin-update-order/UpdateOrder";
 import EditRefPayout from "./pages/edit-ref-payout/EditRefPayout";
+import Notify from "./pages/notificationpage/Notify";
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Route path="/create-new-product" element={<CreateNew/>} />
         <Route path="/update-product/:id" element={<UpdateSingleProduct/>} />
         <Route path="/update-order/:id" element={<UpdateOrder/>} />
+        <Route path="/notify" element={<Notify/>} />
       </Routes>
       <Footer/>
     </Box>

@@ -27,7 +27,7 @@ export const invest = {
   },
   actions: {
     px: '21.8rem',
-    mb: '5rem',
+    mb: '1rem',
     [theme.breakpoints.down('lg')]: {
       px: '15rem'
     },
@@ -37,9 +37,9 @@ export const invest = {
     [theme.breakpoints.down('sm')]: {
       px: '5rem'
     },
-    '&>a': {
+    '&>a, &>div': {
       p: '0.5rem 1rem',
-      color: '#000000',
+      color: theme.palette.primary.dark,
       borderRadius: '4px',
       textDecoration: 'none',
       cursor: 'pointer',
@@ -49,6 +49,8 @@ export const invest = {
     }
   },
   items: {
+    backgroundImage: `linear-gradient(to bottom, #000, ${theme.palette.primary.light})`,
+    pt: '5rem',
     px: '10rem',
     [theme.breakpoints.down('md')]: {
       px: '5rem'
@@ -59,11 +61,13 @@ export const invest = {
     // display: 'flex',
     // flexWrap: 'wrap',
     // backgroundColor:'red',
+
     '&>div': {
       mr: '1.69rem',
       width: '100%',
       overflow: 'hidden',
       display: 'inline-block',
+      bgcolor: '#FFF',
       mx: 'auto',
       boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
       transition: '0.3s',

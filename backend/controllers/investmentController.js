@@ -16,12 +16,18 @@ export const placeorder = async (req, res) => {
       reference: { reference, trans, status, message, transaction },
     }
       = req.body;
-    const downline = await UserModel.findOne({ refCode: req.user && req.user.refBy });
-    const refPerson = await UserModel.findById(downline._id)
-    if (refPerson) {
+    const referrer = await UserModel.findOne({ refCode: req.user && req.user.refBy });
+    // const refPerson = await UserModel.findById(downline && downline._id)
+    if (referrer) {
+      const notify = {
+        notice: "Hi, one of your downline(s) has created an order", user: referrer && referrer._id
+      }
+      referrer.notification.push(notify);
+      const notifiedReferrer = await referrer.save();
+
       const newDownline = await RefModel.create({
-        referral: refPerson._id,
-        refCode: refPerson.refCode,
+        referral: notifiedReferrer && notifiedReferrer._id,
+        refCode: notifiedReferrer && notifiedReferrer.refCode,
         pack: {
           productID: ID,
           name: pName,
@@ -61,6 +67,11 @@ export const placeorder = async (req, res) => {
     })
 
     if (order) {
+
+      const notify = {notice: `Hi ${req.user && req.user.name}, we have received your order, keep investing`, user: req.user && req.user._id}
+      req.user && req.user.notification && req.user.notification.push(notify)
+      await req.user && req.user.save();
+
       res.json(order)
     } else {
       res.status(400).json({message: 'Could not create order'})

@@ -17,6 +17,8 @@ import { useState } from 'react';
 import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { CHOOSE_PACKAGE_RESET } from '../../constants/packageConstants';
+import { myProfileAction } from '../../actions/userActions';
 
 const Payment = () => {
   // const location = useLocation();
@@ -64,6 +66,11 @@ const Payment = () => {
     initializePayment(onSuccess, onClose);
   }
 
+  const disablePayment = () => {
+    if (!pack) return true;
+    return false;
+  }
+
   useEffect(() => {
     setReady(true);
     const reactKey = async() => {
@@ -73,9 +80,14 @@ const Payment = () => {
     reactKey();
     setReady(false);
     if (orderDetails && orderDetails._id) {
+      localStorage.removeItem('pack');
+      dispatch(myProfileAction())
+      dispatch({type: CHOOSE_PACKAGE_RESET})
       navigate(`/order/${orderDetails && orderDetails._id}`)
+    } else {
+      if (!pack) navigate('/')
     }
-  }, [navigate, orderDetails])
+  }, [dispatch, navigate, orderDetails, pack])
 
 
   return (
@@ -101,7 +113,9 @@ const Payment = () => {
               <Typography variant='h5'>Amount:{' '}&#8358;{pack && pack.amount && pack.amount.toLocaleString()} </Typography>
             </Grid>
             <Grid item xs={3} md={3}>
-              <Button variant='contained' onClick={placeorder}>
+              <Button variant='contained' onClick={placeorder}
+                disabled = {disablePayment()}
+              >
                 Complete Payment
               </Button>
             </Grid>
