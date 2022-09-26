@@ -40,8 +40,8 @@ export const singleProductAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SINGLE_PRODUCT_FAIL,
-      payload: error.response && error.response.message.data ?
-        error.response.message.data : error.response
+      payload: error.response && error.response.data.message ?
+        error.response.data.message : error.response
     })
   }
 }
@@ -68,8 +68,8 @@ export const createProductAction = (input) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: CREATE_PRODUCT_FAIL,
-      payload: error.response && error.response.message.data ?
-        error.response.message.data : error.response
+      payload: error.response && error.response.data.message ?
+        error.response.data.message : error.response
     })
   }
 }

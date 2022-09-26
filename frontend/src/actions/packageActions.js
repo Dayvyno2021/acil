@@ -25,8 +25,8 @@ export const choosePackageAction = (option, id) => async (dispatch, getState) =>
   } catch (error) {
     dispatch({
       type: CHOOSE_PACKAGE_FAIL,
-      payload: error.response && error.response.message.data ?
-        error.response.message.data: error.response
+      payload: error.response && error.response.data.message ?
+        error.response.data.message : error.response
     })
   }
 }

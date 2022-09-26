@@ -49,7 +49,7 @@ export const invest = {
     }
   },
   items: {
-    backgroundImage: `linear-gradient(to bottom, #000, ${theme.palette.primary.light})`,
+    backgroundImage: `linear-gradient(to bottom, rgba(0, 0,0,.5), ${theme.palette.primary.light})`,
     pt: '5rem',
     px: '10rem',
     [theme.breakpoints.down('md')]: {

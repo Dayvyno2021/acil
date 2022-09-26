@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import { prod } from './productUI';
 import { useDispatch, useSelector } from 'react-redux';
 import { singleProductAction } from '../../actions/productActions';
@@ -16,6 +16,7 @@ import SnackBar from '../../components/Snackbar';
 import { choosePackageAction } from '../../actions/packageActions';
 import { theme } from '../../components/Theme';
 import {cloneDeep} from 'lodash'
+import Notification from '../../components/notification/Notification';
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -84,7 +85,8 @@ const Product = () => {
           </Box>
           <Typography variant='h1' align='center'>{product.name}</Typography>
           <Box component={Link} to='/notification'>
-            <NotificationsIcon sx={{color: '#000000'}} />
+            {/* <NotificationsIcon sx={{ color: '#000000' }} /> */}
+            <Notification/>
           </Box>
         </Grid>
         <Grid item container justifyContent='center' sx={{mb:'2rem'}} >

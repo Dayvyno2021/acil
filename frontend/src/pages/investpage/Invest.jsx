@@ -72,7 +72,7 @@ const Invest = () => {
         </Grid>
         <Grid item sx={invest.items} container>
           {
-            products.map((product)=>(
+            products && products.map((product)=>(
               <Grid item xs={5.8} md={3.8} key={`${product && product.name}`} >
                 <Box component={Link} to={`/invest/${product && product._id}`}>
                   <Box component='img' src={product && product.img} alt={product && product.name} />

@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 // import queryString from 'query-string';
 // import HomeIcon from '@mui/icons-material/Home';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import { payment } from './paymentUI';
 import { useSelector, useDispatch } from 'react-redux';
 import { placeOrderAction } from '../../actions/orderActions';
@@ -19,6 +19,7 @@ import SnackBar from '../../components/Snackbar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CHOOSE_PACKAGE_RESET } from '../../constants/packageConstants';
 import { myProfileAction } from '../../actions/userActions';
+import Notification from '../../components/notification/Notification';
 
 const Payment = () => {
   // const location = useLocation();
@@ -99,7 +100,7 @@ const Payment = () => {
           <ArrowBackIcon  sx={{color:'#000'}} />
         </Grid>
         <Typography variant='h3'>Make Payment</Typography>
-        <NotificationsIcon/>
+        <Notification/>
       </Grid>
       <Box>
         <Grid container direction='column' sx={payment} alignItems='center'>

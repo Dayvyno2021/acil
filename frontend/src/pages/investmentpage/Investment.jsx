@@ -11,7 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { tables } from './investmentUI';
@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { myordersAction } from '../../actions/orderActions';
 import SnackBar from '../../components/Snackbar';
 import Progress from '../../components/Progress';
+import Notification from '../../components/notification/Notification';
 
 const Investment = () => {
 
@@ -51,13 +52,13 @@ const Investment = () => {
       {error && <SnackBar message={error} />}
       {loading && <Progress/>}
       <Grid container justifyContent='space-between' sx={{my: '2rem'}}>
-        <Grid item component={Link} to={`/profile/${params.id}`}>
-          <ArrowBackIcon  sx={{color:'#000', visibility:'hidden'}} />
+        <Grid item component={Link} to={`/profile`}>
+          <ArrowBackIcon  sx={{color:'#000'}} />
         </Grid>
         <Typography sx={tables.heading}>
           Investments
         </Typography>
-        <NotificationsIcon/>
+        <Notification/>
       </Grid>
       {
         (myorders && myorders.length < 1) && 
