@@ -26,7 +26,10 @@ const Product = () => {
   const [dd, setDd] = useState('');
 
   const singleProductReducer = useSelector(state => state.singleProductReducer);
-  const {loading, product, error} = singleProductReducer
+  const { loading, product, error } = singleProductReducer
+  
+  const loginReducer = useSelector((state) => state.loginReducer)
+  const { acilDetails } = loginReducer;
   
   const p =useMemo(()=> [
     {packageType: 'Bronze', amount: 50000, selected: false },
@@ -85,8 +88,9 @@ const Product = () => {
           </Box>
           <Typography variant='h1' align='center'>{product.name}</Typography>
           <Box component={Link} to='/notification'>
-            {/* <NotificationsIcon sx={{ color: '#000000' }} /> */}
-            <Notification/>
+            {
+              acilDetails && acilDetails && <Notification/>
+            }
           </Box>
         </Grid>
         <Grid item container justifyContent='center' sx={{mb:'2rem'}} >

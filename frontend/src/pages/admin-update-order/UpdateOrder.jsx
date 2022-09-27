@@ -114,17 +114,22 @@ const UpdateOrder = () => {
             <Button type="submit">Confirm</Button>
 
         </Grid>
-        <Grid item component='form'onSubmit={confirmPaidOut} sx={UpdateOrderUI.confirm}
-        container alignItems='center' xs={10} md={6.1} justifyContent='center'
-        >
+        {orderDetails && orderDetails.payment && orderDetails.payment.paymentStatus ==="Confirmed"
+          && (
+          <Grid item component='form'onSubmit={confirmPaidOut} sx={UpdateOrderUI.confirm}
+            container alignItems='center' xs={10} md={6.1} justifyContent='center'
+            >
 
-            <Typography>Confirm Paid-Out:</Typography>
-            <Checkbox color="success" sx={{ '& .MuiSvgIcon-root': { fontSize: '2rem' } }}
-              checked={paidOut} onChange={(e)=>setPaidOut(e.target.checked)}
-              />
-            <Button type="submit">Confirm</Button>
+                <Typography>Confirm Paid-Out:</Typography>
+                <Checkbox color="success" sx={{ '& .MuiSvgIcon-root': { fontSize: '2rem' } }}
+                  checked={paidOut} onChange={(e)=>setPaidOut(e.target.checked)}
+                  />
+                <Button type="submit">Confirm</Button>
 
-        </Grid>
+            </Grid>
+
+          )
+        }
       </Grid>
 
       <Box sx={UpdateOrderUI}>

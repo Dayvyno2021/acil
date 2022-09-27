@@ -15,13 +15,13 @@ import { profileUI } from './profileUI';
 import SnackBar from '../../components/Snackbar';
 import Progress from '../../components/Progress';
 import { useDispatch, useSelector } from 'react-redux';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { UPLOAD_IMAGE_RESET } from '../../constants/userConstants';
-// import IconButton from '@mui/material/IconButton';
 // import { theme } from "../../components/Theme"
 import { profileUI1 } from './profileUI';
 import Notification from '../../components/notification/Notification';
+import { getDownlinesAction } from '../../actions/userActions';
+import { myordersAction } from '../../actions/orderActions';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -33,12 +33,34 @@ const Profile = () => {
   const loginReducer = useSelector(state => state.loginReducer);
   const { acilDetails } = loginReducer;
 
+  const getDownlinesReducer = useSelector(state => state.getDownlinesReducer);
+  const { downlines } = getDownlinesReducer;
+
+  
+  const myordersReducer = useSelector(state => state.myordersReducer);
+  const { myorders} = myordersReducer;
+
   const [image, setImage] = useState('');
   const [show, setShow] = useState(false)
 
   const handleImage = (e) => {
     const file = e.target.files[0];
     setImage(file);
+  }
+
+  const calcTPO = () => {
+    const downlineP = downlines && downlines.filter(downline => downline && downline.isPaidOut)
+      .map(each => each.refPayout);
+      
+    const paIDOut = myorders && myorders.filter((order) => {
+      return order && order.isPaidOut
+    }).map((value)=>value && value.payout)
+
+    if (downlineP && paIDOut) {
+      let tot = downlineP.concat(paIDOut);
+        tot = tot.reduce((total, value) => total + value, 0);
+      return tot
+    }
   }
 
   const uploadImage = (e) => {
@@ -54,14 +76,16 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    dispatch(myordersAction());
+    dispatch(getDownlinesAction(acilDetails && acilDetails.refCode))
     if (success) {
       setShow(true);
       dispatch({type: UPLOAD_IMAGE_RESET})
     }
-  },[dispatch, success])
+  },[dispatch, success, acilDetails])
 
   const investment = () => {
-    navigate(`/investment/${acilDetails && acilDetails.id}`);
+    navigate(`/investment`);
   }
 
   const downline = () => {
@@ -164,16 +188,8 @@ const Profile = () => {
           )
         }
         <Grid container justifyContent='space-between' className='cl5'>
-          <Typography>Pending Payouts</Typography>
-          <Typography>&#8358;</Typography>
-        </Grid>
-        <Grid container justifyContent='space-between' className='cl5'>
-          <Typography>Received Payouts</Typography>
-          <Typography>&#8358;</Typography>
-        </Grid>
-        <Grid container justifyContent='space-between' className='cl5'>
-          <Typography>Total Payout</Typography>
-          <Typography>&#8358;</Typography>
+          <Typography>Total Payout Received</Typography>
+          <Typography>&#8358;{calcTPO() && calcTPO().toLocaleString()} </Typography>
         </Grid>
       </Box>
     </Box>

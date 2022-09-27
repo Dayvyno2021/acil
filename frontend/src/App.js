@@ -39,7 +39,7 @@ function App() {
         <Route path="/order/:id" element={<Order/>} />
         <Route path="/invest/:id" element={<Product/>} />
         <Route path="/profile/" element={<Profile/>} />
-        <Route path="/investment/:id" element={<Investment/>} />
+        <Route path="/investment" element={<Investment/>} />
         <Route path="/downline/:id" element={<Downline/>} />
         <Route path="/referral/:id" element={<Referral/>} />
         <Route path="/admin/investors" element={<AdminInvestors/>} />

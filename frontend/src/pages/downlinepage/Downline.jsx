@@ -19,6 +19,8 @@ import { getDownlinesAction } from '../../actions/userActions';
 import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
 import Notification from '../../components/notification/Notification';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 const Downline = () => {
@@ -60,6 +62,7 @@ const Downline = () => {
                 <TableCell align="left">Maturity</TableCell>
                 <TableCell align="left">Due Date</TableCell>
                 <TableCell align="left">Payout(&#8358;)</TableCell>
+                <TableCell align="left">Paid-Out?</TableCell>
               </TableRow>
             </TableHead>
             {downlines && downlines.map((downline) => (
@@ -68,8 +71,15 @@ const Downline = () => {
                   <TableCell align="left">{downline && downline.referral && downline.referral.name}</TableCell>
                   <TableCell align="left">{downline && downline.pack && downline.pack.packageType}</TableCell>
                   <TableCell align="left">{downline && downline.pack && downline.pack.maturity}</TableCell>
-                  <TableCell align="left">{downline && downline.payoutDate}</TableCell>
+                  <TableCell align="left">{downline && downline.payOutDate}</TableCell>
                   <TableCell align="left">{downline && downline.refPayout && downline.refPayout.toLocaleString()}</TableCell>
+                  <TableCell align="left">
+                    {downline && downline.isPaidOut ?
+                    (<CheckIcon sx={{ color: 'green' }} />)
+                    :
+                    (<ClearIcon sx={{color:'red'}}/>)
+                    }
+                  </TableCell>
                 </TableRow>
               </TableBody>
             ))

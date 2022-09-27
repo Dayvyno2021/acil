@@ -17,10 +17,11 @@ import CheckIcon from '@mui/icons-material/Check';
 import SendIcon from '@mui/icons-material/Send';
 import { CANCEL_PLACEORDER, RESET_ORDER } from "../../constants/orderConstants";
 import HomeIcon from '@mui/icons-material/Home';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import { theme } from "../../components/Theme";
 import { makeWithdrawalAction } from "../../actions/userActions";
 import { MAKE_WITHDRAWAL_RESET } from "../../constants/userConstants";
+import Notification from "../../components/notification/Notification";
 
 const Order = () => {
   const params = useParams();
@@ -69,6 +70,14 @@ const Order = () => {
     }
   }
 
+  const disablebtn = (sample) => {
+    if (sample) {
+      return false;
+    }
+    return true;
+      
+  }
+
 
   useEffect(() => {
     if (!successO || (orderDetails && orderDetails._id !== params.id)) {
@@ -101,7 +110,7 @@ const Order = () => {
         <Typography variant='h5' sx={{ fontFamily: 'Lato', fontWeight: '700' }}>
           INVESTMENT DETAILS
         </Typography>
-        <NotificationsIcon/>
+        <Notification/>
       </Grid>
       {
         orderDetails && orderDetails.isPaidOut ? '' : (
@@ -109,7 +118,8 @@ const Order = () => {
           <Typography variant='h5' color='#808080' sx={{ fontFamily: 'Lato', fontWeight: '700' }}>
             Request for payout
           </Typography>
-          <Button variant='contained' onClick={()=>handlePayout(orderDetails && orderDetails.payoutDate)}
+            <Button variant='contained' disabled={disablebtn(orderDetails && orderDetails.payment && orderDetails.payment.isPaid)}
+              onClick={() => handlePayout(orderDetails && orderDetails.payoutDate)}
             sx={{ bgcolor: dueDate(orderDetails && orderDetails.payoutDate) ? 'rgba(0,128,0,0.8)' : 'rgba(255,0,0,0.8)', '&:hover':{bgcolor: dueDate(orderDetails && orderDetails.payoutDate)? 'rgba(0,128,0,1)':'rgba(250,0,0,1)'} }}>
             Request
             <SendIcon sx={sendUI.icon} />

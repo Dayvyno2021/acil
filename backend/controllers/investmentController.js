@@ -203,14 +203,14 @@ export const updateAsPaidOut = async (req, res) => {
 
     const order = await InvestmentModel.findById(id);
     if (order) {
-      // const user = await UserModel.findById(order.investor)
-      // if (user) {
-      //   const referral = await RefModel.findOne({ refCode: user.refBy })
-      //   if (referral) {
-      //     referral.isPaidOut = true;
-      //     await referral.save();
-      //   }
-      // }
+      const user = await UserModel.findById(order.investor)
+      if (user) {
+        const referral = await RefModel.findOne({ refCode: user.refBy })
+        if (referral) {
+          referral.isPaidOut = true;
+          await referral.save();
+        }
+      }
 
       order.isPaidOut = paidOut;
       await order.save();

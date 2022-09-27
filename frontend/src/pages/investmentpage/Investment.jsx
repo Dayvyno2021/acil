@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -17,14 +17,16 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { tables } from './investmentUI';
 import { useDispatch, useSelector } from 'react-redux';
 import { myordersAction } from '../../actions/orderActions';
+import { useNavigate } from 'react-router-dom';
 import SnackBar from '../../components/Snackbar';
 import Progress from '../../components/Progress';
 import Notification from '../../components/notification/Notification';
+// import { getDownlinesAction } from '../../actions/userActions';
 
 const Investment = () => {
 
   const dispatch = useDispatch();
-  const params = useParams();
+  const navigate = useNavigate();
 
   const myordersReducer = useSelector(state => state.myordersReducer);
   const { loading, myorders, error } = myordersReducer;
@@ -32,21 +34,35 @@ const Investment = () => {
   const loginReducer = useSelector(state => state.loginReducer);
   const { acilDetails } = loginReducer;
 
-  // const maturityDate = (key) => {
-  //   const maturity = key && key.pack && key.pack.maturity;
-  //   const due = Date.now() + (maturity* 24 * 60 * 60 * 1000);
-  //   return new Date(due).toDateString();
+  // const getDownlinesReducer = useSelector(state => state.getDownlinesReducer);
+  // const { downlines } = getDownlinesReducer;
+
+  const navOrder = (id) => {
+    navigate(`/order/${id}`)
+  }
+
+  // const calcTPO = () => {
+  //   const downlineP = downlines && downlines.filter(downline => downline && downline.isPaidOut)
+  //     .map(each => each.refPayout);
+      
+  //   const paIDOut = myorders && myorders.filter((order) => {
+  //     return order && order.isPaidOut
+  //   }).map((value, index)=>value && value.payout)
+
+  //   if (downlineP && paIDOut) {
+  //     let tot = downlineP.concat(paIDOut);
+  //       tot = tot.reduce((total, value) => total + value);
+  //     return tot
+  //   }
   // }
-
-  // const maturity = maturityDate();
-  // console.log(maturity)
-
+  
   useEffect(() => {
     if (acilDetails) {
       dispatch(myordersAction())
+      // dispatch(getDownlinesAction(acilDetails && acilDetails.refCode))
     }
   }, [dispatch, acilDetails])
-// order && order.pack && order.pack.maturity
+
   return (
     <Box sx={tables}>
       {error && <SnackBar message={error} />}
@@ -89,8 +105,8 @@ const Investment = () => {
                     <TableCell align="left">{order && order.pack && order.pack.maturity}</TableCell>
                     <TableCell align="left">{order && order.payoutDate}</TableCell>
                     <TableCell align="left">{order && order.payout && order.payout.toLocaleString()}</TableCell>
-                    <TableCell align="left" component={Link} to={`/order/${order && order._id}`} >
-                      <VisibilityIcon />
+                    <TableCell align="left" >
+                      <VisibilityIcon onClick={() => navOrder(order && order._id)} sx={{'&:hover':{cursor:'pointer'}}} />
                     </TableCell>
                   </TableRow>
                 </TableBody>

@@ -85,9 +85,7 @@ const Payment = () => {
       dispatch(myProfileAction())
       dispatch({type: CHOOSE_PACKAGE_RESET})
       navigate(`/order/${orderDetails && orderDetails._id}`)
-    } else {
-      if (!pack) navigate('/')
-    }
+    } 
   }, [dispatch, navigate, orderDetails, pack])
 
 

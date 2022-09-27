@@ -17,14 +17,22 @@ const About = () => {
     { label:"About", link: '/about', acilDetails: false},
     { label:"Invest", link: "/invest", acilDetails: false},
     {label: "Register", link:"/register", acilDetails: acilDetails},
-    {label: "Profile", link:`/profile/${acilDetails && acilDetails.id}`, acilDetails: !acilDetails},
+    {label: "Profile", link:`/profile`, acilDetails: !acilDetails},
+    {label: "Login", link:`/login`, acilDetails: acilDetails},
     {label: "Logout", link:"/", acilDetails: !acilDetails},
+  ]
+
+  const labels1 = [
+    {label: 'Home', link:'/', acilDetails: false},
+    { label:"About", link: '/about', acilDetails: false},
+    { label:"Invest", link: "/invest", acilDetails: false},
+    {label: "Profile", link:`/profile`, acilDetails: !acilDetails},
   ]
 
   return (
     <Box sx={about}>
       <Grid container direction='column'>
-        <Header labels={labels} labels1={labels} />
+        <Header labels={labels} labels1={labels1} />
         {/* Main */}
         <Grid sx={about.main} item>
           <Grid item sx={about.main1} md={4} sm={5}>

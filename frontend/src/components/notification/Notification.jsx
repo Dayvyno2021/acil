@@ -29,17 +29,25 @@ const notee = {
 const Notification = () => {
 
   const loginReducer = useSelector(state => state.loginReducer);
+  const { acilDetails } = loginReducer;
   const { acilDetails: { notification } } = loginReducer;
 
   return (
     <Box>
-      <Grid item container justifyContent='center' sx={notee} component={Link} to='/notify'>
-        <NotificationsIcon sx={{color: '#808080', fontSize:'2rem'}} />
-        <Typography variant='h2'>
-          {notification && notification.length > 0? notification.length : ''}
-        </Typography>
-      </Grid>
-    </Box>
+      {
+        acilDetails && acilDetails.id && (
+          
+          <Grid item container justifyContent='center' sx={notee} component={Link} to='/notify'>
+            <NotificationsIcon sx={{color: '#808080', fontSize:'2rem'}} />
+            <Typography variant='h2'>
+              <strong>
+                {notification && notification.length > 0? notification.length : ''}
+              </strong>
+            </Typography>
+          </Grid>
+          )
+        }
+        </Box>
   )
 }
 

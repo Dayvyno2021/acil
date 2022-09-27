@@ -41,7 +41,10 @@ const Invest = () => {
           <Box component={Link} to='/'>
             <Box component='img' src='/image/logo.png' />
           </Box>
-          <Notification/>
+          {
+            acilDetails && acilDetails && <Notification/>
+          }
+          
           {/* <NotificationsIcon fontSize='large' /> */}
         </Grid>
         <Grid item sx={invest.actions} container

@@ -124,7 +124,7 @@ export const uploadPixAction = (detail) => async(dispatch, getState)=> {
     const config = {
       headers: {
         authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        encType: 'multipart/form-data'
       }
     }
 

@@ -52,7 +52,6 @@ const Homepage = () => {
     {label: 'Home', link:'/', acilDetails: false},
     { label:"About", link: '/about', acilDetails: false},
     { label:"Invest", link: "/invest", acilDetails: false},
-    { label: "Contact Us", link: "#contactus", acilDetails: false },
     { label: "Profile", link: `/profile`, acilDetails: !acilDetails },
   ]
 
@@ -155,8 +154,8 @@ const Homepage = () => {
             <Grid item md={6} sx={home.why1} >
               <Typography variant='h2' gutterBottom>Why You Should Invest</Typography>
               <Typography variant='body1' gutterBottom>
-                We have stake holders whose combined efforts has driven the company, but now we
-                look to expand, so we need stake holders which is why the gate is being thrown
+                We have stakeholders whose combined efforts has driven the company, but now we
+                look to expand, so we need stakeholders which is why the gate is being thrown
                 open to the members of the public
               </Typography>
 
@@ -185,8 +184,8 @@ const Homepage = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography variant='body1'>
-                    Invite people using the unique referral code that will provided
-                    to you to receive bonuses on each referal
+                    Invite people using the unique referral code that will be provided
+                    to you to receive bonuses on each referral
                   </Typography>
                 </AccordionDetails>
               </Accordion>
