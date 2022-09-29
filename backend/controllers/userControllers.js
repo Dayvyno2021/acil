@@ -162,16 +162,16 @@ export const profile = async (req, res) => {
 export const profileImage = async (req, res) => {
   try {
     const file = req.files;
-    // console.log(file)
     // res.json("we see")
     if (file && file.image && file.image.size > 210000) {
       res.status(400).json({message: "image must not be above 200kb"})
     } else {
       const imgData = await UserModel.findById(req.user._id);
-
+      
       if (imgData) {
-        imgData.pic.data = fs.readFileSync(file.image.path);
-        imgData.pic.contentType = file.image.type;
+        console.log(file)
+        imgData.pic.contentType = file && file.image && file.image.type;
+        imgData.pic.data = fs.readFileSync(file && file.file && file.image.path);
         await imgData.save();
         res.json("Successful");
         

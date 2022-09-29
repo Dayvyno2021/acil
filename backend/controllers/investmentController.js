@@ -124,10 +124,23 @@ export const singleOrder = async (req, res) => {
 //@access: protect, adminProtect
 export const allOrders = async (req, res) => {
   try {
+    const { orderID, username, start, end, page } = req.query;
+    // console.log({ user, pro, start, end, page })
+    const active = Number(page) || 1;
+    const pageSize = 15;
 
-    const orders = await InvestmentModel.find({}).populate({path:'investor', select: 'name'});
+    // let searchIds = orderID ?
+    //   { _id: orderID }
+    //   :
+    //   {};
+
+    const count = await InvestmentModel.count({})
+    const orders = await InvestmentModel.find({})
+      .populate({ path: 'investor', select: 'name' })
+      .limit(pageSize)
+      .skip(pageSize * (active - 1));
     if (orders) {
-      res.json(orders);
+      res.json({orders, pages: Math.ceil(count/pageSize), active});
     } else {
       res.status(400).json({message: "Could not find orders"})
     }

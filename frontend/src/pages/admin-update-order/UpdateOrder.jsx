@@ -61,25 +61,23 @@ const UpdateOrder = () => {
   }
 
   useEffect(() => {
-    if (acilDetails && acilDetails.isAdmin === false) {
-      navigate('/')
+    if (acilDetails && acilDetails.isAdmin === true) {
+      if (!success || (orderDetails && orderDetails._id !== params.id)) {
+        dispatch(getOrderAction(params.id));
+      } else {
+        if (orderPD) {
+          dispatch({ type: RESET_ORDER_PAID });
+          navigate('/admin/investments')
+        }
+        if (po) {
+          dispatch({ type: RESET_PAYOUT });
+          navigate('/admin/investments')
+        }
+        setPaid(orderDetails && orderDetails.payment && orderDetails.payment.isPaid)
+        setPaidOut(orderDetails && orderDetails.isPaidOut)
+      }
     } else {
-      
-          if (!success || (orderDetails && orderDetails._id !== params.id)) {
-            dispatch(getOrderAction(params.id));
-          } else {
-            if (orderPD) {
-              dispatch({ type: RESET_ORDER_PAID });
-              navigate('/admin/investments')
-            }
-            if (po) {
-              dispatch({ type: RESET_PAYOUT });
-              navigate('/admin/investments')
-            }
-            setPaid(orderDetails && orderDetails.payment && orderDetails.payment.isPaid)
-            setPaidOut(orderDetails && orderDetails.isPaidOut)
-          }
-      
+      navigate('/')
     }
 
   }, [dispatch, params, orderDetails, success, orderPD, po, navigate, acilDetails])

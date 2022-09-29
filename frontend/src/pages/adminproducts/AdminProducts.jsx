@@ -86,10 +86,10 @@ const AdminProducts = () => {
   }
 
   useEffect(() => {
-    if (acilDetails && acilDetails.isAdmin === false) {
-      navigate('/')
-    } else {
+    if (acilDetails && acilDetails.isAdmin === true) {
       dispatch(getProductsAction());
+    } else {
+      navigate('/')
     }
   }, [dispatch, success, navigate, acilDetails])
 

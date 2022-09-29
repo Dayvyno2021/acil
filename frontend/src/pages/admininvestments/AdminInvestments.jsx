@@ -1,19 +1,17 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Header from "../../components/headerComp/Header";
-import {adminIUI} from './adminInvestmentUI'
-
+import { adminIUI } from './adminInvestmentUI';
+// import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Progress from "../../components/Progress";
 import SnackBar from "../../components/Snackbar";
-
-
 // import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // import { theme } from "../../components/Theme";
 
 import Table from '@mui/material/Table';
@@ -24,18 +22,27 @@ import TableRow from '@mui/material/TableRow';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import { allOrdersAction, deleteOrderAction } from "../../actions/orderActions";
+import Search from "../../components/search/Search";
+import Pagination1 from "../../components/Pagination";
+import queryString from 'query-string';
 
 
 const AdminInvestments = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // const pageNumber = params.id || 1;
+
+  const parsed = queryString.parse(location.search);
+  const { id, username, start, end, page } = parsed;
 
   const loginReducer = useSelector((state) => state.loginReducer);
   const { acilDetails } = loginReducer;
   //acilDetails && acilDetails.isAdmin === false
 
   const allOrdersReducer = useSelector((state) => state.allOrdersReducer);
-  const { loading, allOrders, error } = allOrdersReducer;
+  const { loading, allOrders, error, pages } = allOrdersReducer;
 
   
   const getDate = (time) => {
@@ -85,17 +92,18 @@ const AdminInvestments = () => {
   }
   
   useEffect(() => {
-    if (acilDetails && acilDetails.isAdmin === false) {
-      navigate('/')
+    if (acilDetails && acilDetails.isAdmin === true) {
+      dispatch(allOrdersAction({ id, username, start, end, page }))
     } else {
-      dispatch(allOrdersAction())
+      navigate('/')
     }
-  },[dispatch, del, navigate, acilDetails])
+  },[dispatch, del, navigate, acilDetails, id, username, start, end, page])
 
   return (
     <Box sx={{ minHeight: '85vh' }}>
       {(loading || loadingD) && <Progress />}
-      {(error || errorD ) && <SnackBar message={error || errorD}/>}
+      {error && <SnackBar message={JSON.stringify(error)} /> }
+      {(errorD) && <SnackBar message={errorD} />}
       <Grid item container direction='column' sx={adminIUI}>
         <Grid item xs={12} >
           <Box sx={adminIUI.header}>
@@ -105,13 +113,17 @@ const AdminInvestments = () => {
         <Grid item xs={12} container justifyContent='center' sx={adminIUI.heading}>
           <Typography variant="h1">All Investments</Typography>
         </Grid>
+        <Grid item xs={12} container justifyContent='center'>
+          <Search />
+        </Grid>
         <Grid item container justifyContent='center' direction='column' sx={adminIUI.mainTable}>  
           <Box sx={adminIUI.table}>
             <TableContainer component={Paper}>
               <Table sx={{width:'100%'}}>
                 <TableHead sx={{bgcolor: '#000000'}}>
                   <TableRow >
-                    <TableCell>Investor</TableCell>
+                    <TableCell>Investment ID</TableCell>
+                    <TableCell>User</TableCell>
                     <TableCell>Product Name</TableCell>
                     <TableCell align="left">ROI(%)</TableCell>
                     <TableCell align="left">Maturity(Days)</TableCell>
@@ -135,6 +147,7 @@ const AdminInvestments = () => {
                 {allOrders && allOrders.map((order) => (
                   <TableBody key={order && order._id} sx={adminIUI.body}>
                     <TableRow>
+                      <TableCell align="left">{order && order._id}</TableCell>
                       <TableCell align="left">{order && order.investor && order.investor.name}</TableCell>
                       <TableCell align="left">{order && order.pack && order.pack.name}</TableCell>
                       <TableCell align="left">{order && order.pack && order.pack.ROI}</TableCell>
@@ -180,6 +193,7 @@ const AdminInvestments = () => {
           :
           ('')
         }
+        <Pagination1 count={pages} sx={{ml: '2rem'}} />
       </Grid>
     </Box>
   )

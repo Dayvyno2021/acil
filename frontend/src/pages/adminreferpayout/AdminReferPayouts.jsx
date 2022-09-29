@@ -86,10 +86,10 @@ const AdminReferPayouts = () => {
   }
 
   useEffect(() => {
-    if (acilDetails && acilDetails.isAdmin === false) {
-      navigate('/');
-    } else {
+    if (acilDetails && acilDetails.isAdmin === true) {
       dispatch(allReferralAction());
+    } else {
+      navigate('/');
     }
 
   }, [dispatch, deleted, acilDetails, navigate])

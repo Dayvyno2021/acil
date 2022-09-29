@@ -84,10 +84,10 @@ const AdminInvestors = () => {
 
 
   useEffect(() => {
-    if (acilDetails && acilDetails.isAdmin === false) {
-      navigate('/')
-    } else {
+    if (acilDetails && acilDetails.isAdmin === true) {
       dispatch(adminUsersAction())
+    } else {
+      navigate('/')
     }
   }, [dispatch, acilDetails, del, navigate])
 

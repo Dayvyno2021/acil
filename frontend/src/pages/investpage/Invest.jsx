@@ -35,7 +35,7 @@ const Invest = () => {
   return (
     <Box sx={{minHeight: '85vh'}}>
       {loading && <Progress />}
-      {error && <SnackBar message={error}/>}
+      {error && <SnackBar message={JSON.stringify(error)}/>}
       <Grid container direction='column' sx={invest}>
         <Grid item sx={invest.logos} container justifyContent='space-between' alignItems='center'>
           <Box component={Link} to='/'>

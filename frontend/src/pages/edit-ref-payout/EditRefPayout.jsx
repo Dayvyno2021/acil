@@ -52,9 +52,7 @@ const EditRefPayout = () => {
   }
 
   useEffect(() => {
-    if (acilDetails && acilDetails.isAdmin === false) {
-      navigate('/');
-    } else {
+    if (acilDetails && acilDetails.isAdmin === true) {
       if (!success || (details && details._id !== params.id)) {
         dispatch(refPayoutAction(params.id))
       } else {
@@ -64,7 +62,8 @@ const EditRefPayout = () => {
           navigate('/admin/ref-payouts')
         }
       }
-      
+    } else {
+      navigate('/');
     }
 
   }, [dispatch, success, details, pay, navigate, params.id, acilDetails])

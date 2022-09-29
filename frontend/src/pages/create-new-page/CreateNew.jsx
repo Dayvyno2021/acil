@@ -28,6 +28,9 @@ const CreateNew = () => {
   const createProductReducer = useSelector(state => state.createProductReducer);
   const { loading, success, error } = createProductReducer;
 
+  const loginReducer = useSelector((state) => state.loginReducer);
+  const { acilDetails } = loginReducer;
+
   const disableSubmit = () => {
     if (!name || !ROI || !maturity || !imgPath) return true
   }
@@ -39,16 +42,20 @@ const CreateNew = () => {
   }
 
   useEffect(() => {
-    if (success) {
-      setShow(true);
-      setName('');
-      setImgPath('');
-      setMaturity('');
-      setROI('');
-      dispatch({ type: RESET_CREATE_PRODUCT });
-      navigate('/admin/products')
+    if (acilDetails && acilDetails.isAdmin === true) {
+      if (success) {
+        setShow(true);
+        setName('');
+        setImgPath('');
+        setMaturity('');
+        setROI('');
+        dispatch({ type: RESET_CREATE_PRODUCT });
+        navigate('/admin/products')
+      }
+    } else {
+      navigate('/')
     }
-  }, [dispatch, success, navigate])
+  }, [dispatch, success, navigate, acilDetails])
 
 
   return (

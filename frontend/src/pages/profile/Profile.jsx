@@ -65,7 +65,7 @@ const Profile = () => {
 
   const uploadImage = (e) => {
     e.preventDefault();
-    if (image.length < 1) {
+    if (image && image.length < 1) {
       alert('field empty, please add image');
       return;
     } else {

@@ -88,8 +88,9 @@ export const myordersAction = () => async (dispatch, getState) => {
 }
 
 //Fetches all the orders. For Admins only
-export const allOrdersAction = () => async (dispatch, getState) => {
+export const allOrdersAction = (input) => async (dispatch, getState) => {
   try {
+    const { id, username, start, end, page } = input;
     dispatch({ type: ALL_ORDERS_REQUEST });
 
     const { loginReducer: { acilDetails: { token } } } = getState();
@@ -99,7 +100,10 @@ export const allOrdersAction = () => async (dispatch, getState) => {
       }
     }
 
-    const {data} = await axios.get('/api/investment/all-orders', config)
+    const { data } = await axios.get(
+      `/api/investment/all-orders/?orderID=${id}&username=${username}&start=${start}&end=${end}&page=${page}`,
+      config
+    )
 
     dispatch({
       type: ALL_ORDERS_SUCCESS,

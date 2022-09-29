@@ -48,9 +48,7 @@ const AdminEditUser = () => {
   }
   
   useEffect(() => {
-    if (acilDetails && acilDetails.isAdmin === false) {
-      navigate('/')
-    } else {
+    if (acilDetails && acilDetails.isAdmin === true) {
       if (!userDetails || (userDetails && userDetails._id !== id)) {
         dispatch(profileAction(id));
       }else {
@@ -60,6 +58,8 @@ const AdminEditUser = () => {
           navigate('/admin/investors')
         }
       }
+    } else {
+      navigate('/')
     }
   }, [dispatch, id, userDetails, navigate, success, acilDetails])
 

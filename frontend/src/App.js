@@ -45,6 +45,7 @@ function App() {
         <Route path="/admin/investors" element={<AdminInvestors/>} />
         <Route path="/admin/products" element={<AdminProducts/>} />
         <Route path="/contactus" element={<h1>Contact Us</h1>} />
+        <Route path="/admin/investments/:id" element={<AdminInvestments/>} />
         <Route path="/admin/investments" element={<AdminInvestments/>} />
         <Route path="/admin/ref-payouts" element={<AdminReferPayouts/>} />
         <Route path="/admin/ref-payouts/:id" element={<EditRefPayout/>} />

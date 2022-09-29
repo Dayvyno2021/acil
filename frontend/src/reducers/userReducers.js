@@ -6,11 +6,11 @@ const userFrmStorage = localStorage.getItem('acilDetails') ?
 export const registerReducer = (state = {acilDetails: userFrmStorage}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
-      return { loading: true };
+      return {state, loading: true };
     case USER_REGISTER_SUCCESS:
-      return { loading: false, acilDetails: action.payload };
+      return {state, loading: false, acilDetails: action.payload };
     case USER_REGISTER_FAIL:
-      return { loading: false, error: action.payload };
+      return {state, loading: false, error: action.payload };
     case USER_LOGOUT:
       return {};
     default:
@@ -23,9 +23,9 @@ export const loginReducer = (state = { acilDetails: userFrmStorage }, action) =>
     case USER_LOGIN_REQUEST:  
       return {loading: true};
     case USER_LOGIN_SUCCESS:
-      return { loading: false, acilDetails: action.payload };
+      return {loading: false, acilDetails: action.payload };
     case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload }
+      return {loading: false, error: action.payload }
     case USER_LOGOUT:
       return {};
     default:
