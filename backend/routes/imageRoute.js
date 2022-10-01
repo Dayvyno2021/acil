@@ -1,33 +1,33 @@
 import express from "express";
 import multer from "multer";
 import ImageController from "../controllers/imageController.js";
+import { v4 as uuidv4 } from 'uuid';
 const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "images");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + ".jpg"); //Appending .jpg
+    cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
   },
 });
+
 const fileFilter = (req, file, cb) => {
-  var ext = path.extname(file.originalname);
-  if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg") {
-    return callback(new Error("Only images are allowed"));
+  const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+  if (allowedFileTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);// res.status(400).json({message: "Only jpeg, png and jpg are allowed"})
   }
-  callback(null, true);
 };
-const upload = multer({
+
+export let upload = multer({
   storage: storage,
   fileFilter: fileFilter,
-  limit: {
-    fieldSize: 1 * 1024 * 1024, //1 MB
-  },
+  limits: {fieldSize: 210000},
 });
-router.post(
-  "/upload-image",
-  upload.single("upload"),
-  ImageController.singleImageUpload
-);
-export default router;
+
+// router.post("/upload-image", upload.single("image"), ImageController.singleImageUpload);
+
+// export default router;

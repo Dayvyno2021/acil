@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADMIN_USERS_FAIL, ADMIN_USERS_REQUEST, ADMIN_USERS_SUCCESS, DELETE_NOTIFICATION_FAIL, DELETE_NOTIFICATION_REQUEST, DELETE_NOTIFICATION_SUCCESS, DELETE_USER_FAIL, DELETE_USER_REQUEST, DELETE_USER_SUCCESS, GET_DOWNLINES_FAIL, GET_DOWNLINES_REQUEST, GET_DOWNLINES_SUCCESS, MAKE_ADMIN_FAIL, MAKE_ADMIN_REQUEST, MAKE_ADMIN_SUCCESS, MAKE_WITHDRAWAL_FAIL, MAKE_WITHDRAWAL_REQUEST, MAKE_WITHDRAWAL_SUCCESS, MY_PROFILE_FAIL, MY_PROFILE_REQUEST, MY_PROFILE_SUCCESS, SEND_MESSAGE_FAIL, SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS, UPDATE_USER_FAIL, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPLOAD_IMAGE_FAIL, UPLOAD_IMAGE_REQUEST, UPLOAD_IMAGE_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS } from '../constants/userConstants';
+import { ADMIN_USERS_FAIL, ADMIN_USERS_REQUEST, ADMIN_USERS_SUCCESS, DELETE_NOTIFICATION_FAIL, DELETE_NOTIFICATION_REQUEST, DELETE_NOTIFICATION_SUCCESS, DELETE_USER_FAIL, DELETE_USER_REQUEST, DELETE_USER_SUCCESS, GET_DOWNLINES_FAIL, GET_DOWNLINES_REQUEST, GET_DOWNLINES_SUCCESS, MAKE_ADMIN_FAIL, MAKE_ADMIN_REQUEST, MAKE_ADMIN_SUCCESS, MAKE_WITHDRAWAL_FAIL, MAKE_WITHDRAWAL_REQUEST, MAKE_WITHDRAWAL_SUCCESS, MY_PROFILE_FAIL, MY_PROFILE_REQUEST, MY_PROFILE_SUCCESS, PROFILE_PHOTO_FAIL, PROFILE_PHOTO_REQUEST, PROFILE_PHOTO_SUCCESS, SEND_MESSAGE_FAIL, SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS, UPDATE_USER_FAIL, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPLOAD_IMAGE_FAIL, UPLOAD_IMAGE_REQUEST, UPLOAD_IMAGE_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS } from '../constants/userConstants';
 
 export const registerAction = (input) => async (dispatch) => {
   try {
@@ -124,11 +124,11 @@ export const uploadPixAction = (detail) => async(dispatch, getState)=> {
     const config = {
       headers: {
         authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        'enctype': 'multipart/form-data'
       }
     }
 
-    const { data } = await axios.put('/api/user/imageform', detail, config);
+    const { data } = await axios.post('/api/user/imageform', detail, config);
     dispatch({
       type: UPLOAD_IMAGE_SUCCESS,
       payload: data
@@ -417,5 +417,31 @@ export const makeWithdrawalAction = (id) => async (dispatch, getState) => {
       payload: error.response && error.response.data.message ?
       error.response.data.message: error.response
     })   
+  }
+}
+
+export const profilePhotoAction = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PROFILE_PHOTO_REQUEST });
+    const { loginReducer: { acilDetails: { token } } } = getState();
+    const config = {
+      headers: {
+        authorization: `Bearer ${token}`,
+      }
+    }
+    
+    const { data } = await axios.get('/api/user/profile-image', config);
+
+    dispatch({
+      type: PROFILE_PHOTO_SUCCESS,
+      payload: data
+    })
+
+  } catch (error) {
+    dispatch({
+      type: PROFILE_PHOTO_FAIL,
+      payload: error.response && error.response.data.message ?
+        error.response.data.message: error.response
+    })
   }
 }

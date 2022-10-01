@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import { connectDb } from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import imageRoute from "./routes/imageRoute.js";
+// import imageRoute from "./routes/imageRoute.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import investmentRoute from "./routes/investmentRoute.js";
 import referralRoute from "./routes/referralRoute.js";
@@ -34,7 +34,7 @@ app.use("/api/investment", investmentRoute);
 app.use("/api/referral", referralRoute);
 app.use('/api/email', emailRoute);
 app.get("/paystack-key", (req, res) => res.send(process.env.PAYSTACK_TEST_KEY));
-app.use(imageRoute);
+// app.use(imageRoute);
 
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === "production") {

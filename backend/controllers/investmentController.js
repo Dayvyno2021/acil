@@ -134,9 +134,16 @@ export const allOrders = async (req, res) => {
     //   :
     //   {};
 
+    const searchName = username? {
+      name: {$regex: username, $options: 'i'}
+    }
+    : 
+    {}
+    // const name = username ? username : {}
+
     const count = await InvestmentModel.count({})
     const orders = await InvestmentModel.find({})
-      .populate({ path: 'investor', select: 'name' })
+      .populate({ path: 'investor', select: 'name _id', match: {...searchName}})
       .limit(pageSize)
       .skip(pageSize * (active - 1));
     if (orders) {

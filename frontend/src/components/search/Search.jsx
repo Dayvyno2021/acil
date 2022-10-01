@@ -62,32 +62,32 @@ const Search = () => {
     <Box sx={{width: '100%'}}>
       <Box sx={form} component='form' onSubmit={onSearch} >
         <Grid container justifyContent='center' alignItems='end'>
-          <Grid item xs={10} md={2.7} container>
+          <Grid item xs={10} md={11}  container sx={{display: 'none'}}>
             <InputLabel htmlFor='order_id'>Order ID</InputLabel>
             <TextField type='search' id='order_id' size='small' sx={{ width: '90%' }}
               value= {orderID} onChange={(e)=>setOrderID(e.target.value)}
             />
           </Grid>
-          <Grid item xs={10} md={2.7} container >
+          <Grid item xs={10}  md={2.7} container >
             <InputLabel htmlFor='product'>Username</InputLabel>
             <TextField type='search' id='product' size='small'
               value={username} onChange={(e)=>setUsername(e.target.value)}
             />
           </Grid>
-          <Grid item xs={10} md={2.7} container >
+          <Grid item xs={10} md={2.7} container sx={{display: 'none'}}>
             <InputLabel htmlFor='date-start'>Start Date</InputLabel>
             <TextField type='date' id='date-start' size='small'
               value={date1} onChange={e=>setDate1(e.target.value)}
             />
           </Grid>
-          <Grid item xs={10} md={2.7} container >
+          <Grid item xs={10} md={2.7} container sx={{display: 'none'}}>
             <InputLabel htmlFor='date-end'>Date End</InputLabel>
             <TextField type='date' id='date-end' size='small'
               value={date2} onChange = {e=>setDate2(e.target.value)}
             />
           </Grid>
 
-          <Grid item container xs={10} md={1} justifyContent='end'>
+          <Grid item container xs={2} md={1} justifyContent='end'>
             <Button type='submit'>
               <SearchIcon sx={form.icon} />
             </Button>

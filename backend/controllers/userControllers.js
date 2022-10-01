@@ -1,7 +1,9 @@
 import UserModel from '../models/userModel.js';
 import { generateToken } from '../config/generateToken.js';
 import fs from 'fs';
+import path from 'path';
 import InvestmentModel from '../models/investmentModel.js';
+import formidable from 'formidable';
 // import expressAsyncHandler from 'express-async-handler';
 
 //desc: register new user;
@@ -161,24 +163,23 @@ export const profile = async (req, res) => {
 
 export const profileImage = async (req, res) => {
   try {
-    const file = req.files;
-    // res.json("we see")
-    if (file && file.image && file.image.size > 210000) {
-      res.status(400).json({message: "image must not be above 200kb"})
-    } else {
-      const imgData = await UserModel.findById(req.user._id);
-      
-      if (imgData) {
-        console.log(file)
-        imgData.pic.contentType = file && file.image && file.image.type;
-        imgData.pic.data = fs.readFileSync(file && file.file && file.image.path);
-        await imgData.save();
-        res.json("Successful");
-        
-      } else {
-        res.status(400).json({message: "Could not locate user"})
+    const files = req.files;
+    const fields = req.fields;
+    // console.log(files)
+    const investor = await UserModel.findById(req.user._id);
+    if ((files && files.image && files.image.size) > 220000){
+      return res.status(400).json({message: 'Max image size=200kb'})
+    } else{
+      if (files && files.image) {
+        investor.pic.data = fs.readFileSync(files.image.path);
+        investor.pic.contentType = files.image.type;
+        await investor.save();
+        return res.json('successful')
+      } else{
+        return res.status(400).json({message: 'Could not upload image, refresh and try again'})
       }
     } 
+
     
   } catch (error) {
     const m = process.env.NODE_ENV === 'production' ? '' : error;
@@ -203,6 +204,24 @@ export const userImage = async(req, res)=>{
     } else{
       res.status(400).json({message: 'Could not find image'})
     }
+    
+    
+  } catch (error) {
+    const m = process.env.NODE_ENV==='production'? null: error
+    res.status(404).json({message: `Server Down===> ${m}`})
+  }
+}
+
+export const imageConfirm = async(req, res)=>{
+  try {
+    const id = req.user._id;
+    const profileImage = await UserModel.findById(id)
+    if (profileImage && profileImage.pic && profileImage.pic.data){
+      res.json('Yes')
+    } else{
+      res.json('No')
+    }
+    
     
   } catch (error) {
     const m = process.env.NODE_ENV==='production'? null: error

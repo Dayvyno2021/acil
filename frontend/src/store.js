@@ -3,7 +3,7 @@ import { allOrdersReducer, deleteOderReducer, getOrderReducer, myordersReducer, 
 import { choosePackageReducer } from './reducers/packageReducers';
 import { createProductReducer, deleteProductReducer, getProductsReducer, singleProductReducer, updateProductReducer } from './reducers/productReducers';
 import { allReferralReducer, deleteReferralReducer, refPayoutReducer, updateRefPayoutReducer } from './reducers/referralReducers';
-import { adminUsersReducer, deleteNotificationReducer, deleteUserReducer, getDownlinesReducer, loginReducer, makeAdminReducer, makeWithdrawalReducer, myProfileReducer, profileReducer, registerReducer, sendMessageReducer, updateUserReducer, uploadPixReducer } from './reducers/userReducers';
+import { adminUsersReducer, deleteNotificationReducer, deleteUserReducer, getDownlinesReducer, loginReducer, makeAdminReducer, makeWithdrawalReducer, myProfileReducer, profilePhotoReducer, profileReducer, registerReducer, sendMessageReducer, updateUserReducer, uploadPixReducer } from './reducers/userReducers';
 
 export const store = configureStore({
   reducer: {
@@ -36,6 +36,7 @@ export const store = configureStore({
     deleteReferralReducer: deleteReferralReducer,
     myProfileReducer: myProfileReducer,
     deleteNotificationReducer: deleteNotificationReducer,
-    makeWithdrawalReducer: makeWithdrawalReducer
+    makeWithdrawalReducer: makeWithdrawalReducer,
+    profilePhotoReducer: profilePhotoReducer
   }
 })

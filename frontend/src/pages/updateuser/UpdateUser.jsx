@@ -86,18 +86,14 @@ const UpdateUser = () => {
   }
 
   useEffect(() => {
-    if (acilDetails && acilDetails.isAdmin === true) {
-      if (success) {
-        navigate(`/profile`);
-        dispatch({type:RESET_USER_UPDATE})
-      } else {
-        setFullname(acilDetails && acilDetails.fullname);
-        setAccount(acilDetails && acilDetails.account);
-        setBank(acilDetails && acilDetails.bank);
-        setPhone(acilDetails && acilDetails.phone)
-      }
+    if (success) {
+      navigate(`/profile`);
+      dispatch({type:RESET_USER_UPDATE})
     } else {
-      navigate('/')
+      setFullname(acilDetails && acilDetails.fullname);
+      setAccount(acilDetails && acilDetails.account);
+      setBank(acilDetails && acilDetails.bank);
+      setPhone(acilDetails && acilDetails.phone)
     }
   }, [navigate, success, dispatch, acilDetails])
   

@@ -1,5 +1,5 @@
 import { useState, useEffect} from 'react';
-import { uploadPixAction } from '../../actions/userActions';
+import { profilePhotoAction, uploadPixAction } from '../../actions/userActions';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -17,7 +17,7 @@ import Progress from '../../components/Progress';
 import { useDispatch, useSelector } from 'react-redux';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { UPLOAD_IMAGE_RESET } from '../../constants/userConstants';
-// import { theme } from "../../components/Theme"
+import { theme } from "../../components/Theme"
 import { profileUI1 } from './profileUI';
 import Notification from '../../components/notification/Notification';
 import { getDownlinesAction } from '../../actions/userActions';
@@ -38,8 +38,12 @@ const Profile = () => {
 
   
   const myordersReducer = useSelector(state => state.myordersReducer);
-  const { myorders} = myordersReducer;
+  const { myorders } = myordersReducer;
 
+  const profilePhotoReducer = useSelector(state => state.profilePhotoReducer);
+  const { image: imageP } = profilePhotoReducer;
+  
+ // eslint-disable-next-line
   const [image, setImage] = useState('');
   const [show, setShow] = useState(false)
 
@@ -65,18 +69,15 @@ const Profile = () => {
 
   const uploadImage = (e) => {
     e.preventDefault();
-    if (image && image.length < 1) {
-      alert('field empty, please add image');
-      return;
-    } else {
+    // alert('This button is not functional yet')
       const imageData = new FormData();
       imageData.append('image', image);
       dispatch(uploadPixAction(imageData))
-    }
   }
 
   useEffect(() => {
     dispatch(myordersAction());
+    dispatch(profilePhotoAction())
     dispatch(getDownlinesAction(acilDetails && acilDetails.refCode))
     if (success) {
       setShow(true);
@@ -92,6 +93,7 @@ const Profile = () => {
     navigate(`/downline/${acilDetails && acilDetails.id}`);
   }
 
+  const first = acilDetails && acilDetails.username && acilDetails.username.substr(0, 2)
 
   return (
     <Box sx={profileUI1}>
@@ -105,17 +107,20 @@ const Profile = () => {
           </Grid>
           <Notification/>
         </Grid>
-        <Grid container justifyContent='center' sx={{ position: 'relative' }}>
-          <Avatar alt='name' src={`/api/user/profile-image/${acilDetails && acilDetails.id}` || 'https://via.placeholder.com/150'}/>
-          
+        <Grid container justifyContent='center' sx={{ position: 'relative', "&>div": { bgcolor: theme.palette.primary.main } }}>
+          {
+            imageP==="Yes" ?
+            (<Avatar alt='name' src={`/api/user/profile-image/${acilDetails && acilDetails.id}`} />)
+            :
+            (<Avatar>{first}</Avatar>    )
+          }
         </Grid>
         <Grid item container justifyContent='center' sx={profileUI.imgStyle}
           component='form' onSubmit={uploadImage}
         >
-          <Button variant='standard' component='label'>
-            Change profile pix(max: 200kb){' '} <EditIcon/>
-            <input type='file' accept='image/*' onClick={handleImage}/>
-          </Button>
+          <input type="file" accept='image/*' name='image' onClick={handleImage} />
+          {/* <span>Change profile pix(max: 200kb){' '} <EditIcon/></span> */}
+
           <Button type='submit' variant='standard'>upload</Button>
         </Grid>
         <Typography align='center' variant="h6" component="h2">
