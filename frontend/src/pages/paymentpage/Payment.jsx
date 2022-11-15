@@ -38,11 +38,14 @@ const Payment = () => {
   const placeOrderReducer = useSelector((state) => state.placeOrderReducer);
   const {loading, orderDetails, error} = placeOrderReducer
 
+  const loginReducer = useSelector((state) => state.loginReducer);
+  const { acilDetails: { email } } = loginReducer;
+
 
   // const parsed = queryString.parse(location.search)
   const config = {
     reference: (new Date()).getTime().toString(),
-    email: "dayvynomer2021@gmail.com",
+    email: email,
     amount: pack && pack.amount*100,
     publicKey: paystackKey,
   };
