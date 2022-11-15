@@ -32,12 +32,12 @@ const Product = () => {
   const { acilDetails } = loginReducer;
   
   const p =useMemo(()=> [
-    {packageType: 'Bronze', amount: 50000, selected: false },
-    {packageType: 'Silver', amount: 100000, selected: false },
-    {packageType: 'Gold', amount: 150000, selected: false },
-    {packageType: 'Platinum', amount: 200000, selected: false },
-    {packageType: 'Diamond', amount: 250000, selected: false },
-    {packageType: 'Agro King', amount: 300000, selected: false },
+    {packageType: 'Bronze', amount: 1000, selected: false },
+    {packageType: 'Silver', amount: 2000, selected: false },
+    {packageType: 'Gold', amount: 3000, selected: false },
+    {packageType: 'Platinum', amount: 4000, selected: false },
+    {packageType: 'Diamond', amount: 5000, selected: false },
+    {packageType: 'Agro King', amount: 6000, selected: false },
   ], [])
   
   const [packs, setPacks] = useState(p)
