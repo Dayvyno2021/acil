@@ -88,7 +88,8 @@ export const placeorder = async (req, res) => {
 
 export const order = async (req, res) => {
   try {
-    const newOrder = await InvestmentModel.findById(req.params.id);
+    const newOrder = await InvestmentModel.findById(req.params.id)
+      .populate({path: 'investor', select: 'name email phone fullname account bank'})
     if (newOrder) {
       res.json(newOrder)
     } else {
@@ -124,26 +125,26 @@ export const singleOrder = async (req, res) => {
 //@access: protect, adminProtect
 export const allOrders = async (req, res) => {
   try {
-    const { orderID, username, start, end, page } = req.query;
+    const { orderID,/* username, */start, end, page } = req.query;
     // console.log({ user, pro, start, end, page })
     const active = Number(page) || 1;
-    const pageSize = 15;
+    const pageSize = 30;
 
     // let searchIds = orderID ?
     //   { _id: orderID }
     //   :
     //   {};
 
-    const searchName = username? {
-      name: {$regex: username, $options: 'i'}
-    }
-    : 
-    {}
+    // const searchName = username? {
+    //   name: {$regex: username, $options: 'i'}
+    // }
+    // : 
+    // {}
     // const name = username ? username : {}
 
     const count = await InvestmentModel.count({})
     const orders = await InvestmentModel.find({})
-      .populate({ path: 'investor', select: 'name _id', match: {...searchName}})
+      .populate({ path: 'investor', select: 'name _id'/*, match: {...searchName}*/})
       .limit(pageSize)
       .skip(pageSize * (active - 1));
     if (orders) {

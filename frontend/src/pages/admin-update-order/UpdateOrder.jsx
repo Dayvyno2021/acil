@@ -17,7 +17,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { UpdateOrderUI } from "./updateOrderUI";
 import Checkbox from '@mui/material/Checkbox';
-import { RESET_ORDER_PAID, RESET_PAYOUT } from "../../constants/orderConstants";
+import { RESET_ORDER, RESET_ORDER_PAID, RESET_PAYOUT } from "../../constants/orderConstants";
 
 const UpdateOrder = () => {
   const params = useParams();
@@ -46,7 +46,17 @@ const UpdateOrder = () => {
     const year = d.getFullYear();
     const month = d.getMonth() + 1;
     const day = d.getDate();
-    return `${day}-${month}-${year}`
+    return `${day}/${month}/${year}`
+  }
+
+  const getDatings = (time) => {
+    const ll = Number(time)
+    const d = new Date(ll);
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    return `${day}/${month}/${year}`
+    // return d
   }
 
   const confirmPaid = (e) => {
@@ -60,32 +70,42 @@ const UpdateOrder = () => {
     dispatch(updatePayoutAction({paidOut, id: params.id}))
   }
 
+  const customDate = (par) => {
+    const a = String(par).substr(0, 10).split('-')
+    return `${a[2]}/${a[1]}/${a[0]}`
+  }
+
   useEffect(() => {
     if (acilDetails && acilDetails.isAdmin === true) {
+
       if (!success || (orderDetails && orderDetails._id !== params.id)) {
         dispatch(getOrderAction(params.id));
       } else {
         if (orderPD) {
           dispatch({ type: RESET_ORDER_PAID });
+          dispatch({ type: RESET_ORDER });
           navigate('/admin/investments')
         }
         if (po) {
           dispatch({ type: RESET_PAYOUT });
+          dispatch({ type: RESET_ORDER });
           navigate('/admin/investments')
         }
         setPaid(orderDetails && orderDetails.payment && orderDetails.payment.isPaid)
         setPaidOut(orderDetails && orderDetails.isPaidOut)
       }
+
     } else {
       navigate('/')
     }
 
   }, [dispatch, params, orderDetails, success, orderPD, po, navigate, acilDetails])
-  
+
+  // console.log(customDate(orderDetails && orderDetails.payoutDate))
+
   return (
     <Box sx={{minHeight: '85vh'}}>
-      {(loading || loadingPD) && <Progress />}
-      { loadingPO && <Progress />}
+      {(loading || loadingPD || loadingPO) && <Progress />}
       {(error || errorPD) && <SnackBar message={error || errorPD} />}
       {errorPO && <SnackBar message={errorPO} />}
       {(orderPD) && <SnackBar message={'Updated Payment'} severity='success' />}
@@ -219,9 +239,11 @@ const UpdateOrder = () => {
                 </ListItemText>
               </ListItem>
               <ListItem>
-                <ListItemText>Payment Confirmation Date:{' '}</ListItemText>
+                <ListItemText>Payment Confirmation Date(d/m/y):{' '}</ListItemText>
                 <ListItemText>
-                  {orderDetails && orderDetails.payment && orderDetails.payment.confirmDate}
+                  {
+                    getDatings(orderDetails && orderDetails.payment && orderDetails.payment.confirmDate)
+                  }
                 </ListItemText>
               </ListItem>
             </List>
@@ -231,6 +253,43 @@ const UpdateOrder = () => {
           <Grid item container direction='column' xs={10} md={6} >
             <Typography variant='h4' color='#808080'>Payout Details</Typography>
             <List sx={UpdateOrderUI.product}>
+              <ListItem >
+                <ListItemText>Username:{' '}</ListItemText>
+                <ListItemText>
+                  {orderDetails && orderDetails.investor && orderDetails.investor.name}
+                </ListItemText>
+              </ListItem>
+              <ListItem >
+                <ListItemText>Full Name:{' '}</ListItemText>
+                <ListItemText>
+                  {orderDetails && orderDetails.investor && orderDetails.investor.fullname}
+                </ListItemText>
+              </ListItem>
+              <ListItem >
+                <ListItemText>Email:{' '}</ListItemText>
+                <ListItemText>
+                  {orderDetails && orderDetails.investor && orderDetails.investor.email}
+                </ListItemText>
+              </ListItem>
+              <ListItem >
+                <ListItemText>Mobile:{' '}</ListItemText>
+                <ListItemText>
+                  {orderDetails && orderDetails.investor && orderDetails.investor.phone}
+                </ListItemText>
+              </ListItem>
+              <ListItem >
+                <ListItemText>Bank:{' '}</ListItemText>
+                <ListItemText>
+                  {orderDetails && orderDetails.investor && orderDetails.investor.bank}
+                </ListItemText>
+              </ListItem>
+              <ListItem >
+                <ListItemText>Account No:{' '}</ListItemText>
+                <ListItemText>
+                  {orderDetails && orderDetails.investor && orderDetails.investor.account}
+                </ListItemText>
+              </ListItem>
+
               <ListItem >
                 <ListItemText>Payout:{' '}</ListItemText>
                 <ListItemText>&#8358;
@@ -248,9 +307,9 @@ const UpdateOrder = () => {
                 </ListItemText>
               </ListItem>
               <ListItem >
-                <ListItemText>Payout Date:{' '}</ListItemText>
+                <ListItemText>Payout Date(d/m/y):{' '}</ListItemText>
                 <ListItemText>
-                  {orderDetails && orderDetails.payoutDate}
+                  {customDate(orderDetails && orderDetails.payoutDate)}
                 </ListItemText>
               </ListItem>
             </List>

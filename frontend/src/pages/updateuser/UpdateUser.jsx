@@ -11,7 +11,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PhoneIcon from '@mui/icons-material/Phone';
 // import CheckIcon from '@mui/icons-material/Check';
 import { upd } from './updateUserUI';
-import { theme } from '../../components/Theme';
 import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
 import { updateUserAction } from '../../actions/userActions';
@@ -63,7 +62,6 @@ const UpdateUser = () => {
           setCpValid('Passwords must match');
         }
         break;
-    
       default:
         break;
     }
@@ -90,9 +88,9 @@ const UpdateUser = () => {
       navigate(`/profile`);
       dispatch({type:RESET_USER_UPDATE})
     } else {
-      setFullname(acilDetails && acilDetails.fullname);
-      setAccount(acilDetails && acilDetails.account);
-      setBank(acilDetails && acilDetails.bank);
+      setFullname(acilDetails && acilDetails.fullname? acilDetails.fullname: '');
+      setAccount(acilDetails && acilDetails.account? acilDetails.account:'');
+      setBank(acilDetails && acilDetails.bank? acilDetails.bank: '');
       setPhone(acilDetails && acilDetails.phone)
     }
   }, [navigate, success, dispatch, acilDetails])
@@ -102,8 +100,6 @@ const UpdateUser = () => {
     <Box sx={{minHeight: '85vh'}}>
       {(loading || loadingU) && <Progress />}
       {(error || errorU) && <SnackBar message={error || errorU}/>}
-      <Grid sx={upd} container>
-        <Grid md={6} item sx={upd.register} container direction='column'>
           <Grid item sx={upd.register1} justifyContent='center' container>
             <Box component={Link} to='/'>
               <Box component='img' src='/image/logo.png'/> 
@@ -112,6 +108,8 @@ const UpdateUser = () => {
           <Grid item sx={upd.register1} justifyContent='center' container>
             <Typography variant='h2' sx={upd.update}>Update Profile</Typography>
           </Grid>
+      <Grid sx={upd} container>
+        <Grid md={6} item sx={upd.register} container direction='column'>
           <Grid item container direction='column' sx={upd.register2} component='form'
             onSubmit={handleUpdate}
           >
@@ -133,7 +131,6 @@ const UpdateUser = () => {
             </Grid>
             <Grid item container alignItems='center'>
               <Grid item container xs={12}>
-                <LockOutlinedIcon sx={upd.icon}/>
                 <TextField variant="outlined" type='number' name='account' id='account'
                   label="Account Number" autoComplete='true' required value={account}
                   onChange={(e)=>setAccount(e.target.value)}
@@ -142,36 +139,27 @@ const UpdateUser = () => {
             </Grid>
             <Grid item container alignItems='center'>
               <Grid item container xs={12}>
-                <LockOutlinedIcon sx={upd.icon}/>
                 <TextField variant="outlined" type='text' name='bank' id='bank'
                   label="Bank Name" autoComplete='true' required value={bank}
                   onChange={(e)=>setBank(e.target.value)}
                 />   
               </Grid>
             </Grid>
-            <Grid item container alignItems='center'>
-              <Typography align='center' color='#FF6666' fontSize='0.9rem'>
-                Disregard if you don't want to change password
-              </Typography>
-            </Grid>
 
             <Grid item container alignItems='center'>
               <Grid item container xs={12}>
+                <Typography align='center' color='#FF6666' fontSize='0.9rem'>
                 <LockOutlinedIcon sx={upd.icon}/>
+                  Disregard if you don't want to change password
+                </Typography>
+
                 <TextField variant="outlined" type='password' name='password' id='password'
-                  label="Password" autoComplete='true' required value={psw}
+                  label="Password" autoComplete='true' value={psw}
                   onChange={validate} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                   error={Boolean(pswValid)}
                   helperText= {pswValid}
                 />   
               </Grid>
-              {/* <Grid item container xs={1} alignItems='center'>
-                {pswValid ?
-                  (<CheckIcon sx={{ color: '#E6E6E6', mr: '2rem' }} />)
-                  :
-                  (<CheckIcon sx={{ color: '#53c653', mr: '2rem' }} />)
-                }
-              </Grid> */}
             </Grid>
             <Grid item container>
               <Grid item container xs={12}>
@@ -182,13 +170,6 @@ const UpdateUser = () => {
                   helperText={cpValid}
                 />
               </Grid>
-                {/* <Grid item container xs={1}>
-                  {cpValid ?
-                    (<CheckIcon sx={{ color: '#E6E6E6', mr: '2rem' }} />)
-                    :
-                    (<CheckIcon sx={{ color: '#53c653', mr: '2rem' }} />)
-                  }
-                </Grid> */}
             </Grid>
             <Grid item container>
               <Grid item container xs={12}>
@@ -206,21 +187,11 @@ const UpdateUser = () => {
                 >
                   Update
                 </Button>
-                <Grid item container justifyContent='center' sx={{mt:'0.5rem'}}>
-                  <Typography sx={{ mr: '0.2rem', color: 'grey.600', fontSize: '0.8rem' }}>
-                    Already have an account? Sign In
-                  </Typography>
-                  <Box component={Link} to='/login' 
-                    sx={{textDecoration: 'none', color:theme.palette.primary.main, fontSize:'0.8rem'}}
-                  >
-                    here
-                  </Box>
-                </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid md={6} item sx={upd.image}>
+        <Grid md={6} item sx={upd.image} alignContent='center' container>
           <Box component='img' src='/image/login.jpg'/>
         </Grid>
       </Grid>

@@ -23,7 +23,7 @@ export const upd = {
         mb: '1rem',
 
       },
-    '& .MuiInputBase-root': {
+      '& .MuiInputBase-root': {
         // pl: '2rem', 
       },
       '& .MuiInputBase-input': {
@@ -37,10 +37,11 @@ export const upd = {
       },
       '& .MuiOutlinedInput-input': {
         
-    },
+      },
       
       '&>div': {
         position: 'relative',
+        mb: '1rem'
       },
     },
   icon: {

@@ -198,7 +198,6 @@ export const updateUserAction = (inputs) => async (dispatch, getState) => {
     dispatch({ type: UPDATE_USER_REQUEST });
 
     const { id } = inputs;
-    console.log(id)
     const { loginReducer: { acilDetails: { token } } } = getState();
 
     const config = {

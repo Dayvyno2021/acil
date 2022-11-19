@@ -122,8 +122,8 @@ const AdminInvestments = () => {
               <Table sx={{width:'100%'}}>
                 <TableHead sx={{bgcolor: '#000000'}}>
                   <TableRow >
+                    <TableCell>Investor</TableCell>
                     <TableCell>Investment ID</TableCell>
-                    <TableCell>User</TableCell>
                     <TableCell>Product Name</TableCell>
                     <TableCell align="left">ROI(%)</TableCell>
                     <TableCell align="left">Maturity(Days)</TableCell>
@@ -147,8 +147,8 @@ const AdminInvestments = () => {
                 {allOrders && allOrders.map((order) => (
                   <TableBody key={order && order._id} sx={adminIUI.body}>
                     <TableRow>
-                      <TableCell align="left">{order && order._id}</TableCell>
                       <TableCell align="left">{order && order.investor && order.investor.name}</TableCell>
+                      <TableCell align="left">{order && order._id}</TableCell>
                       <TableCell align="left">{order && order.pack && order.pack.name}</TableCell>
                       <TableCell align="left">{order && order.pack && order.pack.ROI}</TableCell>
                       <TableCell align="left">{order && order.pack && order.pack.maturity}</TableCell>
