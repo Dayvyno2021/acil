@@ -146,7 +146,7 @@ export const allOrders = async (req, res) => {
     const orders = await InvestmentModel.find({})
       .populate({ path: 'investor', select: 'name _id'/*, match: {...searchName}*/})
       .limit(pageSize)
-      .skip(pageSize * (active - 1));
+      .skip(pageSize * (active - 1)).sort({createdAt: -1});
     if (orders) {
       res.json({orders, pages: Math.ceil(count/pageSize), active});
     } else {

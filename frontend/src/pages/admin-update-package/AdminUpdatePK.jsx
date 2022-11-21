@@ -11,8 +11,13 @@ import { addPackageAction } from '../../actions/packageActions';
 import { ADD_PACKAGE_RESET } from '../../constants/packageConstants';
 import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const auPk = {
+  arrow: {
+    color: '#000000',
+    ml: '1rem'
+  },
   image: {
     '& img': {
       my:'1rem',
@@ -101,6 +106,11 @@ const AdminUpdatePK = () => {
       {error && <SnackBar message={error}/>}
       {success==='Package Successfully Added' ? <SnackBar message='Package Added. Refresh Page' severity='success'/> : ''}
       <Grid container direction='column' sx={auPk.main}>
+        <Grid item >
+          <Box component={Link} to='/admin/packages'>
+            <ArrowBackIcon sx={auPk.arrow} />
+          </Box>
+        </Grid>
         <Grid item container sx={auPk.image}>
           <Grid item container component={Link} to='/' justifyContent='center'>
             <Box component='img' src='/image/logo.png'/>

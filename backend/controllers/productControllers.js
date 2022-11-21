@@ -130,7 +130,6 @@ export const deleteProduct = async (req, res) => {
 export const addPackage = async (req, res) => {
   try {
     const { packageType, amount} = req.body;
-    // console.log({ packageType, amount, userID: req.user._id });
     const exists1 = await packageModel.findOne({ packageType });
     const exists2 = await packageModel.findOne({ amount });
     if (exists1 || exists2) {
@@ -162,7 +161,7 @@ export const addPackage = async (req, res) => {
 
 export const allPackages = async (req, res) => {
   try {
-    const packages = await packageModel.find({});
+    const packages = await packageModel.find({}).sort({amount: 1});
     if (packages) {
       res.json(packages);
     } else {

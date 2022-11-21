@@ -23,6 +23,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 import { invs } from "./aminInvestorUI";
 
@@ -105,11 +106,20 @@ const AdminInvestors = () => {
         <Grid item xs={12} container justifyContent='center' sx={invs.heading}>
           <Typography variant="h1">All Investors</Typography>
         </Grid>
+        <Grid item xs={12} container justifyContent='end' sx={invs.excel}>
+          <ReactHTMLTableToExcel
+            className="download-table-xls-button"
+            table='investorsTable'
+            filename="Investors"
+            sheet="investors"
+            buttonText="Download xlx"
+          />
+        </Grid>
         <Grid item container justifyContent='center' direction='column' sx={invs.mainTable}>
           
           <Box sx={invs.table}>
             <TableContainer component={Paper}>
-              <Table sx={{width:'100%'}}>
+              <Table sx={{width:'100%'}} id='investorsTable'>
                 <TableHead sx={{bgcolor: '#000000'}}>
                   <TableRow >
                     <TableCell>Users</TableCell>

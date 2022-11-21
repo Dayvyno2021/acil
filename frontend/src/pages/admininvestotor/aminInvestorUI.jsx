@@ -50,5 +50,19 @@ export const invs = {
     '& th': {
       textAlign: 'center'
     }
+  },
+  excel: {
+    pr: '11rem',
+    [theme.breakpoints.down('lg')]: {
+      pr: '5rem'
+    },
+    '& button': {
+      cursor: 'pointer',
+      bgcolor: theme.palette.primary.light,
+      borderColor: theme.palette.primary.main,
+      borderRadius: '5px',
+      p: '.5rem 1rem',
+      color: '#FFF'
+    }
   }
 }

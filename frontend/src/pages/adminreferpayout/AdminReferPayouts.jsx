@@ -17,6 +17,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 // import { useNavigate } from "react-router-dom";
 // import { theme } from "../../components/Theme";
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -109,11 +110,20 @@ const AdminReferPayouts = () => {
         <Grid item xs={12} container justifyContent='center' sx={adminRefUI.heading}>
           <Typography variant="h1">All Referrals</Typography>
         </Grid>
+        <Grid item xs={12} container justifyContent='end' sx={adminRefUI.excel}>
+          <ReactHTMLTableToExcel
+            className="download-table-xls-button"
+            table='refferalsTable'
+            filename="Referrals"
+            sheet="ref"
+            buttonText="Download xlx"
+          />
+        </Grid>
         <Grid item container justifyContent='center' direction='column' sx={adminRefUI.mainTable}>
           
           <Box sx={adminRefUI.table}>
             <TableContainer component={Paper}>
-              <Table sx={{width:'100%'}}>
+              <Table sx={{width:'100%'}} id='referralsTable'>
                 <TableHead sx={{bgcolor: '#000000'}}>
                   <TableRow >
                     <TableCell>Referrers</TableCell>

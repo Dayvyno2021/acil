@@ -54,12 +54,12 @@ const p = {
   },
   mainTable: {
     overflowY: 'scroll',
-    p: '2rem 1rem',
+    p: '2rem 10rem',
     [theme.breakpoints.down('lg')]: {
       p: '2rem 8rem'
     },
     [theme.breakpoints.down('md')]: {
-      p: '2rem 3rem'
+      p: '2rem 8rem'
     },
     [theme.breakpoints.down('sm')]: {
       p: '2rem 1rem'
@@ -72,7 +72,14 @@ const p = {
   },
   add: {
     ...theme.learnMore2,
-    mt: '2rem'
+    mt: '2rem',
+    mr: '11rem',
+    [theme.breakpoints.down('lg')]: {
+      mr: '9rem'
+    },
+    [theme.breakpoints.down('sm')]: {
+      mr: '1rem'
+    }
   }
 }
 
@@ -144,7 +151,7 @@ const PackagePage = () => {
         <Grid item container direction='column' sx={p.mainTable}>
           {
             (packages && packages.length < 1) && 
-            <Typography variant='h5' color='#FF0000'>You have not subscribed to any investment</Typography>
+            <Typography variant='h5' color='#FF0000'>You have no packages</Typography>
           }
           <Box sx={p.table}>
             <TableContainer component={Paper}>
@@ -153,7 +160,7 @@ const PackagePage = () => {
                   <TableRow >
                     <TableCell>Index</TableCell>
                     <TableCell>Package</TableCell>
-                    <TableCell align="left">Amount</TableCell>
+                    <TableCell align="left">Amount(&#8358;)</TableCell>
                     <TableCell align="left">Del</TableCell>
                   </TableRow>
                 </TableHead>
@@ -162,7 +169,7 @@ const PackagePage = () => {
                     <TableRow>
                       <TableCell align="left">{i+1}</TableCell>
                       <TableCell align="left">{pk && pk.packageType}</TableCell>
-                      <TableCell align="left">{pk && pk.amount}</TableCell>
+                      <TableCell align="left">{pk && pk.amount && pk.amount.toLocaleString()}</TableCell>
                       <TableCell align="left" sx={{cursor:'pointer'}}>
                         <DeleteIcon sx={{ color: '#ff6666' }}
                           onClick={()=>deletePackage(pk && pk._id)}

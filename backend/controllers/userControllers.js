@@ -298,7 +298,9 @@ export const updateUser = async (req, res) => {
 
 export const getAllInvestors = async (req, res) => {
   try {
-    const users = await UserModel.find({}).select('-password -pic');
+    const users = await UserModel.find({})
+      .select('-password -pic')
+      .sort({createdAt: -1});
     if (users) {
       res.json(users);
     } else {

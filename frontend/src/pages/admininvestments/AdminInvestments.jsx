@@ -13,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useLocation } from "react-router-dom";
 // import { theme } from "../../components/Theme";
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -22,7 +23,7 @@ import TableRow from '@mui/material/TableRow';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import { allOrdersAction, deleteOrderAction } from "../../actions/orderActions";
-import Search from "../../components/search/Search";
+// import Search from "../../components/search/Search";
 import Pagination1 from "../../components/Pagination";
 import queryString from 'query-string';
 
@@ -114,15 +115,25 @@ const AdminInvestments = () => {
         <Grid item xs={12} container justifyContent='center' sx={adminIUI.heading}>
           <Typography variant="h1">All Investments</Typography>
         </Grid>
-        <Grid item xs={12} container justifyContent='center'>
+        {/* <Grid item xs={12} container justifyContent='center'>
           <Search />
+        </Grid> */}
+        <Grid item xs={12} container justifyContent='end' sx={adminIUI.excel}>
+          <ReactHTMLTableToExcel
+            className="download-table-xls-button"
+            table="investmentTable"
+            filename="Investment Table"
+            sheet="investments"
+            buttonText="Download xlx"
+          />
         </Grid>
         <Grid item container justifyContent='center' direction='column' sx={adminIUI.mainTable}>  
           <Box sx={adminIUI.table}>
             <TableContainer component={Paper}>
-              <Table sx={{width:'100%'}}>
+              <Table sx={{width:'100%'}} id='investmentTable'>
                 <TableHead sx={{bgcolor: '#000000'}}>
                   <TableRow >
+                    <TableCell>Ind.</TableCell>
                     <TableCell>Investor</TableCell>
                     <TableCell>Investment ID</TableCell>
                     <TableCell>Product Name</TableCell>
@@ -145,9 +156,10 @@ const AdminInvestments = () => {
                     <TableCell align="left">Del</TableCell>
                   </TableRow>
                 </TableHead>
-                {allOrders && allOrders.map((order) => (
+                {allOrders && allOrders.map((order, i) => (
                   <TableBody key={order && order._id} sx={adminIUI.body}>
                     <TableRow>
+                      <TableCell align="left">{i + 1}</TableCell>
                       <TableCell align="left">{order && order.investor && order.investor.name}</TableCell>
                       <TableCell align="left">{order && order._id}</TableCell>
                       <TableCell align="left">{order && order.pack && order.pack.name}</TableCell>

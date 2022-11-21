@@ -7,7 +7,9 @@ import RefModel from "../models/referralModel.js";
 export const mydownlines = async (req, res) => {
   try {
 
-    const downlines = await RefModel.find({ refCode: req.params.ref }).populate('referral', 'name email');
+    const downlines = await RefModel.find({ refCode: req.params.ref })
+      .populate('referral', 'name email')
+      .sort({createdAt: -1});
     if (downlines) {
       res.json(downlines)
     } else {
@@ -26,7 +28,9 @@ export const mydownlines = async (req, res) => {
 
 export const allReferrals = async (req, res) => {
   try {
-    const referrals = await RefModel.find({}).populate('referral', 'name email phone');
+    const referrals = await RefModel.find({})
+      .populate('referral', 'name email phone')
+      .sort({createdAt:-1});
     if (referrals) {
       res.json(referrals);
     } else {
