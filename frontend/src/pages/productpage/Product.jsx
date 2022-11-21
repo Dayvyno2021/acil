@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo} from 'react';
+import React, {useEffect, useState, /*useMemo*/} from 'react';
 import { Link, useNavigate} from 'react-router-dom';
 // import queryString from 'query-string';
 import { useParams } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { singleProductAction } from '../../actions/productActions';
 import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
-import { choosePackageAction } from '../../actions/packageActions';
+import { allPackagesAction, choosePackageAction } from '../../actions/packageActions';
 import { theme } from '../../components/Theme';
 import {cloneDeep} from 'lodash'
 import Notification from '../../components/notification/Notification';
@@ -30,17 +30,20 @@ const Product = () => {
   
   const loginReducer = useSelector((state) => state.loginReducer)
   const { acilDetails } = loginReducer;
+
+  const allPackagesReducer = useSelector((state) => state.allPackagesReducer);
+  const { loading: loadingPK, packages, error:errorPK } = allPackagesReducer;
   
-  const p =useMemo(()=> [
-    {packageType: 'Bronze', amount: 1000, selected: false },
-    {packageType: 'Silver', amount: 2000, selected: false },
-    {packageType: 'Gold', amount: 3000, selected: false },
-    {packageType: 'Platinum', amount: 4000, selected: false },
-    {packageType: 'Diamond', amount: 5000, selected: false },
-    {packageType: 'Agro King', amount: 6000, selected: false },
-  ], [])
+  // const p =useMemo(()=> [
+  //   {packageType: 'Bronze', amount: 1000, selected: false },
+  //   {packageType: 'Silver', amount: 2000, selected: false },
+  //   {packageType: 'Gold', amount: 3000, selected: false },
+  //   {packageType: 'Platinum', amount: 4000, selected: false },
+  //   {packageType: 'Diamond', amount: 5000, selected: false },
+  //   {packageType: 'Agro King', amount: 6000, selected: false },
+  // ], [])
   
-  const [packs, setPacks] = useState(p)
+  const [packs, setPacks] = useState([])
 
   const params = useParams();
 
@@ -72,26 +75,28 @@ const Product = () => {
   }
   
   useEffect(() => {
+    if (packages.length <= 0) {
+      dispatch(allPackagesAction())
+    } else {
+      setPacks(packages)
+    }
     if (!product || (product._id !== params.id)) {
       dispatch(singleProductAction(params.id))
     }
-  },[dispatch, params, product])
+  },[dispatch, params, product, packages])
 
   return (
     <Box>
-      {loading && <Progress />}
-      {error && <SnackBar message={error}/>}
+      {(loading || loadingPK) && <Progress />}
+      {error && <SnackBar message={error} />}
+      {errorPK && <SnackBar message={errorPK}/>}
       <Grid container direction='column' sx={prod}>
         <Grid item container justifyContent='space-between' sx={prod.direct}>
           <Box component={Link} to='/invest'>
             <ArrowBackIcon sx={{color: '#000000'}} />
           </Box>
           <Typography variant='h1' align='center'>{product.name}</Typography>
-          <Box component={Link} to='/notification'>
-            {
-              acilDetails && acilDetails && <Notification/>
-            }
-          </Box>
+          { acilDetails && acilDetails && <Notification/> }
         </Grid>
         <Grid item container justifyContent='center' sx={{mb:'2rem'}} >
           <Grid item container xs={8} sm={5} md={3}>
@@ -126,6 +131,15 @@ const Product = () => {
             </Button>
           </Grid>
         </Grid>
+        {
+          acilDetails && acilDetails.isAdmin && (
+          <Grid item container justifyContent='center' sx={prod.update}>
+            <Grid component={Link} to='/admin-update-package'>
+              Update Packages
+            </Grid>
+          </Grid>
+          )
+        }
       </Grid>
     </Box>
   )

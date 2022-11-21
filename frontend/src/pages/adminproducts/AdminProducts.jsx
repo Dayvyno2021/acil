@@ -53,6 +53,7 @@ const AdminProducts = () => {
     {acilDetails: true},
     {acilDetails: true},
     {acilDetails: true},
+    {acilDetails: true},
   ]
 
   const labels1 = [

@@ -15,13 +15,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { theme } from '../Theme';
 import Nav from '../navbutton/Nav';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutAction } from '../../actions/userActions';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { styleMenu } from './headerUI';
-import { useSelector } from 'react-redux';
 
 const Header = ({labels, labels1}) => {
   const location = useLocation();
@@ -83,6 +82,9 @@ const Header = ({labels, labels1}) => {
         break;
       case '/admin/ref-payouts' :
         setValue(11);
+        break;
+      case '/admin/packages' :
+        setValue(12);
         break;
       default:
         setValue(0);
@@ -148,6 +150,9 @@ const Header = ({labels, labels1}) => {
         <MenuItem onClick={handleClose} component={Link} to='/admin/ref-payouts'>
           Ref. Payouts
         </MenuItem>
+        <MenuItem onClick={handleClose} component={Link} to='/admin/packages'>
+          Packages
+        </MenuItem>
       </Menu>
     </Box>
   )
@@ -193,6 +198,9 @@ const Header = ({labels, labels1}) => {
             </ListItem>
             <ListItem component={Link} to='/admin/ref-payouts' selected={value===11}>
               Ref. Payouts
+            </ListItem>
+            <ListItem component={Link} to='/admin/packages' selected={value===12}>
+              Packages
             </ListItem>
             </>
           }

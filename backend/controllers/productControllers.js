@@ -1,5 +1,6 @@
 // import { produces } from "../data/products.js";
 import ProductModel from "../models/productModel.js";
+import packageModel from "../models/packageModel.js";
 
 //desc:  To fetch all products
 //route: /api/products
@@ -118,6 +119,81 @@ export const deleteProduct = async (req, res) => {
     const m = process.env.NODE_ENV === 'production' ? '' : error;
     res.status(404).json({
       message: `Server Error===>${m}`
+    })
+  }
+}
+
+//desc: Admin adds package
+//route: post /api/products/add-package
+//access: protected, adminProtected
+
+export const addPackage = async (req, res) => {
+  try {
+    const { packageType, amount} = req.body;
+    // console.log({ packageType, amount, userID: req.user._id });
+    const exists1 = await packageModel.findOne({ packageType });
+    const exists2 = await packageModel.findOne({ amount });
+    if (exists1 || exists2) {
+      res.status(400).json({message: 'one or all credentials already exists'})
+    } else {
+      const newPackage = await packageModel.create({
+        addedBy: req.user._id,
+        packageType,
+        amount
+      })
+      if (newPackage) {
+        res.json('Package Successfully Added')
+      } else {
+        res.status(400).json({message: 'Could not add package'})
+      }
+    }
+    
+  } catch (error) {
+    const m = process.env.NODE_ENV === 'production' ? '' : error;
+    res.status(404).json({
+      message: `Server Error===>${m}`
+    })
+  }
+}
+
+//desc: get list of packages
+//route: /api/products/packages/all
+//access: public
+
+export const allPackages = async (req, res) => {
+  try {
+    const packages = await packageModel.find({});
+    if (packages) {
+      res.json(packages);
+    } else {
+      res.status(400).json({message: 'Could not find packages'})
+    }
+    
+  } catch (error) {
+    const m = process.env.NODE_ENV === 'production' ? '' : error;
+    res.status(404).json({
+      message: `Server Error===> ${m}`
+    })
+  }
+}
+
+//desc: delete a package
+//route: /api/products/del-package/:id
+//access: protected and adminProtected
+
+export const delPackage = async (req, res) => {
+  try {
+    const deleted = await packageModel.findByIdAndDelete(req.params.id);
+    if (deleted) {
+      res.json('successfully deleted');
+    } else {
+      res.status(400).json({message: 'Could not find package'})
+    }
+    
+  } catch (error) {
+    const m = process.env.NODE_ENV === 'production' ? '' : error;
+    res.status(404).json({
+      message: `Server Error===> ${m}`
     })
   }
 }

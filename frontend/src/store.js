@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { allOrdersReducer, deleteOderReducer, getOrderReducer, myordersReducer, placeOrderReducer, updatePayoutReducer, updateToPaidReducer } from './reducers/orderReducers';
-import { choosePackageReducer } from './reducers/packageReducers';
+import { addPackageReducer, allPackagesReducer, choosePackageReducer, delPackageReducer } from './reducers/packageReducers';
 import { createProductReducer, deleteProductReducer, getProductsReducer, singleProductReducer, updateProductReducer } from './reducers/productReducers';
 import { allReferralReducer, deleteReferralReducer, refPayoutReducer, updateRefPayoutReducer } from './reducers/referralReducers';
 import { adminUsersReducer, deleteNotificationReducer, deleteUserReducer, getDownlinesReducer, loginReducer, makeAdminReducer, makeWithdrawalReducer, myProfileReducer, profilePhotoReducer, profileReducer, registerReducer, sendMessageReducer, updateUserReducer, uploadPixReducer } from './reducers/userReducers';
@@ -37,6 +37,9 @@ export const store = configureStore({
     myProfileReducer: myProfileReducer,
     deleteNotificationReducer: deleteNotificationReducer,
     makeWithdrawalReducer: makeWithdrawalReducer,
-    profilePhotoReducer: profilePhotoReducer
+    profilePhotoReducer: profilePhotoReducer,
+    addPackageReducer: addPackageReducer,
+    allPackagesReducer: allPackagesReducer,
+    delPackageReducer: delPackageReducer
   }
 })

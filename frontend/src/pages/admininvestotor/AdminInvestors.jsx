@@ -52,6 +52,7 @@ const AdminInvestors = () => {
     {acilDetails: true},
     {acilDetails: true},
     {acilDetails: true},
+    {acilDetails: true},
     
   ]
 

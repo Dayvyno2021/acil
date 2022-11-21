@@ -2,7 +2,7 @@ import { theme } from '../../components/Theme';
 
 export const prod = {
   px: '5rem',
-  [theme.breakpoints.down('md')]:{
+  [theme.breakpoints.down('md')]: {
     px: '1rem'
   },
   mt: '2rem',
@@ -28,7 +28,7 @@ export const prod = {
       fontWeight: '500',
       color: '#000000',
       textDecoration: 'none',
-      cursor:'pointer'
+      cursor: 'pointer'
     },
   },
   "& h1": {
@@ -69,16 +69,29 @@ export const prod = {
     '&>p': {
       // color: theme.palette.common.lemon1,
       fontFamily: 'Pacifico',
-      cursor:'pointer'
+      cursor: 'pointer'
     }
   },
   proceed: {
-    mb: '2rem',
+    mb: '4rem',
     '&>button': {
       bgcolor: theme.palette.primary.main,
       textTransform: 'none',
       '&:hover': {
         bgcolor: theme.palette.primary.dark,
+      }
+    }
+  },
+  update: {
+    '&>a': {
+      textDecoration: 'none',
+      bgcolor: theme.palette.primary.main,
+      p: '1rem 2rem',
+      color: '#FFFFFF',
+      mb:'2rem',
+      borderRadius: '5px',
+      '&:hover': {
+        bgcolor: theme.palette.primary.dark
       }
     }
   }

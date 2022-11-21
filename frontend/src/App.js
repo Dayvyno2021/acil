@@ -24,6 +24,8 @@ import UpdateSingleProduct from "./pages/update-product-page/UpdateProduct";
 import UpdateOrder from "./pages/admin-update-order/UpdateOrder";
 import EditRefPayout from "./pages/edit-ref-payout/EditRefPayout";
 import Notify from "./pages/notificationpage/Notify";
+import AdminUpdatePK from "./pages/admin-update-package/AdminUpdatePK";
+import PackagePage from "./pages/packages/PackagePage";
 
 
 function App() {
@@ -55,6 +57,8 @@ function App() {
         <Route path="/update-product/:id" element={<UpdateSingleProduct/>} />
         <Route path="/update-order/:id" element={<UpdateOrder/>} />
         <Route path="/notify" element={<Notify/>} />
+        <Route path="/admin-update-package" element={<AdminUpdatePK/>} />
+        <Route path="/admin/packages" element={<PackagePage/>} />
       </Routes>
       <Footer/>
     </Box>

@@ -64,15 +64,15 @@ export const head = {
       backgroundColor: `rgba(0, 0, 0, 0.9)`,
       '& a': {
         color: theme.palette.common.white,
-        mt: '2rem',
+        mt: '1rem',
         fontSize: '1.8rem',
         fontFamily: 'Lato',
-        fontWeight: '700',
+        fontWeight: '500',
       }
     },
     '& ul': {
       ml: '5rem',
-      mt: '5rem',
+      mt: '1rem',
       '& a.Mui-selected': {
         color: theme.palette.primary.main
       }
