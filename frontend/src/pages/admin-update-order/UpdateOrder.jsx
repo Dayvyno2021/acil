@@ -13,10 +13,12 @@ import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ClearIcon from '@mui/icons-material/Clear'
 import CheckIcon from '@mui/icons-material/Check';
-import HomeIcon from '@mui/icons-material/Home';
+// import HomeIcon from '@mui/icons-material/Home';
+import { Link } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { UpdateOrderUI } from "./updateOrderUI";
 import Checkbox from '@mui/material/Checkbox';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { RESET_ORDER, RESET_ORDER_PAID, RESET_PAYOUT } from "../../constants/orderConstants";
 
 const UpdateOrder = () => {
@@ -111,9 +113,9 @@ const UpdateOrder = () => {
       {(orderPD) && <SnackBar message={'Updated Payment'} severity='success' />}
       {po && <SnackBar message={'Updated Payment'} severity='success' />}
       <Grid container justifyContent='space-between' sx={{my: '2rem', px:'3rem'}}>
-        <Grid item sx={{visibility: 'hidden'}}>
-          <HomeIcon  sx={{color:'#000', '&:hover':{cursor: 'pointer'}}} />
-        </Grid>
+        <Box component={Link} to='/admin/investments'>
+          <ArrowBackIcon sx={{color: '#000000'}} />
+        </Box>
         <Typography variant='h5' sx={{ fontFamily: 'Lato', fontWeight: '700' }}>
           INVESTMENT DETAILS
         </Typography>

@@ -15,6 +15,7 @@ import { getProductsAction } from '../../actions/productActions';
 import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
 import Notification from '../../components/notification/Notification';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import { theme } from '../../components/Theme';
 
 const Invest = () => {
@@ -39,7 +40,7 @@ const Invest = () => {
       <Grid container direction='column' sx={invest}>
         <Grid item sx={invest.logos} container justifyContent='space-between' alignItems='center'>
           <Box component={Link} to='/'>
-            <Box component='img' src='/image/logo.png' />
+            <ArrowBackIcon sx={{color: '#000000'}} />
           </Box>
           {
             acilDetails && acilDetails && <Notification/>

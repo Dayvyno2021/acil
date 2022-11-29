@@ -25,7 +25,7 @@ export const sendMail = async(req, res)=>{
 
     let info = await transporter.sendMail({
       from: "Potential ACIL client",
-      to: 'agrocapitalinvestment@gmail.com',
+      to: 'info@domain.com',
       subject: 'Enquiry on ACIL product',
       html: 
       `
@@ -44,7 +44,7 @@ export const sendMail = async(req, res)=>{
       html: 
       `
         <p>
-        Thank you for contacting Dayve Softwares, we would look into your enquiries and reply shortly
+          Thank you for contacting ACIL, we would look into your enquiries and reply shortly
         </p>
      `
     })   

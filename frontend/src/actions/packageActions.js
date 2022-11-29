@@ -57,16 +57,11 @@ export const addPackageAction = (values) => async (dispatch, getState) => {
   }
 }
 
-export const allPackagesAction = () => async (dispatch, getState) => {
+export const allPackagesAction = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_PACKAGES_REQUEST });
-    const { loginReducer: { acilDetails: { token } } } = getState();
-    const config = {
-      headers: {
-        authorization: `Bearer ${token}`,
-      }
-    }
-    const { data } = await axios.get('/api/products/packages/all', config);
+
+    const { data } = await axios.get('/api/products/packages/all');
 
     dispatch({
       type: ALL_PACKAGES_SUCCESS,

@@ -206,10 +206,10 @@ const Homepage = () => {
           {/* Contact Section */}
           <Grid item container direction='column' sx={home.contact} id='contactus'>
             <Grid item sx={home.contact1}>
-              <Typography variant='h2' align='center' gutterBottom>Contact Us</Typography>
+              <Typography variant='h4' align='center' gutterBottom>Contact Us</Typography>
             </Grid>
-            <Grid item container sx={home.contact2}>
-              <Grid item md={5} xs={12} sx={home.contact2A}>
+            <Grid item container sx={home.contact2} justifyContent='center'>
+              <Grid item md={3} xs={12} sx={home.contact2A}>
                 <Typography variant='h4' sx={{mb:'1rem'}}>
                   Contact Information
                 </Typography>
@@ -218,51 +218,53 @@ const Homepage = () => {
                 </Typography>
                 <Stack direction='row'>
                   <CallIcon sx={{mr:'1rem'}} />
-                  <Box component='a' href='tel:+2348166815635'>+2348166815635</Box>
+                  <Box component='a' href='tel:+2348126898743'>+234{' '}812{' '}689{' '}8743</Box>
                 </Stack>
                 <Stack direction='row'>
                   <EmailIcon sx={{mr:'1rem'}} />
-                  <Box component='a' href='mailto:agrocapitalinvestment@gmail.com'>agrocapitalinvestment@gmail.com</Box>
+                  <Box component='a' href='mailto:info@domain.com'>info@domain.com</Box>
                 </Stack>
                 <Stack direction='row'>
                   <LocationOnIcon sx={{mr:'1rem'}} />
-                  <Box >Acil Address</Box>
+                  <Typography variant='body1'>
+                    58, Akanbi Onitiri close off Eric Moore road, Surulere, Lagos.
+                  </Typography>
                 </Stack>
               </Grid>
-              <Grid item container md={7} xs={12} sx={home.contact2B} component='form'
-                onSubmit={sendMessage}
+              <Grid item container md={4} xs={12} sx={home.contact2B} component='form'
+                onSubmit={sendMessage} justifyContent='center'
               >
-                <Grid item container  >
-                  <Grid xs={12} md={6} item sx={{ px: '0.5rem' }} className='control'>
-                    <label htmlFor="fname"  className="label">First Name</label>
+                <Grid item container  alignContent='center' justifyContent='center'>
+                  <Grid xs={10} md={6} item sx={{ px: '0.5rem' }} className='control'>
+                    <label style={{fontSize: '0.8rem'}} htmlFor="fname"  className="label">First Name</label>
                     <TextField required sx={{ width: '100%'}} color='success' id="fname" type='text'
                       size="small" value={firstName} onChange={(e)=>setFirstName(e.target.value)}
                     />
                   </Grid>
-                  <Grid xs={12} md={6} item sx={{ px: '0.5rem' }} className='control'>
-                    <label htmlFor="lname" className="label">Last Name</label>
+                  <Grid xs={10} md={6} item sx={{ px: '0.5rem' }} className='control'>
+                    <label style={{fontSize: '0.8rem'}}  htmlFor="lname" className="label">Last Name</label>
                     <TextField required sx={{ width: '100%' }} color='success' id='lname' type='text'
                       size='small' value={lastName} onChange={(e)=>setLastName(e.target.value)}
                     />
                   </Grid>
                 </Grid>
-                <Grid item container  >
-                  <Grid xs={12} md={6} item sx={{ px: '0.5rem' }} className='control'>
-                    <label htmlFor="fname" className="label">Email</label>
+                <Grid item container justifyContent='center' >
+                  <Grid xs={10} md={6} item sx={{ px: '0.5rem' }} className='control'>
+                    <label style={{fontSize: '0.8rem'}}  htmlFor="fname" className="label">Email</label>
                     <TextField required sx={{ width: '100%' }} color='success' id="email"
                       size='small' value={email} onChange={(e)=>setEmail(e.target.value)}
                     />
                   </Grid>
-                  <Grid xs={12} md={6} item sx={{ px: '0.5rem' }} className='control'>
-                    <label htmlFor="phone" className="label">Phone</label>
+                  <Grid xs={10} md={6} item sx={{ px: '0.5rem' }} className='control'>
+                    <label style={{fontSize: '0.8rem'}}  htmlFor="phone" className="label">Phone</label>
                     <TextField required sx={{ width: '100%' }} id='phone' size="small" type='tel'
                       color= "success" value={phone} onChange={(e)=>setPhone(e.target.value)}
                     />
                   </Grid>
                 </Grid>
-                <Grid item container  className='control' direction='column'>
-                  <label htmlFor="message" className="label">Message</label>
-                  <TextField multiline rows={4} id='message' color='success'
+                <Grid xs={10} md={12} item container className='control' direction='column'>
+                  <label style={{fontSize: '0.8rem'}}  htmlFor="message" className="label">Message</label>
+                  <TextField multiline rows={2} id='message' color='success'
                     value={message} onChange={(e)=>setMessage(e.target.value)}
                   />
                 </Grid>

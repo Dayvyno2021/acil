@@ -346,12 +346,12 @@ export const home = {
   },
   contact1: {
     mt: '5rem',
+    '& h4': {
+      fontWeight: '700',
+      fontFamily: 'Lato'
+    },
     [theme.breakpoints.down('sm')]: {
       mt: '2rem'
-    },
-    '& h2': {
-      fontWeight: '700',
-      fontFamily: 'Lato',
     }
   },
   contact2: {
@@ -362,15 +362,21 @@ export const home = {
     p: '1rem',
     backgroundColor: '#000014', 
     borderRadius: '4px',
+    '& h4': {
+      fontSize: '1.3rem'
+    },
+    '& p': {
+      fontSize: '0.8rem'
+    },
     '& *': {
       color: theme.palette.common.white,
       fontFamily: 'Lato',
     },
-    '& p': {
-      mb: '3.9rem'
+    '& p:not(:last-child)': {
+      mb: '1rem'
     },
     '& div': {
-      mb: '3.9rem'
+      mb: '0.5rem'
     },
     '& a': {
       textDecoration: 'none'
@@ -404,6 +410,8 @@ export const home = {
     textTransform: 'none',
     display: 'inline-block',
     textAlign: 'center',
+    fontSize: '0.8rem',
+    mt: '0.5rem',
     ml: 'auto',
     p: '4rem 4rm',
     transition: '0.3s',

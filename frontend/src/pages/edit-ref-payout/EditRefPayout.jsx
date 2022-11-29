@@ -12,12 +12,15 @@ import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ClearIcon from '@mui/icons-material/Clear'
 import CheckIcon from '@mui/icons-material/Check';
-import HomeIcon from '@mui/icons-material/Home';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Link } from 'react-router-dom';
+// import HomeIcon from '@mui/icons-material/Home';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import Checkbox from '@mui/material/Checkbox';
 import { editRefPUI } from "./editRefPayoutUI";
 import { refPayoutAction, updateRefPayoutAction } from "../../actions/referralActions";
 import { UPDATE_REF_PAYOUT_RESET } from "../../constants/referralConstants";
+import Notification from "../../components/notification/Notification";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const EditRefPayout = () => {
   const params = useParams();
@@ -73,13 +76,13 @@ const EditRefPayout = () => {
       {(loading || loadingD) && <Progress />}
       {(error || errorD) && <SnackBar message={error || errorD} />}
       <Grid container justifyContent='space-between' sx={{my: '2rem', px:'3rem'}}>
-        <Grid item sx={{visibility: 'hidden'}}>
-          <HomeIcon  sx={{color:'#000', '&:hover':{cursor: 'pointer'}}} />
-        </Grid>
+        <Box component={Link} to='/admin/ref-payouts'>
+          <ArrowBackIcon sx={{color: '#000000'}} />
+        </Box>
         <Typography variant='h5' sx={{ fontFamily: 'Lato', fontWeight: '700' }}>
           REFERRAL PAYOUT DETAILS
         </Typography>
-        <NotificationsIcon/>
+        { acilDetails && acilDetails && <Notification/> }
       </Grid>
 
       <Grid container justifyContent='center'> 

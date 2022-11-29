@@ -108,14 +108,11 @@ const Product = () => {
           {
             packs && packs.map((pack, index) => (
               <Grid item container direction='column' key={`${pack.packageType}`}
-                sx={{
-                  p: '1rem 2rem', borderRadius: '3px',
-                  backgroundColor: pack.selected ? theme.palette.primary.light : null,
-                }}
+                sx={{p: '1rem 2rem', borderRadius: '3px'}}
                 xs={6} md={4} className="portion"
                 onClick={() => {selectItem(pack, params.id, index)}}
               >
-                <Box sx={{fontSize:'1.8rem', fontWeight: '500'}}>&#8358;{pack && pack.amount && pack.amount.toLocaleString()}</Box>
+                <Box sx={{fontSize:'1.8rem', fontWeight: '500', backgroundColor: pack.selected ? theme.palette.primary.light : null}}>&#8358;{pack && pack.amount && pack.amount.toLocaleString()}</Box>
                 <Typography variant='body1' sx={{fontSize: '1.8rem', fontWeight:'500'}}>
                   {pack.packageType}
                 </Typography>

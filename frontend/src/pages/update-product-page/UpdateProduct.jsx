@@ -10,8 +10,10 @@ import Typography from "@mui/material/Typography";
 import Progress from '../../components/Progress';
 import SnackBar from '../../components/Snackbar';
 import { updateUI } from "./updateProductUI";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { RESET_UPDATE_PRODUCT } from "../../constants/productConstants";
 import { singleProductAction, updateProductAction } from "../../actions/productActions";
+import Notification from "../../components/notification/Notification";
 
 
 const UpdateSingleProduct = () => {
@@ -34,6 +36,9 @@ const UpdateSingleProduct = () => {
 
   const updateProductReducer = useSelector((state) => state.updateProductReducer);
   const { loading: loadingU, success, error: errorU } = updateProductReducer;
+
+  const loginReducer = useSelector((state) => state.loginReducer);
+  const { acilDetails } = loginReducer;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,10 +67,11 @@ const UpdateSingleProduct = () => {
       {(error || errorU) && <SnackBar message={error || errorU} />}
       <Grid sx={updateUI} container>
         <Grid md={6} item sx={updateUI.register} container direction='column'>
-          <Grid item sx={updateUI.register1} justifyContent='center' container>
-            <Box component={Link} to='/'>
-              <Box component='img' src='/image/logo.png'/> 
+          <Grid item sx={updateUI.register1} justifyContent='space-between' container>
+            <Box component={Link} to='/admin/products'>
+              <ArrowBackIcon sx={{color: '#000000'}} />
             </Box>
+            { acilDetails && acilDetails && <Notification/> }
           </Grid>
           <Grid item sx={updateUI.heading} justifyContent='center' container>
             <Typography variant="h1">
