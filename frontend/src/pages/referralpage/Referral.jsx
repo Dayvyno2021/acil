@@ -13,7 +13,10 @@ import Typography from "@mui/material/Typography";
 // import EmailIcon from '@mui/icons-material/Email';
 // import CheckIcon from '@mui/icons-material/Check';
 import { theme } from '../../components/Theme';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
+import Notification from "../../components/notification/Notification";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useSelector } from "react-redux";
 // import { registerAction } from '../../actions/userActions';
 // import Progress from '../../components/Progress';
 // import SnackBar from '../../components/Snackbar';
@@ -73,15 +76,18 @@ const refer = {
 
 const Referral = () => {
   const params = useParams();
+  const loginReducer = useSelector(state => state.loginReducer);
+  const { acilDetails } = loginReducer;
+
 
   return (
     <Box sx={{minHeight: '85vh'}}>
       <Grid container sx={refer} direction='column'>
         <Grid item sx={refer.logos} container justifyContent='space-between' alignItems='center'>
-          <Box component={Link} to='/'>
-            <Box component='img' src='/image/logo.png' />
+          <Box component={Link} to='/invest'>
+            <ArrowBackIcon sx={{color: '#000000'}} />
           </Box>
-          <NotificationsIcon fontSize='large' />
+          { acilDetails && acilDetails && <Notification/> }
         </Grid>
         <Grid item container justifyContent='center' alignItems='center'>
           <Typography variant='body1'>Your Referral link:</Typography>

@@ -26,6 +26,7 @@ import EditRefPayout from "./pages/edit-ref-payout/EditRefPayout";
 import Notify from "./pages/notificationpage/Notify";
 import AdminUpdatePK from "./pages/admin-update-package/AdminUpdatePK";
 import PackagePage from "./pages/packages/PackagePage";
+import Guide from "./pages/guidpage/Guide";
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
         <Route path="/notify" element={<Notify/>} />
         <Route path="/admin-update-package" element={<AdminUpdatePK/>} />
         <Route path="/admin/packages" element={<PackagePage/>} />
+        <Route path="/guide" element={<Guide/>} />
       </Routes>
       <Footer/>
     </Box>

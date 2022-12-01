@@ -51,7 +51,7 @@ const Invest = () => {
         <Grid item sx={invest.actions} container
           justifyContent={acilDetails && acilDetails.id? 'space-between': 'center'}
         >
-          <Grid item >
+          <Grid item component={Link} to={`/guide`} >
             <CardGiftcardIcon sx={{mx:'auto', display:'block'}} fontSize='large' />
             <Typography variant='body1'>Guide</Typography>
           </Grid>
